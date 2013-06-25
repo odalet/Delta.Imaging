@@ -56,13 +56,14 @@ NISTWSQ_API int __cdecl wsq_get_comments(
 		byte* wsq_data, 
 		int wsq_data_length)
 {
-	byte* cbufptr, *ebufptr;
+	byte* cbufptr = nullptr;
+	byte* ebufptr = nullptr;
 	cbufptr = wsq_data;
 	ebufptr = wsq_data + wsq_data_length;
 
-	int ret;
-	unsigned short marker;
-	byte** comments;
+	int ret = 0;
+	unsigned short marker = 0;
+	byte** comments = nullptr;
 	int ccount = 0;
 
 	// Get SOI

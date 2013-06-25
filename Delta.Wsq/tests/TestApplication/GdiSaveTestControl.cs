@@ -63,9 +63,8 @@ namespace TestApplication
         {
             base.OnLoad(e);
             if (DesignMode) return;
-
-
-            var path = Path.Combine(Helper.GetImagesPath(), "David.png");
+            
+            var path = Path.Combine(Helper.GetImagesPath(), "fp.png");
             var bitmap = new Bitmap(path);
             inbox.Image = bitmap;
 
@@ -113,7 +112,7 @@ namespace TestApplication
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(Helper.GetImagesPath(), "David.wsq");
+            var path = Path.Combine(Helper.GetImagesPath(), "saved_fp.wsq");
             var enc = new WsqEncoder();
             var dec = new WsqDecoder();
             try

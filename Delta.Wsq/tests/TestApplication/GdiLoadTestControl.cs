@@ -13,6 +13,7 @@ namespace TestApplication
         public GdiLoadTestControl()
         {
             InitializeComponent();
+            fileBox.Text = @"C:\Temp\ldsdump\DG3_0_0_f0.wsq";
         }
 
         private static string NormalizeComment(string comment, int tabc)
@@ -54,9 +55,8 @@ namespace TestApplication
             }
         }
 
-        private void loadButton_Click(object sender, EventArgs e)
+        private void LoadWsq(string path)
         {
-            var path = Path.Combine(Helper.GetImagesPath(), "fp.wsq");
             var dec = new WsqDecoder();
             try
             {
@@ -75,6 +75,17 @@ namespace TestApplication
             catch (Exception ex)
             {
                 MessageBox.Show(this, string.Format("Error: {0}", ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(fileBox.Text))
+                LoadWsq(fileBox.Text);
+            else
+            {
+                var path = Path.Combine(Helper.GetImagesPath(), "fp.wsq");
+                LoadWsq(path);
             }
         }
     }

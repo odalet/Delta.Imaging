@@ -66,13 +66,20 @@ rem copy /y "$(TargetDir)Delta.Wsq.*" "$(ProjectDir)..\..\pdn\FileTypes\"
 rem copy /y "$(ProjectDir)..\dependencies\nbis*.*" "$(ProjectDir)..\..\pdn\FileTypes\"
 
 copy /y "$(TargetPath)" "$(ProjectDir)..\deploy\$(ConfigurationName)\"
+echo copy PdnWsq: %25errorlevel%25
 copy /y "$(TargetDir)Delta.Wsq.dll" "$(ProjectDir)..\deploy\$(ConfigurationName)\"
+echo copy Delta.Wsq: %25errorlevel%25
 copy /y "$(ProjectDir)readme.txt" "$(ProjectDir)..\deploy\$(ConfigurationName)\"
+echo copy readme: %25errorlevel%25
 
 copy /y "$(ProjectDir)..\dependencies\nbis32.dll" "$(ProjectDir)..\deploy\Release\"
+echo copy nbis32: %25errorlevel%25
 copy /y "$(ProjectDir)..\dependencies\nbis64.dll" "$(ProjectDir)..\deploy\Release\"
+echo copy nbis64: %25errorlevel%25
 copy /y "$(ProjectDir)..\dependencies\nbis32d.dll" "$(ProjectDir)..\deploy\Debug\"
-copy /y "$(ProjectDir)..\dependencies\nbis64d.dll" "$(ProjectDir)..\deploy\Debug\"</PostBuildEvent>
+echo copy nbis32d: %25errorlevel%25
+copy /y "$(ProjectDir)..\dependencies\nbis64d.dll" "$(ProjectDir)..\deploy\Debug\"
+echo copy nbis64d: %25errorlevel%25</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

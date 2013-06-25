@@ -13,18 +13,6 @@ namespace Delta.Wsq
             return WsqCodec.Decode(data);
         }
 
-        public Dictionary<string, object> GetInfo(byte[] data)
-        {
-            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
-            var strings = WsqCodec.GetComments(data);
-            foreach (var s in strings)
-            {
-                //if (
-            }
-
-            return null;
-        }
-
         public SD.Bitmap DecodeGdi(byte[] data)
         {
             if (data == null || data.Length == 0) throw new ArgumentNullException("data");

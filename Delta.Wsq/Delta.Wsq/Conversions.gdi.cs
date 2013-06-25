@@ -53,8 +53,7 @@ namespace Delta.Wsq
                 image.Palette = palette;
             }
 
-            image.SetResolution((float)info.Resolution, (float)info.Resolution);
-
+            SafeSetResolution(image, info.Resolution);
             return image;
         }
 
@@ -156,6 +155,25 @@ namespace Delta.Wsq
             result.SetResolution(input.HorizontalResolution, input.VerticalResolution);
 
             return result;
+        }
+
+        private static void SafeSetResolution(Bitmap image, int resolution)
+        {
+            const int defaultResolution = 96;
+            if (resolution <= 0) // Invalid (or not set) 
+                image.SetResolution((float)defaultResolution, (float)defaultResolution);
+            else
+            {
+                try
+                {
+                    image.SetResolution((float)resolution, (float)resolution);
+                }
+                catch (Exception ex)
+                {
+                    var debugException = ex;
+                    image.SetResolution((float)defaultResolution, (float)defaultResolution);
+                }
+            }
         }
     }
 }

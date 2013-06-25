@@ -61,7 +61,7 @@ namespace Delta.Wsq
         // a = (Crmin - Crmax) / (Qmax - Qmin)
         // b = Crmin - Qmax * a
         //
-        // The reveresed relation (Q = a * Cr + b) gives:
+        // The reversed relation (Q = a * Cr + b) gives:
         // a = (Qmin - Qmax) / (Crmax - Crmin)
         // b = Qmin - Crmax * a
         //

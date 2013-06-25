@@ -57,6 +57,8 @@ namespace Delta.Wsq
 
         public static BitmapSource ImageInfoToWpfImage(RawImageData info)
         {
+            const int defaultDpi = 96; // Use this one if resolution not set in the wsq file.
+
             if (info == null || info.IsEmpty) throw new ArgumentException("info");
 
             // 16bpp grayscale is not really supported by the underlying codec.
@@ -68,7 +70,7 @@ namespace Delta.Wsq
             var data = info.Data;
             var w = info.Width;
             var h = info.Height;
-            var dpi = info.Resolution;
+            var dpi = info.Resolution > 0 ? info.Resolution : defaultDpi;
             // Compute the stride
             var stride = w * bytesPerPixel;
             var modulo = stride % 4;

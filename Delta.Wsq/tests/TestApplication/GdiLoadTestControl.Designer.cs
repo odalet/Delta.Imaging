@@ -32,6 +32,7 @@
             this.pbox = new System.Windows.Forms.PictureBox();
             this.logbox = new System.Windows.Forms.TextBox();
             this.split = new System.Windows.Forms.SplitContainer();
+            this.fileBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.split)).BeginInit();
             this.split.Panel1.SuspendLayout();
@@ -93,10 +94,20 @@
             this.split.SplitterDistance = 80;
             this.split.TabIndex = 5;
             // 
+            // fileBox
+            // 
+            this.fileBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileBox.Location = new System.Drawing.Point(84, 5);
+            this.fileBox.Name = "fileBox";
+            this.fileBox.Size = new System.Drawing.Size(170, 20);
+            this.fileBox.TabIndex = 6;
+            // 
             // GdiLoadTestControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.fileBox);
             this.Controls.Add(this.split);
             this.Controls.Add(this.loadButton);
             this.Name = "GdiLoadTestControl";
@@ -108,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.split)).EndInit();
             this.split.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,5 +129,6 @@
         private System.Windows.Forms.PictureBox pbox;
         private System.Windows.Forms.TextBox logbox;
         private System.Windows.Forms.SplitContainer split;
+        private System.Windows.Forms.TextBox fileBox;
     }
 }
