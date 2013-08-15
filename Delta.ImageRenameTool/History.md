@@ -1,0 +1,36 @@
+﻿Version 1.2.1.0 (2013/08/15)
+---------------------------
+* Renamed the project into _Delta.ImageRenameTool_; now part of the _Delta_ git repo.
+
+Version 1.2.0.0 (2013/07/29)
+----------------------------
+* Uses the EXIF Orientation tag to apply rotations when previewing images
+* Moved to VS 2012 Update 3
+* Targetted .NET 3.5 Client Profile instead of the full framework
+* Used WPF for the new preview control (easing the rotation process).
+* Bugfix: use EXIF "Date Time" tag as a last resort, only if "DTDigitized" and "DTOrig" do not exist.
+  It seems that "DateTime" gets modified (by Windows 8 ???) when an image is copied.
+
+Version 1.1.1 (2011/07/17) 
+--------------------------
+* Fixed the "Date" column sort bug. Now sorts on the Photo date and not on the file creation date.
+
+Version 1.1.0 (2011/07/17)
+--------------------------
+* Now guesses the description part of already renamed files
+* Added Exif decoding
+* The _Photo date_ is now based on Exif data.
+
+Version 1.0.2 (2010/01/02)
+--------------------------
+* Full version displayed in title bar.
+* Added _FolderBrowserDialogEx_ in replacement of the standard .NET folder browser.
+* Added an icon.
+                     
+Version 1.0.1 (2010/01/02)
+--------------------------
+* Fixed the _nudFirstIndex.MaximumValue_ to _decimal.MaxValue_ instead of 100 (default value).
+
+Version 1.0.0 
+-------------
+* First version

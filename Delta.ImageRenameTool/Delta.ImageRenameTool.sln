@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExif", "TestExif\TestExif.csproj", "{02F22583-B2D1-4262-A91B-A4785503C914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.ImageRenameTool", "Delta.ImageRenameTool\Delta.ImageRenameTool.csproj", "{459A0BA9-9DCB-4810-958D-42718F56EFF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02F22583-B2D1-4262-A91B-A4785503C914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F22583-B2D1-4262-A91B-A4785503C914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F22583-B2D1-4262-A91B-A4785503C914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F22583-B2D1-4262-A91B-A4785503C914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459A0BA9-9DCB-4810-958D-42718F56EFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459A0BA9-9DCB-4810-958D-42718F56EFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459A0BA9-9DCB-4810-958D-42718F56EFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459A0BA9-9DCB-4810-958D-42718F56EFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

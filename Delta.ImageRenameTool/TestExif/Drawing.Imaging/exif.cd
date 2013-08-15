@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TestExif.Drawing.Imaging.ExifInfo">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAACACA=</HashCode>
+      <FileName>Drawing.Imaging\ExifInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Properties" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.ExifTag" Collapsed="true">
+    <Position X="4.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAIAAAAEgAAAgAAAgBAAAIEAAAAAAAAAAiA=</HashCode>
+      <FileName>Drawing.Imaging\ExifTag.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Id" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.ExifProperty" Collapsed="true">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAgAAAgAEQAAIAEAAABACAgAAAwAAAAECA=</HashCode>
+      <FileName>Drawing.Imaging\ExifProperty.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Tag" />
+      <Property Name="Item" />
+      <Property Name="ExifType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="System.Drawing.Imaging.PropertyItem" Collapsed="true">
+    <Position X="4.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.Exif" Collapsed="true">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing.Imaging\Exif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.BaseExifRational&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEEBAAAAAAACA=</HashCode>
+      <FileName>Drawing.Imaging\ExifRational.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.ExifRational" Collapsed="true">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAACAAAAAAAAABAAAAAAACA=</HashCode>
+      <FileName>Drawing.Imaging\ExifRational.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestExif.Drawing.Imaging.ExifSRational" Collapsed="true">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAACAAAAAAAAABAAIAAAACA=</HashCode>
+      <FileName>Drawing.Imaging\ExifRational.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TestExif.Drawing.Imaging.ExifTagId" Collapsed="true">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAEABAAAAAgAAAAAgAAAAAAAAAEABA=</HashCode>
+      <FileName>Drawing.Imaging\ExifTagId.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TestExif.Drawing.Imaging.ExifPropertyType" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAEAAAACCAAAAAAAABAAAAQBAAAAAAAAAADA=</HashCode>
+      <FileName>Drawing.Imaging\ExifPropertyType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
