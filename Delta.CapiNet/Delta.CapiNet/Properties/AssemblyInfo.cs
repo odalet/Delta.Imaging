@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Delta.CapiNet")]
 [assembly: AssemblyDescription("Microsoft CryptoAPI .NET Wrapper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Delta Software")]
 [assembly: AssemblyProduct("Delta.CapiNet")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

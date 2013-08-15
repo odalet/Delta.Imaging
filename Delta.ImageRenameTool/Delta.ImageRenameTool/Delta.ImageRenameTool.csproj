@@ -159,7 +159,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="History.md" />
     <Content Include="RenameToolIcon.ico" />
     <None Include="Resources\RenameToolIcon.ico" />
   </ItemGroup>
