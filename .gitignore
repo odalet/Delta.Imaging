@@ -1,0 +1,9 @@
+bin
+
+obj
+
+/Delta.Wsq/*.opensdf
+/Delta.Wsq/*.sdf
+/Delta.Wsq/*.suo
+*.suo
+*.user
