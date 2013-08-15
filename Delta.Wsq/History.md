@@ -8,3 +8,12 @@ Version 1.0.1 (2013/06/25)
 Version 1.0.0 (2013/05/14)
 -------------------------
 Initial version
+
+-----------------------------------------------------------------------------------------
+* License: [Ms-RL][msrl]
+* History page: [Here][history]
+* Credits page: [Here][credits]
+
+  [msrl]: License.md "MS-RL License"
+  [history]: History.md "History"
+  [credits]: Credits.md "Credits"

@@ -15,3 +15,12 @@ the Visual Studio 2010 C++ compiler) should be installed.
 * The provided **build.cmd** script builds all configuration and platforms.
 
 *__TODO:__ Document a bit how to build from NIST source code.*
+
+-----------------------------------------------------------------------------------------
+* License: [Ms-RL][msrl]
+* History page: [Here][history]
+* Credits page: [Here][credits]
+
+  [msrl]: License.md "MS-RL License"
+  [history]: History.md "History"
+  [credits]: Credits.md "Credits"
