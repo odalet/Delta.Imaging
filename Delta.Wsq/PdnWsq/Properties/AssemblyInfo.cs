@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PdnWsq")]
 [assembly: AssemblyDescription("Paint.NET WSQ plugin")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Delta Software")]
 [assembly: AssemblyProduct("Delta.Wsq")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

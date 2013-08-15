@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Delta.Wsq")]
 [assembly: AssemblyDescription("WSQ Codec")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Delta Software")]
 [assembly: AssemblyProduct("Delta.Wsq")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
