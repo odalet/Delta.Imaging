@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Delta.CertXplorer</RootNamespace>
+    <AssemblyName>certx</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>safe.ico</ApplicationIcon>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>7D18F8D4F534CC37B646178FCD8EE0D17E130C07</ManifestCertificateThumbprint>
+    <ManifestKeyFile>CryptExplorer_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <StartupObject>
+    </StartupObject>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>ftp://vulcain/install/CryptExplorer/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://vulcain/install/CryptExplorer/</InstallUrl>
+    <UpdateUrl>http://vulcain/install/CryptExplorer/</UpdateUrl>
+    <ProductName>CryptExplorer</ProductName>
+    <PublisherName>Sopra Group</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.2.1.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Delta.CapiNet">
+      <HintPath>..\..\lib\capinet\Delta.CapiNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\..\lib\dockpanel\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="About\AboutCertExplorerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About\AboutCertExplorerForm.Designer.cs">
+      <DependentUpon>AboutCertExplorerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="About\AboutCertXplorerService.cs" />
+    <Compile Include="About\AboutPluginsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="About\AboutPluginsControl.Designer.cs">
+      <DependentUpon>AboutPluginsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\Asn1DocumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\Asn1DocumentControl.Designer.cs">
+      <DependentUpon>Asn1DocumentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\Asn1TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\Asn1TreeView.Designer.cs">
+      <DependentUpon>Asn1TreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\BaseDocument.cs" />
+    <Compile Include="Asn1Decoder\Asn1Viewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\Asn1Viewer.Designer.cs">
+      <DependentUpon>Asn1Viewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\CertificateStoreChooserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\CertificateStoreChooserDialog.designer.cs">
+      <DependentUpon>CertificateStoreChooserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentManagerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentManagerControl.Designer.cs">
+      <DependentUpon>DocumentManagerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentManagerWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentManagerWindow.Designer.cs">
+      <DependentUpon>DocumentManagerWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Asn1Decoder\DocumentWindow.Designer.cs">
+      <DependentUpon>DocumentWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Asn1Decoder\FileDocument.cs" />
+    <Compile Include="Asn1Decoder\X509Document.cs" />
+    <Compile Include="Asn1Decoder\X509Object.cs" />
+    <Compile Include="CertManager\CertificateListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateListControl.Designer.cs">
+      <DependentUpon>CertificateListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\CertificateListWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateListWindow.Designer.cs">
+      <DependentUpon>CertificateListWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\CertificatePropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreListControl.Designer.cs">
+      <DependentUpon>CertificateStoreListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreTreeView.Designer.cs">
+      <DependentUpon>CertificateStoreTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CertManager\CertificateStoreWindow.Designer.cs">
+      <DependentUpon>CertificateStoreWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\GlobalSelectionService.cs" />
+    <Compile Include="CertManager\PropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CertManager\PropertiesControl.Designer.cs">
+      <DependentUpon>PropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\PropertiesWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CertManager\PropertiesWindow.Designer.cs">
+      <DependentUpon>PropertiesWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CertManager\Wrappers\OidWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\X509CertificateWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\X509CertificateWrapper2.cs" />
+    <Compile Include="CertManager\Wrappers\X509ExtensionWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\CustomExpandableObjectConverter.cs" />
+    <Compile Include="Chrome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chrome.Designer.cs">
+      <DependentUpon>Chrome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chrome.documentBasedUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Commanding\CloseDocumentCommand.cs" />
+    <Compile Include="Commanding\Commands.cs" />
+    <Compile Include="Commanding\OpenDocumentCommand.cs" />
+    <Compile Include="Commanding\Verbs.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="HelperExtensions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="About\AboutPluginsControl.resx">
+      <DependentUpon>AboutPluginsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\Asn1DocumentControl.resx">
+      <DependentUpon>Asn1DocumentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\Asn1TreeView.resx">
+      <DependentUpon>Asn1TreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\Asn1Viewer.resx">
+      <DependentUpon>Asn1Viewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\CertificateStoreChooserDialog.resx">
+      <DependentUpon>CertificateStoreChooserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\DocumentManagerControl.resx">
+      <DependentUpon>DocumentManagerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asn1Decoder\DocumentWindow.resx">
+      <DependentUpon>DocumentWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\CertificateListControl.resx">
+      <DependentUpon>CertificateListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\CertificateListWindow.resx">
+      <DependentUpon>CertificateListWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\CertificateStoreListControl.resx">
+      <DependentUpon>CertificateStoreListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\CertificateStoreTreeView.resx">
+      <DependentUpon>CertificateStoreTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\CertificateStoreWindow.resx">
+      <DependentUpon>CertificateStoreWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\PropertiesControl.resx">
+      <DependentUpon>PropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertManager\PropertiesWindow.resx">
+      <DependentUpon>PropertiesWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chrome.resx">
+      <DependentUpon>Chrome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Config\certx.log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="CryptExplorer_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Resources\Safe.ico" />
+    <None Include="Resources\Certificates.ico" />
+    <None Include="Resources\OpenFile.png" />
+    <None Include="Resources\OpenCertificate.png" />
+    <None Include="Resources\ClosedFolder.png" />
+    <None Include="Resources\OpenedFolder.png" />
+    <None Include="Resources\Documents.png" />
+    <None Include="Resources\Document.png" />
+    <None Include="Resources\DocumentIcon.ico" />
+    <None Include="Resources\Empty.png" />
+    <None Include="Resources\Asn1Sequence.png" />
+    <None Include="Resources\Asn1Set.png" />
+    <None Include="Resources\Asn1Oid.png" />
+    <None Include="Resources\Numbers.png" />
+    <None Include="Resources\Asn1String.png" />
+    <None Include="Resources\Calendar.png" />
+    <None Include="Resources\QuestionMark.png" />
+    <None Include="Resources\OpenedBox.png" />
+    <None Include="Resources\CheckedUnchecked.png" />
+    <None Include="Resources\DefaultPluginIcon.png" />
+    <None Include="Resources\Exclamation.png" />
+    <Content Include="Safe.ico" />
+    <None Include="Resources\Refresh.png" />
+    <None Include="Resources\OpenFolder.png" />
+    <None Include="Resources\CloseFolder.png" />
+    <None Include="Resources\CertificateStore.ico" />
+    <None Include="Resources\Certificates.png" />
+    <None Include="Resources\DocIcon.ico" />
+    <None Include="Resources\Properties.ico" />
+    <None Include="Resources\DocumentManager.ico" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Delta.CertXplorer.Common\Delta.CertXplorer.Common.csproj">
+      <Project>{9e310531-620f-43ad-a7ad-4929a738a38e}</Project>
+      <Name>Delta.CertXplorer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Delta.CertXplorer.Core\Delta.CertXplorer.Core.csproj">
+      <Project>{020815b8-50b8-4544-8e18-b8ea10ff20f4}</Project>
+      <Name>Delta.CertXplorer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Delta.CertXplorer.Extensibility\Delta.CertXplorer.Extensibility.csproj">
+      <Project>{8283484e-906a-4403-919f-435aab288117}</Project>
+      <Name>Delta.CertXplorer.Extensibility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Plugins\Pluralsight.Crypto.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Plugins\PluralSightSelfCertPlugin.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

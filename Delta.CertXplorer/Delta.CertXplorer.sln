@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE1E81C6-7A1C-4B8C-A8FE-0FF8D74D72F4}"
+	ProjectSection(SolutionItems) = preProject
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		Credits.md = Credits.md
+		History.md = History.md
+		License.md = License.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-party", "Third-party", "{CA704B3F-70FD-459C-8F68-EF0AA6E5A056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pluralsight.Crypto", "third-party\Pluralsight.Crypto\Pluralsight.Crypto.csproj", "{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.CertXplorer.Core", "src\Delta.CertXplorer.Core\Delta.CertXplorer.Core.csproj", "{020815B8-50B8-4544-8E18-B8EA10FF20F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.CertXplorer.Extensibility", "src\Delta.CertXplorer.Extensibility\Delta.CertXplorer.Extensibility.csproj", "{8283484E-906A-4403-919F-435AAB288117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.CertXplorer.Common", "src\Delta.CertXplorer.Common\Delta.CertXplorer.Common.csproj", "{9E310531-620F-43AD-A7AD-4929A738A38E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.CertXplorer", "src\Delta.CertXplorer\Delta.CertXplorer.csproj", "{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{355AA3E8-C822-4DFE-A831-A7574595CE0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralSightSelfCertPlugin", "src\plugins\PluralSightSelfCertPlugin\PluralSightSelfCertPlugin.csproj", "{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoHelperPlugin", "src\plugins\CryptoHelperPlugin\CryptoHelperPlugin.csproj", "{97C4EA12-8F12-4A2A-92B5-BC282EC14682}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020815B8-50B8-4544-8E18-B8EA10FF20F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020815B8-50B8-4544-8E18-B8EA10FF20F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020815B8-50B8-4544-8E18-B8EA10FF20F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020815B8-50B8-4544-8E18-B8EA10FF20F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8283484E-906A-4403-919F-435AAB288117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8283484E-906A-4403-919F-435AAB288117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8283484E-906A-4403-919F-435AAB288117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8283484E-906A-4403-919F-435AAB288117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E310531-620F-43AD-A7AD-4929A738A38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E310531-620F-43AD-A7AD-4929A738A38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E310531-620F-43AD-A7AD-4929A738A38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E310531-620F-43AD-A7AD-4929A738A38E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181B31B9-96DA-4E43-B2D4-F56DA6CC4DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C4EA12-8F12-4A2A-92B5-BC282EC14682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C4EA12-8F12-4A2A-92B5-BC282EC14682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C4EA12-8F12-4A2A-92B5-BC282EC14682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C4EA12-8F12-4A2A-92B5-BC282EC14682}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2} = {CA704B3F-70FD-459C-8F68-EF0AA6E5A056}
+		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76} = {355AA3E8-C822-4DFE-A831-A7574595CE0F}
+		{97C4EA12-8F12-4A2A-92B5-BC282EC14682} = {355AA3E8-C822-4DFE-A831-A7574595CE0F}
+	EndGlobalSection
+EndGlobal

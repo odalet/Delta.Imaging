@@ -7,3 +7,4 @@ obj
 /Delta.Wsq/*.suo
 *.suo
 *.user
+/Delta.CapiNet/build/*.dll
