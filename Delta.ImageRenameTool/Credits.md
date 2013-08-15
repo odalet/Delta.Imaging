@@ -1,7 +1,4 @@
-Delta.ImageRenameTool
-=====================
-
-This tool provides a simple GUI allowing to rename multiple images at one time.
+EXIF library provided by [Goheer](http://goheer.com/). See his Codeproject article here: [http://www.codeproject.com/Articles/11305/EXIFextractor-library-to-extract-EXIF-information](http://www.codeproject.com/Articles/11305/EXIFextractor-library-to-extract-EXIF-information).
 
 -----------------------------------------------------------------------------------------
 * License: [Ms-RL][msrl]

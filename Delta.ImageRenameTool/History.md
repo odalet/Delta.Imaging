@@ -1,9 +1,9 @@
-﻿Version 1.2.1.0 (2013/08/15)
----------------------------
-* Renamed the project into _Delta.ImageRenameTool_; now part of the _Delta_ git repo.
+Version 1.2.1 (2013/08/15)
+--------------------------
+* Renamed the project into **Delta.ImageRenameTool**; now part of the **Delta** git repo.
 
-Version 1.2.0.0 (2013/07/29)
-----------------------------
+Version 1.2.0 (2013/07/29)
+--------------------------
 * Uses the EXIF Orientation tag to apply rotations when previewing images
 * Moved to VS 2012 Update 3
 * Targetted .NET 3.5 Client Profile instead of the full framework
@@ -34,3 +34,12 @@ Version 1.0.1 (2010/01/02)
 Version 1.0.0 
 -------------
 * First version
+
+-----------------------------------------------------------------------------------------
+* License: [Ms-RL][msrl]
+* History page: [Here][history]
+* Credits page: [Here][credits]
+
+  [msrl]: License.md "MS-RL License"
+  [history]: History.md "History"
+  [credits]: Credits.md "Credits"
