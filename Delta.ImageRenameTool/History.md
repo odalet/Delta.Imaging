@@ -1,3 +1,10 @@
+Version 1.2.2 (2013/08/16)
+--------------------------
+* BUGFIX: When no EXIF data, the file creation date is used instead of the exif date (which is MinDate)
+* We now try to guess what the description can be by parsing the file name.
+* Added a 'Clear Descriptions' button.
+* Modified About box (removed default image and copyright label).
+
 Version 1.2.1 (2013/08/15)
 --------------------------
 * Renamed the project into **Delta.ImageRenameTool**; now part of the **Delta** git repo.
@@ -8,7 +15,7 @@ Version 1.2.0 (2013/07/29)
 * Moved to VS 2012 Update 3
 * Targetted .NET 3.5 Client Profile instead of the full framework
 * Used WPF for the new preview control (easing the rotation process).
-* Bugfix: use EXIF "Date Time" tag as a last resort, only if "DTDigitized" and "DTOrig" do not exist.
+* BUGFIX: use EXIF "Date Time" tag as a last resort, only if "DTDigitized" and "DTOrig" do not exist.
   It seems that "DateTime" gets modified (by Windows 8 ???) when an image is copied.
 
 Version 1.1.1 (2011/07/17) 

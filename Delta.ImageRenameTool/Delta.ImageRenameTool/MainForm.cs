@@ -73,6 +73,34 @@ namespace Delta.ImageRenameTool
             base.OnClosed(e);
         }
 
+        private IEnumerable<FileRenameInfo> Infos
+        {
+            get { return binder.Cast<FileRenameInfo>(); }
+        }
+
+        private IEnumerable<FileRenameInfo> SelectedInfos
+        {
+            get { return Infos.Where(info => info.Selected); }
+        }
+
+        private bool EnableImagePreview
+        {
+            get { return enableImagePreviewToolStripMenuItem.Checked; }
+            set { enableImagePreviewToolStripMenuItem.Checked = value; }
+        }
+
+        private bool EnableAutoRotatePreview
+        {
+            get { return cbAutoRotate.Checked; }
+            set { cbAutoRotate.Checked = value; }
+        }
+
+        private bool SplitHorizontal
+        {
+            get { return splitHorizontalToolStripMenuItem.Checked; }
+            set { splitHorizontalToolStripMenuItem.Checked = value; }
+        }
+
         private int GetFirstIndex()
         {
             int index = 1;
@@ -99,34 +127,6 @@ namespace Delta.ImageRenameTool
             if (distance != 0) return distance;
             return split.Orientation == Orientation.Horizontal ?
                 split.Height / 2 : split.Width / 2;
-        }
-
-        private IEnumerable<FileRenameInfo> Infos
-        {
-            get { return binder.Cast<FileRenameInfo>(); }
-        }
-
-        private bool EnableImagePreview
-        {
-            get { return enableImagePreviewToolStripMenuItem.Checked; }
-            set { enableImagePreviewToolStripMenuItem.Checked = value; }
-        }
-
-        private bool EnableAutoRotatePreview
-        {
-            get { return cbAutoRotate.Checked; }
-            set { cbAutoRotate.Checked = value; }
-        }
-
-        private bool SplitHorizontal
-        {
-            get { return splitHorizontalToolStripMenuItem.Checked; }
-            set { splitHorizontalToolStripMenuItem.Checked = value; }
-        }
-
-        private IEnumerable<FileRenameInfo> SelectedInfos
-        {
-            get { return Infos.Where(info => info.Selected); }
         }
 
         private void UpdateImagePreview()
@@ -202,7 +202,7 @@ namespace Delta.ImageRenameTool
             RefreshGrid();
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e)
+        private void Browse()
         {
             using (var browser = new FolderBrowserDialogEx())
             {
@@ -215,7 +215,7 @@ namespace Delta.ImageRenameTool
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e) 
+        private void Load()
         {
             Cursor = Cursors.WaitCursor;
             try
@@ -225,13 +225,7 @@ namespace Delta.ImageRenameTool
             finally { Cursor = Cursors.Default; }
         }
 
-        private void binder_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (!EnableImagePreview) return;
-            UpdateImagePreview();
-        }
-
-        private void btnPreview_Click(object sender, EventArgs e)
+        private void RunPreview()
         {
             int index = GetFirstIndex();
             foreach (var info in Infos)
@@ -248,27 +242,45 @@ namespace Delta.ImageRenameTool
             RefreshGrid();
         }
 
-        private void btnRename_Click(object sender, EventArgs e)
+        private void Rename()
         {
-            foreach (var info in SelectedInfos) info.Rename();
+            foreach (var info in SelectedInfos) 
+                info.Rename();
             RefreshGrid();
         }
 
-        private void btnSelectAll_Click(object sender, EventArgs e)
+        private void btnBrowse_Click(object sender, EventArgs e) { Browse(); }
+
+        private void btnLoad_Click(object sender, EventArgs e) { Load(); }
+        
+        private void binder_CurrentItemChanged(object sender, EventArgs e)
         {
-            SetSelectionForAllRows(true);
+            if (!EnableImagePreview) return;
+            UpdateImagePreview();
         }
 
-        private void btnUnselectAll_Click(object sender, EventArgs e)
-        {
-            SetSelectionForAllRows(false);
-        }
+        private void btnPreview_Click(object sender, EventArgs e) { RunPreview(); }
+
+        private void btnRename_Click(object sender, EventArgs e) { Rename(); }
+
+        private void btnSelectAll_Click(object sender, EventArgs e) { SetSelectionForAllRows(true); }
+
+        private void btnUnselectAll_Click(object sender, EventArgs e) { SetSelectionForAllRows(false); }
 
         private void tbFilter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
             {
                 FillGrid();
+                e.Handled = true;
+            }
+        }
+
+        private void tbDirectory_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                Load();
                 e.Handled = true;
             }
         }
@@ -315,10 +327,7 @@ namespace Delta.ImageRenameTool
             new AboutBox().ShowDialog(this);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) { Close(); }
 
         private void selectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -397,6 +406,13 @@ namespace Delta.ImageRenameTool
         {
             if (!loaded) return;
             UpdateImagePreview();
+        }
+
+        private void btnClearDescriptions_Click(object sender, EventArgs e)
+        {
+            foreach (var info in SelectedInfos)
+                info.Description = string.Empty;
+            RefreshGrid();
         }
     }
 }

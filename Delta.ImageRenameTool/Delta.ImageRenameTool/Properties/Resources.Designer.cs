@@ -63,10 +63,20 @@ namespace Delta.ImageRenameTool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Delta_ImageRenameToolIcon {
+        internal static System.Drawing.Icon RenameToolIcon {
             get {
-                object obj = ResourceManager.GetObject("Delta.ImageRenameToolIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("RenameToolIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RenameToolLogo {
+            get {
+                object obj = ResourceManager.GetObject("RenameToolLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

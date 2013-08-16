@@ -43,11 +43,8 @@
             this.split = new System.Windows.Forms.SplitContainer();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.originalFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unselectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,16 +54,14 @@
             this.clearGeneratedNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearDescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.binder = new System.Windows.Forms.BindingSource(this.components);
             this.tc = new System.Windows.Forms.TabControl();
             this.previewPage = new System.Windows.Forms.TabPage();
-            this.wpfHost = new System.Windows.Forms.Integration.ElementHost();
-            this.wpfViewer = new Delta.ImageRenameTool.UI.WpfViewer();
             this.cbAutoRotate = new System.Windows.Forms.CheckBox();
             this.exifPage = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pg = new System.Windows.Forms.PropertyGrid();
             this.rtb = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.enableImagePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,13 +75,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.nudFirstIndex = new System.Windows.Forms.NumericUpDown();
             this.cbSkipUnselected = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btnClearDescriptions = new System.Windows.Forms.Button();
+            this.originalFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.binder = new System.Windows.Forms.BindingSource(this.components);
+            this.wpfHost = new System.Windows.Forms.Integration.ElementHost();
+            this.wpfViewer = new Delta.ImageRenameTool.UI.WpfViewer();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
             this.split.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.cm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.binder)).BeginInit();
             this.tc.SuspendLayout();
             this.previewPage.SuspendLayout();
             this.exifPage.SuspendLayout();
@@ -95,10 +95,12 @@
             this.splitContainer2.SuspendLayout();
             this.mstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFirstIndex)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.binder)).BeginInit();
             this.SuspendLayout();
             // 
             // tbDirectory
             // 
+            this.tbDirectory.AcceptsReturn = true;
             this.tbDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDirectory.Location = new System.Drawing.Point(70, 29);
@@ -106,6 +108,7 @@
             this.tbDirectory.Size = new System.Drawing.Size(911, 20);
             this.tbDirectory.TabIndex = 1;
             this.tbDirectory.Text = "c:\\";
+            this.tbDirectory.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDirectory_KeyPress);
             // 
             // label1
             // 
@@ -234,14 +237,6 @@
             this.Selected.Name = "Selected";
             this.Selected.Width = 20;
             // 
-            // originalFileNameDataGridViewTextBoxColumn
-            // 
-            this.originalFileNameDataGridViewTextBoxColumn.DataPropertyName = "OriginalFileName";
-            this.originalFileNameDataGridViewTextBoxColumn.HeaderText = "Original Name";
-            this.originalFileNameDataGridViewTextBoxColumn.Name = "originalFileNameDataGridViewTextBoxColumn";
-            this.originalFileNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.originalFileNameDataGridViewTextBoxColumn.Width = 200;
-            // 
             // UpdateTime
             // 
             this.UpdateTime.DataPropertyName = "PhotoTime";
@@ -259,20 +254,6 @@
             this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "Description";
             this.Description.Name = "Description";
-            // 
-            // newFileNameDataGridViewTextBoxColumn
-            // 
-            this.newFileNameDataGridViewTextBoxColumn.DataPropertyName = "NewFileName";
-            this.newFileNameDataGridViewTextBoxColumn.HeaderText = "New Name";
-            this.newFileNameDataGridViewTextBoxColumn.Name = "newFileNameDataGridViewTextBoxColumn";
-            this.newFileNameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // resultDataGridViewTextBoxColumn
-            // 
-            this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
-            this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
-            this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
-            this.resultDataGridViewTextBoxColumn.Width = 150;
             // 
             // cm
             // 
@@ -343,11 +324,6 @@
             this.clearAllToolStripMenuItem.Text = "Clear A&ll";
             this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
-            // binder
-            // 
-            this.binder.DataSource = typeof(Delta.ImageRenameTool.FileRenameInfo);
-            this.binder.CurrentItemChanged += new System.EventHandler(this.binder_CurrentItemChanged);
-            // 
             // tc
             // 
             this.tc.Controls.Add(this.previewPage);
@@ -370,16 +346,6 @@
             this.previewPage.TabIndex = 0;
             this.previewPage.Text = "Preview";
             this.previewPage.UseVisualStyleBackColor = true;
-            // 
-            // wpfHost
-            // 
-            this.wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wpfHost.Location = new System.Drawing.Point(3, 3);
-            this.wpfHost.Name = "wpfHost";
-            this.wpfHost.Size = new System.Drawing.Size(344, 312);
-            this.wpfHost.TabIndex = 0;
-            this.wpfHost.Text = "elementHost1";
-            this.wpfHost.Child = this.wpfViewer;
             // 
             // cbAutoRotate
             // 
@@ -440,6 +406,16 @@
             this.rtb.TabIndex = 0;
             this.rtb.Text = "";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "EXIF Properties:";
+            // 
             // btnSelectAll
             // 
             this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -466,7 +442,7 @@
             // 
             this.enableImagePreviewToolStripMenuItem.CheckOnClick = true;
             this.enableImagePreviewToolStripMenuItem.Name = "enableImagePreviewToolStripMenuItem";
-            this.enableImagePreviewToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.enableImagePreviewToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.enableImagePreviewToolStripMenuItem.Text = "Enable Image Preview";
             this.enableImagePreviewToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableImagePreviewToolStripMenuItem_CheckedChanged);
             // 
@@ -474,7 +450,7 @@
             // 
             this.splitHorizontalToolStripMenuItem.CheckOnClick = true;
             this.splitHorizontalToolStripMenuItem.Name = "splitHorizontalToolStripMenuItem";
-            this.splitHorizontalToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.splitHorizontalToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.splitHorizontalToolStripMenuItem.Text = "Horizontal Split ";
             this.splitHorizontalToolStripMenuItem.CheckedChanged += new System.EventHandler(this.splitHorizontalToolStripMenuItem_CheckedChanged);
             // 
@@ -503,25 +479,27 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(186, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(191, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F1)));
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(191, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -566,15 +544,53 @@
             this.cbSkipUnselected.Text = "Skip unselected rows when incrementing.";
             this.cbSkipUnselected.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // btnClearDescriptions
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "EXIF Properties:";
+            this.btnClearDescriptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClearDescriptions.Location = new System.Drawing.Point(336, 452);
+            this.btnClearDescriptions.Name = "btnClearDescriptions";
+            this.btnClearDescriptions.Size = new System.Drawing.Size(118, 23);
+            this.btnClearDescriptions.TabIndex = 8;
+            this.btnClearDescriptions.Text = "&Clear Descriptions";
+            this.btnClearDescriptions.UseVisualStyleBackColor = true;
+            this.btnClearDescriptions.Click += new System.EventHandler(this.btnClearDescriptions_Click);
+            // 
+            // originalFileNameDataGridViewTextBoxColumn
+            // 
+            this.originalFileNameDataGridViewTextBoxColumn.DataPropertyName = "OriginalFileName";
+            this.originalFileNameDataGridViewTextBoxColumn.HeaderText = "Original Name";
+            this.originalFileNameDataGridViewTextBoxColumn.Name = "originalFileNameDataGridViewTextBoxColumn";
+            this.originalFileNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.originalFileNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // newFileNameDataGridViewTextBoxColumn
+            // 
+            this.newFileNameDataGridViewTextBoxColumn.DataPropertyName = "NewFileName";
+            this.newFileNameDataGridViewTextBoxColumn.HeaderText = "New Name";
+            this.newFileNameDataGridViewTextBoxColumn.Name = "newFileNameDataGridViewTextBoxColumn";
+            this.newFileNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // resultDataGridViewTextBoxColumn
+            // 
+            this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
+            this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
+            this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
+            this.resultDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // binder
+            // 
+            this.binder.DataSource = typeof(Delta.ImageRenameTool.FileRenameInfo);
+            this.binder.CurrentItemChanged += new System.EventHandler(this.binder_CurrentItemChanged);
+            // 
+            // wpfHost
+            // 
+            this.wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfHost.Location = new System.Drawing.Point(3, 3);
+            this.wpfHost.Name = "wpfHost";
+            this.wpfHost.Size = new System.Drawing.Size(344, 312);
+            this.wpfHost.TabIndex = 0;
+            this.wpfHost.Text = "elementHost1";
+            this.wpfHost.Child = this.wpfViewer;
             // 
             // MainForm
             // 
@@ -588,6 +604,7 @@
             this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.split);
             this.Controls.Add(this.sstrip);
+            this.Controls.Add(this.btnClearDescriptions);
             this.Controls.Add(this.btnRename);
             this.Controls.Add(this.btnPreview);
             this.Controls.Add(this.btnLoad);
@@ -606,7 +623,6 @@
             this.split.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.cm.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.binder)).EndInit();
             this.tc.ResumeLayout(false);
             this.previewPage.ResumeLayout(false);
             this.previewPage.PerformLayout();
@@ -618,6 +634,7 @@
             this.mstrip.ResumeLayout(false);
             this.mstrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFirstIndex)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.binder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -675,6 +692,7 @@
         private System.Windows.Forms.Integration.ElementHost wpfHost;
         private UI.WpfViewer wpfViewer;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnClearDescriptions;
     }
 }
 

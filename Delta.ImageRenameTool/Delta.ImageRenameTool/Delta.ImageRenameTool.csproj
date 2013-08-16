@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Delta.ImageRenameTool</RootNamespace>
-    <AssemblyName>Delta.ImageRenameTool</AssemblyName>
+    <AssemblyName>rentool</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ManifestCertificateThumbprint>C2EA02C9E399A68F3A5A37FF77B51776F8BDD68A</ManifestCertificateThumbprint>
@@ -24,7 +24,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <PublishUrl>c:\temp\RenameTool1200\</PublishUrl>
+    <PublishUrl>c:\temp\ImageRenameTool1220\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -34,8 +34,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>en-US</TargetCulture>
+    <ProductName>Image Rename Tool</ProductName>
+    <PublisherName>Delta Software</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.0.0</ApplicationVersion>
+    <ApplicationVersion>1.2.2.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -160,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RenameToolIcon.ico" />
+    <None Include="Resources\RenameToolLogo.png" />
     <None Include="Resources\RenameToolIcon.ico" />
   </ItemGroup>
   <ItemGroup>
