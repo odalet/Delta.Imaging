@@ -8,3 +8,4 @@ obj
 *.suo
 *.user
 /Delta.CapiNet/build/*.dll
+/Delta.CapiNet/build
