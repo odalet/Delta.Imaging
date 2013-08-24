@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Win32.SafeHandles;
-using System.Runtime.InteropServices;
 
 namespace Delta.CapiNet.Internals
 {
@@ -36,7 +35,7 @@ namespace Delta.CapiNet.Internals
         /// </remarks>
         public static LocalAllocHandle Allocate(uint uFlags, IntPtr size)
         {
-            var handle = LocalAlloc(uFlags, size);
+            var handle = NativeMethods.LocalAlloc(uFlags, size);
             if ((handle == null) || handle.IsInvalid)
                 throw new OutOfMemoryException("Could not allocate memory using LocalAlloc native call.");
             return handle;
@@ -60,17 +59,7 @@ namespace Delta.CapiNet.Internals
         /// </returns>
         protected override bool ReleaseHandle()
         {
-            return (LocalFree(base.handle) == IntPtr.Zero);
+            return (NativeMethods.LocalFree(base.handle) == IntPtr.Zero);
         }
-
-        #region Interop
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr LocalFree(IntPtr handle);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern LocalAllocHandle LocalAlloc([In]uint uFlags, [In]IntPtr uBytes);
-
-        #endregion
     }
 }

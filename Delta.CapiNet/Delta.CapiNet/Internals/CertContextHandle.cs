@@ -40,7 +40,7 @@ namespace Delta.CapiNet.Internals
         /// </returns>
         protected override bool ReleaseHandle()
         {
-            return NativeMethods.CertCloseStore(base.handle, 0);
+            return NativeMethods.CertFreeCertificateContext(base.handle);
         }
     }
 }

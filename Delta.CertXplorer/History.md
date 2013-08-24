@@ -3,6 +3,11 @@ CertXplorer Versions History
 
 **Now CryptExplorer is CertXplorer and is Open-source.** See [License.md](./License.md)
 
+Version 2.3.1 (2013/08/24)
+--------------------------
+* Delta.CapiNet part of the source code: eases the bugfix process.
+* Using Delta.CapiNet 1.0.3 fixed version.
+
 Version 2.3.0 (2013/08/15)
 --------------------------
 * Removed **CapiNet** from the source tree (now a project of its own and named **Delta.CapiNet**)

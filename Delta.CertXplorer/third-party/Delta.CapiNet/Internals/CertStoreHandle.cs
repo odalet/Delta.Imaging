@@ -19,12 +19,32 @@ namespace Delta.CapiNet.Internals
         /// Initializes a new instance of the <see cref="StoreHandle"/> class.
         /// </summary>
         /// <param name="handle">The handle.</param>
-        public CertStoreHandle(IntPtr handle) : base(true) { base.SetHandle(handle); }
+        private CertStoreHandle(IntPtr handle) : base(true)
+        {
+            base.SetHandle(handle); 
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StoreHandle"/> class.
+        /// </summary>
+        /// <param name="handle">The handle.</param>
+        private CertStoreHandle(IntPtr handle, bool ownsHandle)
+            : base(ownsHandle)
+        {
+            base.SetHandle(handle);
+        }
+
+        /// <summary>
+        /// Gets a reference to Certificate store handle in the supplied <see cref="X509Store"/> object.
+        /// </summary>
+        /// <param name="store">The store.</param>
+        /// <returns></returns>
         public static CertStoreHandle FromX509Store(X509Store store)
         {
             if (store == null) return InvalidHandle;
-            return new CertStoreHandle(store.StoreHandle);
+
+            // the handle is owned by the X509Store object. We shouldn't release it!
+            return new CertStoreHandle(store.StoreHandle, false); 
         }
 
         /// <summary>

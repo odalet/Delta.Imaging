@@ -7,6 +7,16 @@ namespace Delta.CapiNet.Internals
     [SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
+        #region General
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr LocalFree(IntPtr handle);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern LocalAllocHandle LocalAlloc([In]uint uFlags, [In]IntPtr uBytes);
+
+        #endregion
+
         #region Localization
 
         /// <summary>
@@ -20,7 +30,7 @@ namespace Delta.CapiNet.Internals
         /// );
         /// </code>
         /// </remarks>
-        [DllImport("crypt32.dll", EntryPoint="CryptFindLocalizedName", CharSet = CharSet.Unicode)]
+        [DllImport("crypt32.dll", EntryPoint = "CryptFindLocalizedName", CharSet = CharSet.Unicode)]
         private static extern IntPtr _CryptFindLocalizedName([In, MarshalAs(UnmanagedType.LPWStr)]string pwszCryptName);
 
         /// <summary>
@@ -68,8 +78,8 @@ namespace Delta.CapiNet.Internals
         /// </summary>
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode)]
         public static extern bool CertEnumSystemStoreLocation(
-            [In]uint dwFlags, 
-            [In]IntPtr pvArg, 
+            [In]uint dwFlags,
+            [In]IntPtr pvArg,
             [In]CertEnumSystemStoreLocationCallback pfnEnum);
 
         /// <summary>
@@ -138,9 +148,9 @@ namespace Delta.CapiNet.Internals
         /// </summary>
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode)]
         public static extern bool CertEnumSystemStore(
-            [In]uint dwFlags, 
-            [In]uint pvSystemStoreLocationPara, 
-            [In]IntPtr pvArg, 
+            [In]uint dwFlags,
+            [In]uint pvSystemStoreLocationPara,
+            [In]IntPtr pvArg,
             [In]CertEnumSystemStoreCallback pfnEnum);
 
         /// <summary>
@@ -170,7 +180,7 @@ namespace Delta.CapiNet.Internals
         #endregion
 
         #region CertEnumPhysicalStore
-                
+
         /// <summary>
         /// See http://msdn.microsoft.com/en-us/library/aa376055.aspx:
         /// <remarks>
@@ -187,9 +197,9 @@ namespace Delta.CapiNet.Internals
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode)]
         [return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public static extern bool CertEnumPhysicalStore(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string pvSystemStore, 
-            [In]uint dwFlags, 
-            [In]IntPtr pvArg, 
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pvSystemStore,
+            [In]uint dwFlags,
+            [In]IntPtr pvArg,
             [In]CertEnumPhysicalStoreCallback pfnEnum);
 
         /// <summary>
@@ -216,7 +226,7 @@ namespace Delta.CapiNet.Internals
             ref CERT_PHYSICAL_STORE_INFO pStoreInfo,
             uint pvReserved,
             IntPtr pvArg);
-        
+
         #endregion
 
         #endregion
@@ -224,8 +234,8 @@ namespace Delta.CapiNet.Internals
         #region CRL
 
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern IntPtr CertEnumCRLsInStore([In]CertStoreHandle hCertStore, [In]IntPtr pPrevCrlContext);                
-                
+        public static extern IntPtr CertEnumCRLsInStore([In]CertStoreHandle hCertStore, [In]IntPtr pPrevCrlContext);
+
         /// <summary>
         /// See http://msdn.microsoft.com/en-us/library/aa376076.aspx:
         /// <remarks>
@@ -236,7 +246,7 @@ namespace Delta.CapiNet.Internals
         /// );
         /// </code></remarks>
         /// </summary>
-        [DllImport("crypt32.dll", SetLastError=true)]
+        [DllImport("crypt32.dll", SetLastError = true)]
         public static extern bool CertFreeCRLContext([In]IntPtr pCrlContext);
 
         /// <summary>
@@ -251,7 +261,7 @@ namespace Delta.CapiNet.Internals
         /// </code></remarks>
         [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern CrlContextHandle CertDuplicateCRLContext([In]IntPtr pCrlContext);
-        
+
         /// <summary>
         /// See http://msdn.microsoft.com/en-us/library/aa376080.aspx:
         /// </summary>
@@ -279,14 +289,27 @@ namespace Delta.CapiNet.Internals
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr CertEnumCertificatesInStore([In]CertStoreHandle hCertStore, [In]IntPtr pPrevCertContext);
 
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/windows/desktop/aa376075.aspx
+        /// </summary>
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// BOOL WINAPI CertFreeCertificateContext(
+        ///   _In_  PCCERT_CONTEXT pCertContext
+        /// );
+        /// </code></remarks>
+        [DllImport("crypt32.dll", SetLastError = true)]
+        public static extern bool CertFreeCertificateContext([In]IntPtr pCertContext);
+
         [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern CertContextHandle CertDuplicateCertificateContext([In] IntPtr pCertContext);
 
         [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool CertGetCertificateContextProperty(
-            [In]CertContextHandle pCertContext, 
-            [In] uint dwPropId, 
-            [In, Out]LocalAllocHandle pvData, 
+            [In]CertContextHandle pCertContext,
+            [In] uint dwPropId,
+            [In, Out]LocalAllocHandle pvData,
             [In, Out]ref uint pcbData);
 
         #endregion
@@ -321,7 +344,7 @@ namespace Delta.CapiNet.Internals
         /// </summary>
         [DllImport("wintrust.dll", CharSet = CharSet.Unicode)]
         public static extern bool OpenPersonalTrustDBDialogEx([In]IntPtr hwndParent, [In]uint dwFlags, [In, Out]IntPtr pvReserved);
-        
+
         /// <summary>
         /// See http://msdn.microsoft.com/en-us/library/aa380290.aspx:
         /// </summary>
@@ -358,7 +381,7 @@ namespace Delta.CapiNet.Internals
             [In]IntPtr pvReserved);
 
         #region UNDOCUMENTED
-        
+
         /// <summary>Build a new CTL or modify an existing CTL.</summary>
         /// <param name="dwFlags">
         /// IN  Optional:   Can be set to the any combination of the following:
@@ -390,14 +413,14 @@ namespace Delta.CapiNet.Internals
         /// </remarks>
         [DllImport("cryptui.dll", CharSet = CharSet.Unicode)]
         public static extern bool CryptUIWizBuildCTL(
-            [In]uint dwFlags, 
-            [In]IntPtr hwndParent, 
+            [In]uint dwFlags,
+            [In]IntPtr hwndParent,
             [In, MarshalAs(UnmanagedType.LPWStr)]string pwszWizardTitle,
             [In]IntPtr pBuildCTLSrc,
-            [In]IntPtr pBuildCTLDest,  
-            [Out]out IntPtr ppCTLContext); 
+            [In]IntPtr pBuildCTLDest,
+            [Out]out IntPtr ppCTLContext);
 
-        #endregion        
+        #endregion
 
         #endregion
     }
