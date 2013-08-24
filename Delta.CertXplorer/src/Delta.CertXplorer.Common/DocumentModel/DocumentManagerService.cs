@@ -10,7 +10,7 @@ namespace Delta.CertXplorer.DocumentModel
     {
         private IDocumentBasedUI ownerUI = null;
         private Dictionary<Document, IDocumentView> views = new Dictionary<Document, IDocumentView>();
-                
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentManagerService"/> class.
         /// </summary>
@@ -83,10 +83,10 @@ namespace Delta.CertXplorer.DocumentModel
         public void CloseDocument(Document document)
         {
             CloseDocument(document, true);
-        }        
+        }
 
         #endregion
-        
+
         /// <summary>
         /// Closes the specified document (and the associated view 
         /// only if <paramref name="shouldCloseView"/> is <c>true</c>).
@@ -96,16 +96,29 @@ namespace Delta.CertXplorer.DocumentModel
         private void CloseDocument(Document document, bool shouldCloseView)
         {
             if (document == null) throw new ArgumentNullException("document");
-            if (views.ContainsKey(document))
-            {
-                if (shouldCloseView)
-                {
-                    var view = views[document];
-                    view.Close();
-                }
+            if (!views.ContainsKey(document)) return;
 
-                views.Remove(document);
-                OnDocumentRemoved(document);
+            if (shouldCloseView)
+            {
+                var view = views[document];
+                CloseView(view);
+            }
+
+            views.Remove(document);
+            OnDocumentRemoved(document);
+        }
+
+        private void CloseView(IDocumentView view)
+        {
+            if (view == null) throw new ArgumentNullException("view");
+            This.Logger.Verbose("Closing View.");
+            view.Close();
+            if (view is IDisposable)
+            {
+                var document = view.Document;
+                var viewInfo = document == null ? view.GetType() : document.GetType();
+                This.Logger.Verbose(string.Format("Disposing view {0}", viewInfo)); 
+                ((IDisposable)view).Dispose();
             }
         }
 

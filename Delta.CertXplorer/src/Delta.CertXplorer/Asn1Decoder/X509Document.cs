@@ -13,10 +13,10 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// <param name="storeName">Name of the store.</param>
         /// <param name="storeLocation">The store location.</param>
         /// <param name="x509">The X509.</param>
-        public X509Document(X509Object x509)
-            : base()
+        public X509Document(X509Object x509) : base()
         {
-            if (x509 == null) throw new ArgumentNullException("x509");
+            if (x509 == null) 
+                throw new ArgumentNullException("x509");
 
             x509data = x509;
             base.OpenDocument();

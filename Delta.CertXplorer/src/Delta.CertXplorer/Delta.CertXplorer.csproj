@@ -69,9 +69,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Delta.CapiNet">
-      <HintPath>..\..\lib\capinet\Delta.CapiNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -372,6 +369,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\third-party\Delta.CapiNet\Delta.CapiNet.csproj">
+      <Project>{9d4b19cb-036a-4cb3-a76a-b28de5ec431b}</Project>
+      <Name>Delta.CapiNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Delta.CertXplorer.Common\Delta.CertXplorer.Common.csproj">
       <Project>{9e310531-620f-43ad-a7ad-4929a738a38e}</Project>
       <Name>Delta.CertXplorer.Common</Name>
