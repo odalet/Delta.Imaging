@@ -3,6 +3,10 @@ CertXplorer Versions History
 
 **Now CryptExplorer is CertXplorer and is Open-source.** See [License.md](./License.md)
 
+Version 2.3.2 (2013/08/24)
+--------------------------
+* BUGFIX: tree nodes should NOT be sorted in the ASN.1 viewer
+
 Version 2.3.1 (2013/08/24)
 --------------------------
 * Delta.CapiNet part of the source code: eases the bugfix process.

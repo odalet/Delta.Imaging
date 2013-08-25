@@ -9,6 +9,6 @@ using System.Reflection;
 
 internal static partial class ThisAssembly
 {
-    public const string Version = "2.3.1.0";
+    public const string Version = "2.3.2.0";
     public const string Company = "Delta Software";
 }

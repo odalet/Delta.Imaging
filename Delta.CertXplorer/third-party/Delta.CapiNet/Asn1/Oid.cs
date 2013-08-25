@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Delta.CapiNet.Asn1
 {
+    // This code is probably not mine... Though I can't remember where I grabbed it from.
     internal static class Oid
     {
         private static Dictionary<string, string> oidRepository = new Dictionary<string,string>();

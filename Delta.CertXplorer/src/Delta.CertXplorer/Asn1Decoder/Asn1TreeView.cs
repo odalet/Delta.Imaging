@@ -25,6 +25,9 @@ namespace Delta.CertXplorer.Asn1Decoder
         {
             InitializeComponent();
 
+            // We shouldn't sort nodes as they must appear in the order they are defined in data
+            base.Sorted = false; 
+
             //base.AllowDrag = false;
             base.AllowDrop = false;
         }
