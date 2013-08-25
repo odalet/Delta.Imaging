@@ -16,7 +16,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Gets the document diplayed by this view.
         /// </summary>
         /// <value>The document.</value>
-        Document Document { get; }
+        IDocument Document { get; }
 
         /// <summary>
         /// Closes this view.

@@ -22,7 +22,7 @@ namespace Delta.CertXplorer.Commanding
             get { return "Open Certificate Document"; }
         }
 
-        protected override BaseDocument OpenDocument(object[] arguments)
+        protected override BaseAsn1Document OpenDocument(object[] arguments)
         {
             var storeName = string.Empty;
             var storeLocation = StoreLocation.CurrentUser;
@@ -51,9 +51,9 @@ namespace Delta.CertXplorer.Commanding
                 }
             }
 
-            if (x509 != null) return new X509Document(x509);
-            else return null;
+            if (x509 != null) 
+                return new BaseAsn1Document(new X509DocumentSource(x509));
+            return null;
         }
     }
-
 }

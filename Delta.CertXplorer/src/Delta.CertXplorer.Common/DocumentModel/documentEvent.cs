@@ -16,7 +16,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Initializes a new instance of the <see cref="DocumentEventArgs"/> class.
         /// </summary>
         /// <param name="document">The document.</param>
-        public DocumentEventArgs(Document document)
+        public DocumentEventArgs(IDocument document)
         {
             Document = document;
         }
@@ -25,7 +25,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Gets the document.
         /// </summary>
         /// <value>The document.</value>
-        public Document Document
+        public IDocument Document
         {
             get;
             private set;

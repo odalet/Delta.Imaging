@@ -6,7 +6,7 @@ namespace Delta.CertXplorer.Asn1Decoder
 {
     public partial class DocumentWindow : DockContent, IDocumentView
     {
-        private BaseDocument document = null;
+        private BaseAsn1Document document = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentWindow"/> class.
@@ -27,16 +27,16 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// Gets the document diplayed by this view.
         /// </summary>
         /// <value>The document.</value>
-        public Document Document
+        public IDocument Document
         {
             get { return document; }
             internal set
             {
                 if (value == null)  throw new ArgumentNullException("value");
-                if (!(value is BaseDocument)) throw new NotSupportedException(string.Format(
+                if (!(value is BaseAsn1Document)) throw new NotSupportedException(string.Format(
                     "Documents of type {0} are not supported in this view.", document.GetType()));
 
-                document = (BaseDocument)value;
+                document = (BaseAsn1Document)value;
                 asn1Viewer.Document = document;
                 base.Text = document.DocumentCaption;
             }

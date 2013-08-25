@@ -9,7 +9,7 @@ namespace Delta.CertXplorer.Asn1Decoder
 {
     internal partial class Asn1DocumentControl : UserControl
     {
-        private BaseDocument document = null;
+        private BaseAsn1Document document = null;
 
         public Asn1DocumentControl()
         {
@@ -32,7 +32,7 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// </summary>
         /// <value>The document.</value>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public BaseDocument Document
+        public BaseAsn1Document Document
         {
             get { return document; }
             set

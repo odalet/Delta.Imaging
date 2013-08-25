@@ -4,6 +4,7 @@ CertXplorer Versions History
 Version 2.3.3.0 (2013/08/25)
 ----------------------------
 * Refactoring of commands/verbs system
+* Refactoring of documents system
 
 
 Version 2.3.2 (2013/08/24)

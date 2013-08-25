@@ -20,7 +20,7 @@ namespace Delta.CertXplorer.Commanding
             get { return "Open File Document"; }
         }
 
-        protected override BaseDocument OpenDocument(object[] arguments)
+        protected override BaseAsn1Document OpenDocument(object[] arguments)
         {
             var fileName = string.Empty;
             if (arguments != null && arguments.Length > 0 && arguments[0] is string)
@@ -36,7 +36,7 @@ namespace Delta.CertXplorer.Commanding
             }
 
             if (!string.IsNullOrEmpty(fileName))
-                return new FileDocument(fileName);
+                return new BaseAsn1Document(new FileDocumentSource(fileName));
             else return null;
         }
     }

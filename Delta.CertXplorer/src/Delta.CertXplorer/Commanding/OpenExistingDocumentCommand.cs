@@ -2,7 +2,7 @@
 
 namespace Delta.CertXplorer.Commanding
 {
-    internal class OpenExistingDocumentCommand : BaseOpenDocumentCommand<BaseDocument>
+    internal class OpenExistingDocumentCommand : BaseOpenDocumentCommand<BaseAsn1Document>
     {
         // Document must exit.
         public OpenExistingDocumentCommand() : base(true) { }
@@ -21,9 +21,9 @@ namespace Delta.CertXplorer.Commanding
         /// </summary>
         /// <param name="arguments">The arguments.</param>
         /// <returns></returns>
-        protected override BaseDocument OpenDocument(object[] arguments)
+        protected override BaseAsn1Document OpenDocument(object[] arguments)
         {
-            return (BaseDocument)arguments[0];
+            return (BaseAsn1Document)arguments[0];
         }
     }
 

@@ -1,11 +1,15 @@
 ﻿namespace Delta.CertXplorer.DocumentModel
 {
-    public abstract class Document
+    public interface IDocument
     {
         /// <summary>
         /// Creates the view that will contain this document.
         /// </summary>
         /// <returns>An instance of a view.</returns>
-        public abstract IDocumentView CreateView();
+        IDocumentView CreateView();
+
+        IDocumentSource Source { get; }
+
+        string Key { get; }
     }
 }

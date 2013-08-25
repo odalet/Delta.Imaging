@@ -7,19 +7,19 @@ namespace Delta.CertXplorer.DocumentModel
         /// Selects the specified document as the currently active document.
         /// </summary>
         /// <param name="document">The document.</param>
-        void SelectDocument(Document document);
+        void SelectDocument(IDocument document);
 
         /// <summary>
         /// Opens the specified document in a new view and sets it at the active document.
         /// </summary>
         /// <param name="document">The document.</param>
-        void OpenDocument(Document document);
+        void OpenDocument(IDocument document);
 
         /// <summary>
         /// Closes the specified document (and the associated view).
         /// </summary>
         /// <param name="document">The document.</param>
-        void CloseDocument(Document document);
+        void CloseDocument(IDocument document);
 
         /// <summary>
         /// Occurs when a new document is added.

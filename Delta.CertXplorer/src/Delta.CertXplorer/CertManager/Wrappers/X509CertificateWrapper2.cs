@@ -22,20 +22,34 @@ namespace Delta.CertXplorer.CertManager.Wrappers
         }
 
         public bool Archived { get { return x509.Archived; } }
-        public X509ExtensionWrapper[] Extensions { get { return extensions; } }
-        public string FriendlyName { get { return x509.FriendlyName; } }
-        public bool HasPrivateKey { get { return x509.HasPrivateKey; } }
-        public string IssuerName { get { return x509.IssuerName.Name; } }
-        public DateTime NotAfter { get { return x509.NotAfter; } }
-        public DateTime NotBefore { get { return x509.NotBefore; } }
-        public AsymmetricAlgorithm PrivateKey { get { return x509.PrivateKey; } }
-        public PublicKey PublicKey { get { return x509.PublicKey; } }
-        public byte[] RawData { get { return x509.RawData; } }
-        public string SerialNumber { get { return x509.SerialNumber; } }
-        public Oid SignatureAlgorithm { get { return x509.SignatureAlgorithm; } }
-        public string SubjectName { get { return x509.SubjectName.Name; } }
-        public string Thumbprint { get { return x509.Thumbprint; } }
-        public int Version { get { return x509.Version; } }
+        
+        public X509ExtensionWrapper[] Extensions { get { return TryGet(() => extensions); } }
+        
+        public string FriendlyName { get { return TryGet(() => x509.FriendlyName); } }
+        
+        public bool HasPrivateKey { get { return TryGet(() => x509.HasPrivateKey); } }
+        
+        public string IssuerName { get { return TryGet(() => x509.IssuerName.Name); } }
+        
+        public DateTime NotAfter { get { return TryGet(() => x509.NotAfter); } }
+        
+        public DateTime NotBefore { get { return TryGet(() => x509.NotBefore); } }
+        
+        public AsymmetricAlgorithm PrivateKey { get { return TryGet(() => x509.PrivateKey); } }
+        
+        public PublicKey PublicKey { get { return TryGet(() => x509.PublicKey); } }
+        
+        public byte[] RawData { get { return TryGet(() => x509.RawData); } }
+        
+        public string SerialNumber { get { return TryGet(() => x509.SerialNumber); } }
+        
+        public Oid SignatureAlgorithm { get { return TryGet(() => x509.SignatureAlgorithm); } }
+        
+        public string SubjectName { get { return TryGet(() => x509.SubjectName.Name); } }
+
+        public string Thumbprint { get { return TryGet(() => x509.Thumbprint); } }
+        
+        public int Version { get { return TryGet(() => x509.Version); } }
 
         private void FillExtensions()
         {

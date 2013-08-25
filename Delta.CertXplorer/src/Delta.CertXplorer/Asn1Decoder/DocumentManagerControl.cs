@@ -27,7 +27,7 @@ namespace Delta.CertXplorer.Asn1Decoder
 
             public ContextMenuStrip GetContextMenuStrip(TreeNodeEx node)
             {
-                if (node.Tag != null && node.Tag is BaseDocument)
+                if (node.Tag != null && node.Tag is BaseAsn1Document)
                     return menuStrip;
                 else return null;
             }
@@ -44,8 +44,8 @@ namespace Delta.CertXplorer.Asn1Decoder
         private TreeNode filesRoot = null;
         private TreeNode certificatesRoot = null;
 
-        private Dictionary<Document, TreeNode> documents =
-            new Dictionary<Document, TreeNode>();
+        private Dictionary<IDocument, TreeNode> documents =
+            new Dictionary<IDocument, TreeNode>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentManagerControl"/> class.
@@ -121,7 +121,7 @@ namespace Delta.CertXplorer.Asn1Decoder
 
             tvExplorer.NodeMouseDoubleClick += (s, ev) =>
             {
-                var doc = ev.Node.Tag as Document;
+                var doc = ev.Node.Tag as IDocument;
                 if (doc != null) Commands.RunVerb(Verbs.OpenExisting, doc);
                     //services.GetService<IDocumentManagerService>(true).OpenDocument(doc);
             };
@@ -142,12 +142,12 @@ namespace Delta.CertXplorer.Asn1Decoder
             tvExplorer.DragOver += (s, ev) => ev.Effect = DragDropEffects.Copy;
         }
 
-        private BaseDocument SelectedDocument
+        private BaseAsn1Document SelectedDocument
         {
             get
             {
                 var node = tvExplorer.SelectedNode;
-                return node.Tag as BaseDocument;
+                return node.Tag as BaseAsn1Document;
             }
         }
 
@@ -215,14 +215,14 @@ namespace Delta.CertXplorer.Asn1Decoder
                 var tnRoot = filesRoot;
                 
                 var caption = "Document";
-                if (e.Document is BaseDocument)
-                    caption = ((BaseDocument)e.Document).DocumentCaption;
+                if (e.Document is BaseAsn1Document)
+                    caption = ((BaseAsn1Document)e.Document).DocumentCaption;
 
                 var tn = new TreeNodeEx(caption);
 
-                if (e.Document is FileDocument)
+                if (e.Document.Source is FileDocumentSource)
                     tnRoot = filesRoot;
-                else if (e.Document is X509Document)
+                else if (e.Document.Source is X509DocumentSource)
                     tnRoot = certificatesRoot;
 
                 tn.Tag = e.Document;

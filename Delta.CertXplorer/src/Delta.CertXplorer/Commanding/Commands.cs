@@ -63,15 +63,14 @@ namespace Delta.CertXplorer.Commanding
             public bool IsDefaultBinding { get; private set; }
         }
 
-        ////private static Dictionary<Type, List<BindingDescriptor>> commandBindings = new Dictionary<Type, List<BindingDescriptor>>();
         private static Dictionary<Type, List<CommandBindingDescriptor>> commandBindings = new Dictionary<Type, List<CommandBindingDescriptor>>();
 
         static Commands()
         {
             AddCommandBinding<OpenFileVerb, OpenFileCommand>(typeof(string));
             AddCommandBinding<OpenCertificateVerb, OpenCertificateCommand>(typeof(X509Object));
-            AddCommandBinding<OpenExistingDocumentVerb, OpenExistingDocumentCommand>(typeof(FileDocument), typeof(X509Document));
-            AddCommandBinding<CloseDocumentVerb, CloseDocumentCommand>(typeof(FileDocument), typeof(X509Document));        
+            AddCommandBinding<OpenExistingDocumentVerb, OpenExistingDocumentCommand>(typeof(IDocument));
+            AddCommandBinding<CloseDocumentVerb, CloseDocumentCommand>(typeof(IDocument));        
         }
 
         public static void RunVerb(IVerb verb, params object[] arguments)

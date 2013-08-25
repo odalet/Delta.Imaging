@@ -9,7 +9,7 @@ namespace Delta.CertXplorer.DocumentModel
     internal class DocumentManagerService : IDocumentManagerService
     {
         private IDocumentBasedUI ownerUI = null;
-        private Dictionary<Document, IDocumentView> views = new Dictionary<Document, IDocumentView>();
+        private Dictionary<string, IDocumentView> views = new Dictionary<string, IDocumentView>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentManagerService"/> class.
@@ -50,9 +50,11 @@ namespace Delta.CertXplorer.DocumentModel
         /// Selects the specified document as the currently active document.
         /// </summary>
         /// <param name="document">The document.</param>
-        public void SelectDocument(Document document)
+        public void SelectDocument(IDocument document)
         {
-            ownerUI.ShowView(views[document]);
+            if (document == null) throw new ArgumentNullException("document");
+
+            ownerUI.ShowView(views[document.Key]);
             OnDocumentSelected(document);
         }
 
@@ -60,18 +62,18 @@ namespace Delta.CertXplorer.DocumentModel
         /// Opens the specified document in a new view and sets it at the active document.
         /// </summary>
         /// <param name="document">The document.</param>
-        public void OpenDocument(Document document)
+        public void OpenDocument(IDocument document)
         {
             if (document == null) throw new ArgumentNullException("document");
-            if (views.ContainsKey(document))
+            if (views.ContainsKey(document.Key))
                 SelectDocument(document);
             else
             {
                 var view = document.CreateView();
                 view.ViewClosed += (s, e) => CloseDocument(document, false);
 
-                views.Add(document, view);
-                ownerUI.ShowView(views[document]);
+                views.Add(document.Key, view);
+                ownerUI.ShowView(views[document.Key]);
                 OnDocumentAdded(document);
             }
         }
@@ -80,7 +82,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Closes the specified document (and the associated view).
         /// </summary>
         /// <param name="document">The document.</param>
-        public void CloseDocument(Document document)
+        public void CloseDocument(IDocument document)
         {
             CloseDocument(document, true);
         }
@@ -93,18 +95,18 @@ namespace Delta.CertXplorer.DocumentModel
         /// </summary>
         /// <param name="document">The document.</param>
         /// <param name="shouldCloseView">if set to <c>true</c> closes the view associated with the document.</param>
-        private void CloseDocument(Document document, bool shouldCloseView)
+        private void CloseDocument(IDocument document, bool shouldCloseView)
         {
             if (document == null) throw new ArgumentNullException("document");
-            if (!views.ContainsKey(document)) return;
+            if (!views.ContainsKey(document.Key)) return;
 
             if (shouldCloseView)
             {
-                var view = views[document];
+                var view = views[document.Key];
                 CloseView(view);
             }
 
-            views.Remove(document);
+            views.Remove(document.Key);
             OnDocumentRemoved(document);
         }
 
@@ -126,7 +128,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Called when a document is added.
         /// </summary>
         /// <param name="document">The document.</param>
-        private void OnDocumentAdded(Document document)
+        private void OnDocumentAdded(IDocument document)
         {
             if (DocumentAdded != null)
                 DocumentAdded(this, new DocumentEventArgs(document));
@@ -136,7 +138,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Called when a document is selected.
         /// </summary>
         /// <param name="document">The document.</param>
-        private void OnDocumentSelected(Document document)
+        private void OnDocumentSelected(IDocument document)
         {
             if (DocumentSelected != null)
                 DocumentSelected(this, new DocumentEventArgs(document));
@@ -146,7 +148,7 @@ namespace Delta.CertXplorer.DocumentModel
         /// Called when a document is removed.
         /// </summary>
         /// <param name="document">The document.</param>
-        private void OnDocumentRemoved(Document document)
+        private void OnDocumentRemoved(IDocument document)
         {
             if (DocumentRemoved != null)
                 DocumentRemoved(this, new DocumentEventArgs(document));

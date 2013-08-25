@@ -120,7 +120,7 @@
     <Compile Include="Asn1Decoder\Asn1TreeView.Designer.cs">
       <DependentUpon>Asn1TreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="DocumentModel\BaseDocument.cs" />
+    <Compile Include="DocumentModel\BaseAsn1Document.cs" />
     <Compile Include="Asn1Decoder\Asn1Viewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,7 +152,9 @@
       <DependentUpon>DocumentWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="DocumentModel\FileDocument.cs" />
+    <Compile Include="DocumentModel\FileDocumentSource.cs" />
     <Compile Include="DocumentModel\X509Document.cs" />
+    <Compile Include="DocumentModel\X509DocumentSource.cs" />
     <Compile Include="DocumentModel\X509Object.cs" />
     <Compile Include="CertManager\CertificateListControl.cs">
       <SubType>UserControl</SubType>
