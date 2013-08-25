@@ -9,6 +9,7 @@ using Delta.CertXplorer.UI.ToolWindows;
 using Delta.CertXplorer.Commanding;
 using Delta.CertXplorer.Asn1Decoder;
 using Delta.CertXplorer.CertManager;
+using Delta.CertXplorer.DocumentModel;
 using Delta.CertXplorer.ApplicationModel;
 
 namespace Delta.CertXplorer
@@ -107,17 +108,18 @@ namespace Delta.CertXplorer
         private void OpenFile(string filename)
         {
             var fname = Path.IsPathRooted(filename) ? filename : Path.Combine(Environment.CurrentDirectory, filename);
-            try
-            {
-                var document = new FileDocument(fname);
-                This.GetService<Delta.CertXplorer.DocumentModel.IDocumentManagerService>(true)
-                    .OpenDocument(document);
-            }
-            catch (Exception ex)
-            {
-                This.Logger.Error(string.Format(
-                    "Could not open file {0}: {1}", fname, ex.Message), ex);
-            }
+            Commands.RunVerb(Verbs.OpenFile, fname);
+            ////try
+            ////{
+            ////    var document = new FileDocument(fname);
+            ////    This.GetService<Delta.CertXplorer.DocumentModel.IDocumentManagerService>(true)
+            ////        .OpenDocument(document);
+            ////}
+            ////catch (Exception ex)
+            ////{
+            ////    This.Logger.Error(string.Format(
+            ////        "Could not open file {0}: {1}", fname, ex.Message), ex);
+            ////}
         }
 
         private void InitializeActions()
@@ -132,9 +134,9 @@ namespace Delta.CertXplorer
             };
 
             openFileDocumentAction.Run += (s, e) => 
-                Commands.RunVerb<string>(Verbs.OpenFileDocument);
+                Commands.RunVerb(Verbs.OpenFile);
             openCertificateDocumentAction.Run += (s, e) => 
-                Commands.RunVerb<X509Object>(Verbs.OpenCertificateDocument);
+                Commands.RunVerb(Verbs.OpenCertificate);
         }
 
         private void CreatePluginsMenu()

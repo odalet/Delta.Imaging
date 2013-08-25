@@ -8,9 +8,12 @@ namespace Delta.CertXplorer.Commanding
     {
         #region ICommand Members
 
-        public IVerb Verb { get { return null; } }
-
-        public void Run(params object[] arguments) { }
+        /// <summary>
+        /// Runs the command with the specified arguments.
+        /// </summary>
+        /// <param name="verb">The verb this command was invoked from (informative).</param>
+        /// <param name="arguments">The command arguments.</param>
+        public void Run(IVerb verb, params object[] arguments) { }
 
         #endregion
     }

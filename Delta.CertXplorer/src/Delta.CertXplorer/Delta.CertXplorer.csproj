@@ -16,7 +16,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ManifestCertificateThumbprint>7D18F8D4F534CC37B646178FCD8EE0D17E130C07</ManifestCertificateThumbprint>
     <ManifestKeyFile>CryptExplorer_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
     <SignManifests>true</SignManifests>
     <StartupObject>
     </StartupObject>
@@ -120,7 +120,7 @@
     <Compile Include="Asn1Decoder\Asn1TreeView.Designer.cs">
       <DependentUpon>Asn1TreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Asn1Decoder\BaseDocument.cs" />
+    <Compile Include="DocumentModel\BaseDocument.cs" />
     <Compile Include="Asn1Decoder\Asn1Viewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,9 +151,9 @@
     <Compile Include="Asn1Decoder\DocumentWindow.Designer.cs">
       <DependentUpon>DocumentWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Asn1Decoder\FileDocument.cs" />
-    <Compile Include="Asn1Decoder\X509Document.cs" />
-    <Compile Include="Asn1Decoder\X509Object.cs" />
+    <Compile Include="DocumentModel\FileDocument.cs" />
+    <Compile Include="DocumentModel\X509Document.cs" />
+    <Compile Include="DocumentModel\X509Object.cs" />
     <Compile Include="CertManager\CertificateListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -216,7 +216,10 @@
     </Compile>
     <Compile Include="Commanding\CloseDocumentCommand.cs" />
     <Compile Include="Commanding\Commands.cs" />
-    <Compile Include="Commanding\OpenDocumentCommand.cs" />
+    <Compile Include="Commanding\BaseOpenDocumentCommand.cs" />
+    <Compile Include="Commanding\OpenCertificateCommand.cs" />
+    <Compile Include="Commanding\OpenExistingDocumentCommand.cs" />
+    <Compile Include="Commanding\OpenFileCommand.cs" />
     <Compile Include="Commanding\Verbs.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelperExtensions.cs" />

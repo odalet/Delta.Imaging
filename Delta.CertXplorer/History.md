@@ -1,7 +1,10 @@
 CertXplorer Versions History
 ============================
 
-**Now CryptExplorer is CertXplorer and is Open-source.** See [License.md](./License.md)
+Version 2.3.3.0 (2013/08/25)
+----------------------------
+* Refactoring of commands/verbs system
+
 
 Version 2.3.2 (2013/08/24)
 --------------------------
@@ -21,6 +24,8 @@ Version 2.3.0 (2013/08/15)
 * Plugins: 
 	* **CryptoHelperPlugin** Version 1.0.1 (Fixed missing docking)
 	* **Pluralsight's plugin**: fixed bad window placement + removed min/max buttons + not resizable (in **Pluralsight.Crypto** assembly; hence Version 1.1.1). 
+
+**Now CryptExplorer is CertXplorer and is Open-source.** See [License.md](./License.md)
 
 -----------------------------------------------------------------------------------------
 

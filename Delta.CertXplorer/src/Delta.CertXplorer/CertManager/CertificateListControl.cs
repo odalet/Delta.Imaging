@@ -15,6 +15,7 @@ using Delta.CertXplorer.Services;
 using Delta.CertXplorer.Commanding;
 using Delta.CertXplorer.Asn1Decoder;
 using Delta.CertXplorer.CertManager.Wrappers;
+using Delta.CertXplorer.DocumentModel;
 
 namespace Delta.CertXplorer.CertManager
 {
@@ -111,7 +112,7 @@ namespace Delta.CertXplorer.CertManager
                         crl, CurrentStoreName, CurrentStoreLocation);
                 }
 
-                if (x509 != null) Commands.RunVerb(x509, Verbs.OpenCertificateDocument);
+                if (x509 != null) Commands.RunVerb(Verbs.OpenCertificate, x509);
             };
 
             viewInformationAction.Run += (s, ev) =>

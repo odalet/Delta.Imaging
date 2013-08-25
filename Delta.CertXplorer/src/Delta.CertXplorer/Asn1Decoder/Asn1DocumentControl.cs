@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 
 using Delta.CertXplorer.UI.Theming;
+using Delta.CertXplorer.DocumentModel;
 
 namespace Delta.CertXplorer.Asn1Decoder
 {

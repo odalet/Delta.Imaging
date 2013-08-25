@@ -1,184 +1,144 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Delta.CertXplorer.Asn1Decoder;
+using Delta.CertXplorer.DocumentModel;
 
 namespace Delta.CertXplorer.Commanding
 {
     internal static partial class Commands
     {
-        private class BindingDescriptor
+        private class CommandBindingDescriptor
         {
-            private BindingDescriptor(IVerb verb, Type commandType, bool isDefaultBinding)
+            private CommandBindingDescriptor(IVerb verb, Type commandType, Type targetType, bool isDefaultBinding)
             {
                 Verb = verb;
                 CommandType = commandType;
+                TargetType = targetType;
                 IsDefaultBinding = isDefaultBinding;
             }
-            
-            public static BindingDescriptor Create<C>(IVerb verb, bool isDefaultBinding) where C : ICommand
+
+            public static CommandBindingDescriptor Create<V, C>(Type targetType = null, bool isDefaultBinding = false)
+                where V : IVerb
+                where C : ICommand
             {
-                if (verb == null) verb = NullVerb.Instance;
-                return new BindingDescriptor(verb, typeof(C), isDefaultBinding);
+                if (targetType == null && isDefaultBinding)
+                    throw new ArgumentException("Can't have both a null target type and default binding set.", "targetType, isDefaultBinding");
+
+                var verb = CreateVerb<V>();
+                return new CommandBindingDescriptor(verb, typeof(C), targetType, isDefaultBinding);
+            }
+
+            private static IVerb CreateVerb<V>() where V : IVerb
+            {
+                IVerb verb = null;
+                var verbType = typeof(V);
+                try
+                {
+                    verb = (IVerb)Activator.CreateInstance(verbType);
+                }
+                catch (Exception ex)
+                {
+                    This.Logger.Error(string.Format(
+                        "Could not create an instance of verb type {0}: {1}",
+                        verbType, ex.Message), ex);
+                    throw;
+                }
+
+                if (verb == null)
+                {
+                    var message = string.Format(
+                        "Could not convert the verb type {0} to IVerb", verbType);
+                    This.Logger.Error(message);
+                    throw new InvalidCastException(message);
+                }
+
+                return verb;
             }
 
             public Type CommandType { get; private set; }
+            public Type TargetType { get; private set; }
             public IVerb Verb { get; private set; }
             public bool IsDefaultBinding { get; private set; }
         }
 
-        private static Dictionary<Type, List<BindingDescriptor>> commandBindings = new Dictionary<Type, List<BindingDescriptor>>();
+        ////private static Dictionary<Type, List<BindingDescriptor>> commandBindings = new Dictionary<Type, List<BindingDescriptor>>();
+        private static Dictionary<Type, List<CommandBindingDescriptor>> commandBindings = new Dictionary<Type, List<CommandBindingDescriptor>>();
 
-        //private static readonly ICommand ViewDetectionFlowsCommand;
-        //private static readonly ICommand PurgeDetectionFlowsCommand;
-        
         static Commands()
         {
-            AddCommandBinding<string, OpenFileDocumentVerb, OpenFileDocumentCommand>();
-            AddCommandBinding<X509Object, OpenCertificateDocumentVerb, OpenCertificateDocumentCommand>();
-            AddCommandBinding<FileDocument, OpenExistingDocumentVerb, OpenExistingDocumentCommand>();
-            AddCommandBinding<X509Document, OpenExistingDocumentVerb, OpenExistingDocumentCommand>();
-            AddCommandBinding<FileDocument, CloseDocumentVerb, CloseDocumentCommand>();
-            AddCommandBinding<X509Document, CloseDocumentVerb, CloseDocumentCommand>();
-
-            //AddCommandBinding<BuildingDTO, CreateVerb, CreateBuildingCommand>();
-            //AddCommandBinding<FloorDTO, CreateVerb, CreateFloorCommand>();
-            //AddCommandBinding<RoomDTO, CreateVerb, CreateRoomCommand>();
-
-            //// Bind Types/Verbs to commands and set default verb
-            //AddCommandBinding<CameraDTO, CreateVerb, CreateCameraCommand>();
-            //AddCommandBinding<CameraDTO, EditVerb, EditCommand>(true);
-            //AddCommandBinding<CameraDTO, DeleteVerb, DeleteCameraCommand>();
-
-            //AddCommandBinding<PersonDTO, CreateVerb, CreatePersonCommand>();
-            //AddCommandBinding<PersonDTO, EditVerb, EditCommand>(true);
-            //AddCommandBinding<PersonDTO, DeleteVerb, DeletePersonCommand>();
-            //AddCommandBinding<PersonProxyDTO, EditVerb, EditCommand>(true);
-            //AddCommandBinding<PersonProxyDTO, DeleteVerb, DeletePersonProxyCommand>();
-
-            //if (Globals.CanEditDoors)
-            //{
-            //    AddCommandBinding<Door, CreateVerb, CreateDoorCommand>();
-            //    AddCommandBinding<Door, EditVerb, EditCommand>(true);
-            //    AddCommandBinding<Door, DeleteVerb, DeleteDoorCommand>();
-            //}
-            //else
-            //{
-            //    AddCommandBinding<Door, CreateVerb, NullCommand>();
-            //    AddCommandBinding<Door, EditVerb, NullCommand>(true);
-            //    AddCommandBinding<Door, DeleteVerb, NullCommand>();
-            //}
-
-            //// Other commands
-            //ViewDetectionFlowsCommand = new ViewDetectionFlowsCommand();
-            //PurgeDetectionFlowsCommand = new PurgeDetectionFlowsCommand();            
+            AddCommandBinding<OpenFileVerb, OpenFileCommand>(typeof(string));
+            AddCommandBinding<OpenCertificateVerb, OpenCertificateCommand>(typeof(X509Object));
+            AddCommandBinding<OpenExistingDocumentVerb, OpenExistingDocumentCommand>(typeof(FileDocument), typeof(X509Document));
+            AddCommandBinding<CloseDocumentVerb, CloseDocumentCommand>(typeof(FileDocument), typeof(X509Document));        
         }
 
-        public static void RunVerb(object commandTarget, IVerb verb, params object[] otherArguments)
+        public static void RunVerb(IVerb verb, params object[] arguments)
         {
-            if (commandTarget == null)
-            {
-                This.Logger.Warning(
-                    "RunCommand was invoked with a null target object.");
-                return;
-            }
-
-            RunVerb(commandTarget, commandTarget.GetType(), verb, otherArguments);
+            RunVerb<object>(verb, arguments);
         }
 
-        public static void RunVerb<T>(IVerb verb, params object[] otherArguments)
+        public static void RunVerb<T>(IVerb verb, params T[] arguments)
         {
-            RunVerb(null, typeof(T), verb, otherArguments);
+            RunVerbImpl(verb, arguments == null ? new object[0] : arguments.Cast<object>().ToArray(), typeof(T));
         }
 
-        public static void RunVerb(Type commandTargetType, IVerb verb, params object[] otherArguments)
-        {
-            if (commandTargetType == null)
-            {
-                This.Logger.Warning(
-                    "RunCommand was invoked with a null target object type.");
-                return;
-            }
-
-            RunVerb(null, commandTargetType, verb, otherArguments);
-        }
-
-        public static void RunDefaultVerb(object commandTarget, params object[] otherArguments)
-        {
-            if (commandTarget == null)
-            {
-                This.Logger.Warning(
-                    "RunDefaultCommand was invoked with a null target object.");
-                return;
-            }
-
-            Type targetType = commandTarget.GetType();
-            BindingDescriptor descriptor = FindDefaultDescriptor(targetType);
-
-            if (descriptor != null) ExecuteCommand(
-                descriptor.CommandType, commandTarget, descriptor.Verb, otherArguments);
-        }
-        
         #region Implementation
 
-        private static void RunVerb(object commandTarget, Type commandTargetType, IVerb verb, params object[] otherArguments)
+        private static void RunVerbImpl(IVerb verb, object[] arguments, Type firstArgumentType = null)
         {
             if (verb == null) verb = NullVerb.Instance;
+            if (firstArgumentType == null)
+            {
+                if (arguments != null && arguments.Length > 0)
+                    firstArgumentType = arguments[0].GetType();
+            }
 
-            var descriptor = FindDescriptor(commandTargetType, verb);
-            Type commandType = descriptor == null ? null : descriptor.CommandType;
+            var descriptor = FindDescriptor(verb, firstArgumentType);
+            var commandType = descriptor == null ? null : descriptor.CommandType;
 
             if (commandType == null)
             {
                 This.Logger.Error(string.Format(
                     "Could not find a command associated to Objects of type {0} with Verb {1}.",
-                    commandTargetType, verb.Name));
+                    firstArgumentType == null ? "<null>" : firstArgumentType.ToString(), verb.Name));
                 return;
             }
 
-            ExecuteCommand(commandType, commandTarget, verb, otherArguments);
+            ExecuteCommand(commandType, verb, arguments);
         }
 
-        private static BindingDescriptor FindDescriptor(Type targetType, IVerb verb)
+        private static CommandBindingDescriptor FindDescriptor(IVerb verb, Type targetType)
         {
-            if (!commandBindings.ContainsKey(targetType)) return null;
             if (verb == null) verb = NullVerb.Instance;
+            var verbType = verb.GetType();
 
-            BindingDescriptor found = null;
-            foreach (var descriptor in commandBindings[targetType])
+            if (!commandBindings.ContainsKey(verbType)) return null;
+
+            var list = commandBindings[verbType];
+
+            CommandBindingDescriptor result = null;
+            if (targetType != null)
             {
-                if (descriptor.Verb != null && descriptor.Verb.Name == verb.Name)
-                {
-                    found = descriptor;
-                    break;
-                }
+                result = list.FirstOrDefault(b => b.TargetType != null && b.TargetType == targetType); // exact matching
+                if (result != null) return result;
+
+                result = list.FirstOrDefault(b => b.TargetType != null && b.TargetType.IsA(targetType)); // inheritance matching
+                if (result != null) return result;
             }
 
-            return found;
+            return list.FirstOrDefault(b => b.TargetType == null); // non-typed commands
         }
 
-        private static BindingDescriptor FindDefaultDescriptor(Type targetType)
-        {
-            if (!commandBindings.ContainsKey(targetType)) return null;
-
-            BindingDescriptor found = null;
-            foreach (var descriptor in commandBindings[targetType])
-            {
-                if (descriptor.IsDefaultBinding)
-                {
-                    found = descriptor;
-                    break;
-                }
-            }
-
-            return found;
-        }
-        
-        private static void ExecuteCommand(Type commandType, object commandTarget, IVerb verb, params object[] otherArguments)
+        private static void ExecuteCommand(Type commandType, IVerb verb, object[] arguments)
         {
             // We have a commandType. Construct it and invoke it.
             ICommand command = null;
-            try { command = (ICommand)Activator.CreateInstance(commandType); }
+            try
+            {
+                command = (ICommand)Activator.CreateInstance(commandType);
+            }
             catch (Exception ex)
             {
                 This.Logger.Error(string.Format(
@@ -195,55 +155,51 @@ namespace Delta.CertXplorer.Commanding
             }
 
             // We have a command object. Invoke it
-            if (otherArguments != null && otherArguments.Length > 0)
+            else command.Run(verb, arguments);
+        }
+
+        private static void AddCommandBinding<V, C>(params Type[] acceptedTargetTypes)
+            where V : IVerb
+            where C : ICommand
+        {
+            foreach (var tt in acceptedTargetTypes)
             {
-                var args = new object[otherArguments.Length + 2];
-                args[0] = commandTarget;
-                args[1] = verb;
-                for (int i = 0; i < otherArguments.Length; i++)
-                    args[i + 2] = otherArguments[i];
-                command.Run(args);
-            }        
-            else command.Run(commandTarget, verb);
+                var acceptedTargetType = tt;
+                AddCommandBinding<V, C>(acceptedTargetType, false);
+            }
         }
 
-        private static void AddCommandBinding<T, V, C>() 
-            where V : IVerb, new()
+        private static void AddCommandBinding<V, C>(Type acceptedTargetType = null, bool isDefaultBinding = false)
+            where V : IVerb
             where C : ICommand
         {
-            AddCommandBinding<T, V, C>(false);
-        }
+            ////////var type = typeof(T);
+            ////var commandType = typeof(C);
 
-        private static void AddCommandBinding<T, V, C>(bool isDefaultBinding) 
-            where V : IVerb, new()
-            where C : ICommand
-        {
-            AddCommandBinding<T, C>(new V(), isDefaultBinding);
-        }
+            ////////if (verb == null) verb = NullVerb.Instance;
 
-        private static void AddCommandBinding<T, C>(IVerb verb) 
-            where C : ICommand
-        {
-            AddCommandBinding<T, C>(verb, false);
-        }
+            var verbType = typeof(V);
 
-        private static void AddCommandBinding<T, C>(IVerb verb, bool isDefaultBinding) 
-            where C : ICommand
-        {
-            var type = typeof(T);
-            var commandType = typeof(C);
-
-            if (verb == null) verb = NullVerb.Instance;            
-            
-            List<BindingDescriptor> descriptors = null;
-            if (commandBindings.ContainsKey(type)) descriptors = commandBindings[type];
+            List<CommandBindingDescriptor> list = null;
+            if (commandBindings.ContainsKey(verbType)) list = commandBindings[verbType];
             else
             {
-                descriptors = new List<BindingDescriptor>();
-                commandBindings.Add(type, descriptors);
+                list = new List<CommandBindingDescriptor>();
+                commandBindings.Add(verbType, list);
             }
 
-            descriptors.Add(BindingDescriptor.Create<C>(verb, isDefaultBinding));
+            var descriptor = CommandBindingDescriptor.Create<V, C>(acceptedTargetType, isDefaultBinding);
+            list.Add(descriptor);
+
+            ////List<CommandBindingDescriptor> descriptors = null;
+            ////if (commandBindings.ContainsKey(type)) descriptors = commandBindings[type];
+            ////else
+            ////{
+            ////    descriptors = new List<CommandBindingDescriptor>();
+            ////    commandBindings.Add(type, descriptors);
+            ////}
+
+            ////descriptors.Add(CommandBindingDescriptor.Create<V, C>(acceptedTargetType, isDefaultBinding));
         }
 
         #endregion

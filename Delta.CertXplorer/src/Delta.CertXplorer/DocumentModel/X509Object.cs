@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 
 using Delta.CapiNet;
 
-namespace Delta.CertXplorer.Asn1Decoder
+namespace Delta.CertXplorer.DocumentModel
 {
     /// <summary>
     /// Wraps either a X509 certificate, a CRL or a CTL (certificate trust list).

@@ -16,32 +16,32 @@ namespace Delta.CertXplorer.Commanding
             get { return GetType().ToString(); }
         }
 
+        /// <summary>
+        /// Gets the verb this command was invoked with.
+        /// </summary>
+        protected IVerb Verb { get; private set; }
+
         #region ICommand Members
 
         /// <summary>
         /// Runs the command with the specified arguments.
         /// </summary>
-        /// <param name="arguments">The arguments.</param>
-        public virtual void Run(params object[] arguments)
+        /// <param name="verb">The verb this command was invoked from (informative).</param>
+        /// <param name="arguments">The command arguments.</param>
+        public virtual void Run(IVerb verb, params object[] arguments)
         {
-            string targetAsString = string.Empty;
-            string verbAsString = string.Empty;
+            Verb = verb ?? NullVerb.Instance;
 
-            if (arguments.Length == 0)
-            {
+            var targetAsString = string.Empty;
+            if (arguments == null || arguments.Length == 0)
                 targetAsString = "NO TARGET";
-                verbAsString = "NO VERB";
-            }
-            
-            if (arguments.Length >= 1)
+            else
                 targetAsString = arguments[0] == null ? "NULL" : arguments[0].ToString();
-            if (arguments.Length >= 2)
-            {
-                if (arguments[1] is IVerb) verbAsString = ((IVerb)arguments[1]).Name;
-                else verbAsString = string.Format("NOT A VERB: {0}", arguments[1]);
-            }
 
-            This.Logger.Verbose(string.Format("Command [{0}] invoked on target [{1}] with verb [{2}]", Name, targetAsString, verbAsString));
+            if (arguments != null && arguments.Length > 1) This.Logger.Verbose(string.Format(
+                "Command [{0}] invoked on target [{1}] with verb [{2}]; additional arguments count={3}.", Name, targetAsString, verb.Name, arguments.Length - 1));
+            else This.Logger.Verbose(string.Format(
+                "Command [{0}] invoked on target [{1}] with verb [{2}].", Name, targetAsString, verb.Name));
         }
 
         #endregion
@@ -56,38 +56,44 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommand&lt;T&gt;"/> class.
         /// </summary>
-        public BaseCommand() : this(false) { }
+        public BaseCommand() : this(true) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommand&lt;T&gt;"/> class.
         /// </summary>
         /// <param name="allowNull">if set to <c>true</c> [allow null].</param>
-        public BaseCommand(bool allowNull) : base()
+        public BaseCommand(bool allowDefault) : base()
         {
-            AllowNull = allowNull;
+            AllowDefault = allowDefault;
         }
 
         /// <summary>
-        /// Gets or sets the target of the command (this is the 1st parameter of the Run method).
+        /// Gets a value indicating whether the target of the command can be <c>default(T)</c>.
         /// </summary>
-        /// <value>The target.</value>
-        protected T Target { get; set; }
+        protected bool AllowDefault { get; private set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the target of the command can be null.
+        /// Gets the target of the command (this is the 1st argument in the list passed to the Run method).
         /// </summary>
-        /// <value><c>true</c> if [allow null]; otherwise, <c>false</c>.</value>
-        protected bool AllowNull { get; set; }
-
+        protected T Target { get; private set; }
+                
+        /// <summary>
+        /// Gets all the arguments passed to this command (including the target as the first argument).
+        /// </summary>
+        protected object[] Arguments { get; private set; }
+        
         /// <summary>
         /// Runs the command with the specified arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        public override void Run(params object[] arguments)
+        public override void Run(IVerb verb, params object[] arguments)
         {
-            base.Run(arguments);
+            base.Run(verb, arguments); // for logging purpose
             ParseArguments(arguments);
+            RunCommand();
         }
+
+        protected abstract void RunCommand();
 
         /// <summary>
         /// Parses the specified arguments.
@@ -95,19 +101,20 @@ namespace Delta.CertXplorer.Commanding
         /// <param name="arguments">The arguments.</param>
         protected virtual void ParseArguments(object[] arguments)
         {
-            if (arguments.Length == 0) throw new ApplicationException(string.Format(
-                "No arguments were provided to this command ({0}).", Name));
+            var target = default(T);
 
-            var target = arguments[0];
-            if (target == null)
-            {
-                if (AllowNull) Target = default(T); 
-                else throw new ApplicationException(string.Format(
-                    "The argument provided to this command ({0}) is null.", Name));                
-            }
-            else if (target is T) Target = (T)target;
-            else throw new ApplicationException(string.Format(
-                    "The type of the object targetted by the command is invalid: {0}", target.GetType()));
+            if (arguments == null || arguments.Length == 0 && !AllowDefault) throw new ApplicationException(string.Format(
+                "No arguments were provided to command [{0}].", Name));
+
+            var targetObject = arguments[0];
+            if (targetObject == null && !AllowDefault) throw new ApplicationException(string.Format(
+                "Null argument was provided to command [{0}].", Name));
+
+            if (!(targetObject is T)) throw new ApplicationException(string.Format(
+                "Invalid argument type ({0}) was provided to command [{1}].", targetObject.GetType(), Name));
+
+            Arguments = arguments ?? new object[0];
+            Target = (T)target;
         }
     }
 }

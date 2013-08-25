@@ -3,9 +3,9 @@ namespace Delta.CertXplorer.Commanding
 {
     internal static class Verbs
     {
-        public static readonly IVerb OpenFileDocument = new OpenFileDocumentVerb();
-        public static readonly IVerb OpenCertificateDocument = new OpenCertificateDocumentVerb();
-        public static readonly IVerb OpenExistingDocument = new OpenExistingDocumentVerb();
+        public static readonly IVerb OpenFile = new OpenFileVerb();
+        public static readonly IVerb OpenCertificate = new OpenCertificateVerb();
+        public static readonly IVerb OpenExisting = new OpenExistingDocumentVerb();
         public static readonly IVerb CloseDocument = new CloseDocumentVerb();
     }
 
@@ -14,14 +14,14 @@ namespace Delta.CertXplorer.Commanding
         public OpenExistingDocumentVerb() : base("OPEN_EXISTING_DOCUMENT") { }
     }
 
-    internal class OpenFileDocumentVerb : BaseVerb
+    internal class OpenFileVerb : BaseVerb
     {
-        public OpenFileDocumentVerb() : base("OPEN_FILE_DOCUMENT") { }
+        public OpenFileVerb() : base("OPEN_FILE") { }
     }
 
-    internal class OpenCertificateDocumentVerb : BaseVerb
+    internal class OpenCertificateVerb : BaseVerb
     {
-        public OpenCertificateDocumentVerb() : base("OPEN_CERTIFICATE_DOCUMENT") { }
+        public OpenCertificateVerb() : base("OPEN_CERTIFICATE") { }
     }
 
     internal class CloseDocumentVerb : BaseVerb

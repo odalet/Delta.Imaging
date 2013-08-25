@@ -1,21 +1,24 @@
-﻿using System.IO;
+﻿using System;
 
-namespace Delta.CertXplorer.Asn1Decoder
+namespace Delta.CertXplorer.DocumentModel
 {
-    /// <summary>
-    /// A file-based document
-    /// </summary>
-    internal class FileDocument : BaseDocument
+    internal class X509Document : BaseDocument
     {
-        private string filename = string.Empty;
+        private string displayName = string.Empty;
+        private X509Object x509data = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileDocument"/> class.
+        /// Initializes a new instance of the <see cref="X509Document"/> class.
         /// </summary>
-        /// <param name="file">The file.</param>
-        public FileDocument(string file) : base()
+        /// <param name="storeName">Name of the store.</param>
+        /// <param name="storeLocation">The store location.</param>
+        /// <param name="x509">The X509.</param>
+        public X509Document(X509Object x509) : base()
         {
-            filename = file;
+            if (x509 == null) 
+                throw new ArgumentNullException("x509");
+
+            x509data = x509;
             base.OpenDocument();
         }
 
@@ -25,7 +28,7 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// <value>The document caption.</value>
         public override string DocumentCaption
         {
-            get { return filename; }
+            get { return x509data.DisplayName; }
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// <returns>An array of bytes.</returns>
         protected override byte[] CreateData()
         {
-            return File.ReadAllBytes(filename);
+            return x509data.Data;
         }
 
         /// <summary>
@@ -49,8 +52,11 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// </exception>
         public override bool Equals(object obj)
         {
-            if (obj is FileDocument)
-                return ((FileDocument)obj).filename.Equals(filename);
+            if (obj is X509Document)
+            {
+                return ((X509Document)obj).x509data.Equals(x509data) &&
+                    ((X509Document)obj).displayName.Equals(displayName);
+            }
             return false;
         }
 
@@ -60,6 +66,12 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() { return filename.GetHashCode(); }
+        public override int GetHashCode()
+        {
+            if (x509data == null) return 0;
+            else return x509data.GetHashCode() ^ displayName.GetHashCode();
+        }
+
+        
     }
 }

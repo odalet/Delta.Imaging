@@ -23,15 +23,10 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Runs the command with the specified arguments.
         /// </summary>
-        /// <param name="arguments">The arguments.</param>
-        public override void Run(params object[] arguments)
+        protected override void RunCommand()
         {
-            if (arguments != null && arguments.Length > 0)
-            {
-                var doc = (BaseDocument)arguments[0];
-                if (doc != null)
-                This.GetService<IDocumentManagerService>(true).CloseDocument(doc);
-            }
+            if (Target != null)
+                This.GetService<IDocumentManagerService>(true).CloseDocument(Target);
         }
     }
 }

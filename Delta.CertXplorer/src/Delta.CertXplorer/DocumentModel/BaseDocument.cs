@@ -1,7 +1,6 @@
-﻿
-using Delta.CertXplorer.DocumentModel;
+﻿using Delta.CertXplorer.Asn1Decoder;
 
-namespace Delta.CertXplorer.Asn1Decoder
+namespace Delta.CertXplorer.DocumentModel
 {
     /// <summary>
     /// Base document for ASN1 viewer

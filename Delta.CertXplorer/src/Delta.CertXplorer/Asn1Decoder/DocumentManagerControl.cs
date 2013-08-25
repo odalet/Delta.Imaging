@@ -122,7 +122,7 @@ namespace Delta.CertXplorer.Asn1Decoder
             tvExplorer.NodeMouseDoubleClick += (s, ev) =>
             {
                 var doc = ev.Node.Tag as Document;
-                if (doc != null) Commands.RunVerb(doc, Verbs.OpenExistingDocument);
+                if (doc != null) Commands.RunVerb(Verbs.OpenExisting, doc);
                     //services.GetService<IDocumentManagerService>(true).OpenDocument(doc);
             };
 
@@ -134,7 +134,7 @@ namespace Delta.CertXplorer.Asn1Decoder
                     foreach (string doc in docList)
                     {
                         if (File.Exists(doc))
-                            Commands.RunVerb(doc, Verbs.OpenFileDocument);
+                            Commands.RunVerb(Verbs.OpenFile, doc);
                     }
                 }
             };
@@ -156,13 +156,13 @@ namespace Delta.CertXplorer.Asn1Decoder
             openAction.Run += (s, ev) =>
             {
                 var doc = SelectedDocument;
-                if (doc != null) Commands.RunVerb(doc, Verbs.OpenExistingDocument);
+                if (doc != null) Commands.RunVerb(Verbs.OpenExisting, doc);
             };
 
             closeAction.Run += (s, ev) =>
             {
                 var doc = SelectedDocument;
-                if (doc != null) Commands.RunVerb(doc, Verbs.CloseDocument);
+                if (doc != null) Commands.RunVerb(Verbs.CloseDocument, doc);
             };
         }
 
