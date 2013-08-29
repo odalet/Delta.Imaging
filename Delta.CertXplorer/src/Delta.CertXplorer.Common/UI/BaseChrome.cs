@@ -161,13 +161,7 @@ namespace Delta.CertXplorer.UI
         protected override void OnLoad(EventArgs e)
         {
             layoutService = This.GetService<ILayoutService>();
-            workspace.ActiveDocumentChanged += (s, ev) =>
-            {
-                //var hostForm = workspace.ActiveDocument as ModuleHostForm;
-                //// We update ActiveModuleHostForm even if hostForm is null.
-                //modulesManager.ActiveModuleHostForm = hostForm;
-                OnActiveDocumentChanged();
-            };
+            workspace.ActiveDocumentChanged += (s, ev) => OnActiveDocumentChanged();
             RegisterForm(); // registers this form for layout serialization
 
             base.OnLoad(e);
@@ -510,13 +504,6 @@ namespace Delta.CertXplorer.UI
                 Controls.SetChildIndex(controls[index], index);
                 index++;
             }
-
-                        
-            //Controls.SetChildIndex(rightToolStripPanel, 0);
-            //Controls.SetChildIndex(leftToolStripPanel, 1);
-            //Controls.SetChildIndex(topToolStripPanel, 2);
-            //Controls.SetChildIndex(bottomToolStripPanel, 3);
-            ////Controls.SetChildIndex(workspace, 4);
         }
 
         #endregion

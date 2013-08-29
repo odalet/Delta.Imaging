@@ -172,11 +172,6 @@ namespace Delta.CertXplorer.Commanding
             where V : IVerb
             where C : ICommand
         {
-            ////////var type = typeof(T);
-            ////var commandType = typeof(C);
-
-            ////////if (verb == null) verb = NullVerb.Instance;
-
             var verbType = typeof(V);
 
             List<CommandBindingDescriptor> list = null;
@@ -189,16 +184,6 @@ namespace Delta.CertXplorer.Commanding
 
             var descriptor = CommandBindingDescriptor.Create<V, C>(acceptedTargetType, isDefaultBinding);
             list.Add(descriptor);
-
-            ////List<CommandBindingDescriptor> descriptors = null;
-            ////if (commandBindings.ContainsKey(type)) descriptors = commandBindings[type];
-            ////else
-            ////{
-            ////    descriptors = new List<CommandBindingDescriptor>();
-            ////    commandBindings.Add(type, descriptors);
-            ////}
-
-            ////descriptors.Add(CommandBindingDescriptor.Create<V, C>(acceptedTargetType, isDefaultBinding));
         }
 
         #endregion

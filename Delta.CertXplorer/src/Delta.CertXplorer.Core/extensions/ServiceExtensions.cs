@@ -98,29 +98,6 @@ namespace Delta.CertXplorer
             serviceContainer.AddService(typeof(T), serviceInstance, promote);
         }
 
-        ///// <summary>
-        ///// Adds the service.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        ///// <param name="serviceSelectorInstance">The service selector instance.</param>
-        //public static void AddService<T>(this IServiceContainer serviceContainer, ServiceSelector<T> serviceSelectorInstance) where T : class
-        //{
-        //    AddSelector<T>(serviceContainer, serviceSelectorInstance, false);
-        //}
-
-        ///// <summary>
-        ///// Adds the service.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        ///// <param name="serviceSelectorInstance">The service selector instance.</param>
-        ///// <param name="promote">if set to <c>true</c> [promote].</param>
-        //public static void AddService<T>(this IServiceContainer serviceContainer, ServiceSelector<T> serviceSelectorInstance, bool promote) where T : class
-        //{
-        //    AddSelector<T>(serviceContainer, serviceSelectorInstance, promote);
-        //}
-
         /// <summary>
         /// Supprime le type de service spécifié du conteneur de service
         /// et promeut éventuellement la demande vers les conteneurs de service parents.
@@ -141,53 +118,6 @@ namespace Delta.CertXplorer
         {
             serviceContainer.RemoveService(typeof(T));
         }
-
-        ///// <summary>
-        ///// Adds the selector.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        ///// <param name="serviceSelector">The service selector.</param>
-        //public static void AddSelector<T>(this IServiceContainer serviceContainer, ServiceSelector<T> serviceSelector) where T : class
-        //{
-        //    AddSelector<T>(serviceContainer, serviceSelector, false);
-        //}
-
-        ///// <summary>
-        ///// Adds the selector.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        ///// <param name="serviceSelector">The service selector.</param>
-        ///// <param name="promote">if set to <c>true</c> [promote].</param>
-        //public static void AddSelector<T>(this IServiceContainer serviceContainer, ServiceSelector<T> serviceSelector, bool promote) where T : class
-        //{
-        //    if (serviceSelector == null) throw new ArgumentNullException("serviceSelector");
-        //    serviceSelector.AddSelectorToContainer(serviceContainer, promote);
-        //}
-
-        ///// <summary>
-        ///// Removes the selector.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        //public static void RemoveSelector<T>(this IServiceContainer serviceContainer) where T : class
-        //{
-        //    RemoveSelector<T>(serviceContainer, false);
-        //}
-
-        ///// <summary>
-        ///// Removes the selector.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serviceContainer">The service container.</param>
-        ///// <param name="promote">if set to <c>true</c> [promote].</param>
-        //public static void RemoveSelector<T>(this IServiceContainer serviceContainer, bool promote) where T : class
-        //{
-        //    IServiceSelector<T> serviceSelector = serviceContainer.GetService<IServiceSelector<T>>();
-        //    if ((serviceSelector != null) && (serviceSelector is ServiceSelector<T>))
-        //        ((ServiceSelector<T>)serviceSelector).RemoveSelectorFromContainer(promote);
-        //}
 
         #endregion
     }

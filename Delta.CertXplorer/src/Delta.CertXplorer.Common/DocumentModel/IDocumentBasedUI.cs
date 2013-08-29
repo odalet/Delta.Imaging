@@ -3,7 +3,7 @@
 namespace Delta.CertXplorer.DocumentModel
 {
     /// <summary>
-    /// Implemented by forms that can handle multiple documents.
+    /// Implemented by forms that can handle multiple document views.
     /// </summary>
     public interface IDocumentBasedUI
     {

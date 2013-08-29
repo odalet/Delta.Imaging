@@ -156,17 +156,7 @@ namespace Delta.CertXplorer.UI
 
         public EditActionState EditActionState
         {
-            get
-            {
-                //// Vérification de cohérence de l'état des parents
-                //TreeNodeEx parentNode = base.Parent as TreeNodeEx;
-                //if ((parentNode != null) && 
-                //    (parentNode.EditActionState != EditActionState.None) &&
-                //    (parentNode.EditActionState != editActionState))
-                //    editActionState = parentNode.EditActionState;
-
-                return editActionState;
-            }
+            get { return editActionState; }
             set
             {
                 if (value != editActionState)

@@ -95,11 +95,11 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="About\AboutCertExplorerForm.cs">
+    <Compile Include="About\AboutCertXplorerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="About\AboutCertExplorerForm.Designer.cs">
-      <DependentUpon>AboutCertExplorerForm.cs</DependentUpon>
+    <Compile Include="About\AboutCertXplorerForm.Designer.cs">
+      <DependentUpon>AboutCertXplorerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="About\AboutCertXplorerService.cs" />
     <Compile Include="About\AboutPluginsControl.cs">
@@ -120,7 +120,6 @@
     <Compile Include="Asn1Decoder\Asn1TreeView.Designer.cs">
       <DependentUpon>Asn1TreeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="DocumentModel\BaseAsn1Document.cs" />
     <Compile Include="Asn1Decoder\Asn1Viewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,15 +144,13 @@
     <Compile Include="Asn1Decoder\DocumentManagerWindow.Designer.cs">
       <DependentUpon>DocumentManagerWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Asn1Decoder\DocumentWindow.cs">
+    <Compile Include="Asn1Decoder\Asn1DocumentView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Asn1Decoder\DocumentWindow.Designer.cs">
-      <DependentUpon>DocumentWindow.cs</DependentUpon>
+    <Compile Include="Asn1Decoder\Asn1DocumentView.Designer.cs">
+      <DependentUpon>Asn1DocumentView.cs</DependentUpon>
     </Compile>
-    <Compile Include="DocumentModel\FileDocument.cs" />
-    <Compile Include="DocumentModel\FileDocumentSource.cs" />
-    <Compile Include="DocumentModel\X509Document.cs" />
+    <Compile Include="DocumentModel\Asn1DocumentHandler.cs" />
     <Compile Include="DocumentModel\X509DocumentSource.cs" />
     <Compile Include="DocumentModel\X509Object.cs" />
     <Compile Include="CertManager\CertificateListControl.cs">
@@ -225,6 +222,9 @@
     <Compile Include="Commanding\Verbs.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelperExtensions.cs" />
+    <Compile Include="Pem\PemDocument.cs" />
+    <Compile Include="Pem\PemDocumentHandler.cs" />
+    <Compile Include="Pem\PemInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="About\AboutPluginsControl.resx">
@@ -247,8 +247,8 @@
       <DependentUpon>DocumentManagerControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Asn1Decoder\DocumentWindow.resx">
-      <DependentUpon>DocumentWindow.cs</DependentUpon>
+    <EmbeddedResource Include="Asn1Decoder\Asn1DocumentView.resx">
+      <DependentUpon>Asn1DocumentView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CertManager\CertificateListControl.resx">
       <DependentUpon>CertificateListControl.cs</DependentUpon>
@@ -416,9 +416,7 @@
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -33,26 +33,6 @@ namespace Delta.CertXplorer.About
             var page = new TabPage("Plugins");
             page.Controls.Add(CreatePluginsPage());
 
-            //base.Tabs.TabBorderColor = Color.FromArgb(130, 0, 0);
-            //base.Tabs.TextColor = Color.FromArgb(130, 0, 0);
-
-            ////var text = string.Format("{0} Version {1}", Program.ApplicationName, ThisAssembly.Version);
-            ////var splash = new Bitmap(base.Splash);
-            ////var rect = new RectangleF(0f, 0f, (float)splash.Width, (float)splash.Height);
-
-            ////using (var g = Graphics.FromImage(splash))
-            ////using (var sf = new StringFormat(StringFormatFlags.NoWrap))
-            ////using (var font = new Font(FontFamily.GenericSerif, 24f, FontStyle.Bold))
-            ////{
-            ////    sf.Alignment = StringAlignment.Center;
-            ////    sf.LineAlignment = StringAlignment.Center;
-            ////    g.DrawString(text, font, Brushes.Black, rect, sf);
-            ////}
-
-            ////var old = base.Splash;
-            ////base.Splash = splash;
-            ////old.Dispose();
-
             base.Tabs.TabPages.Add(page);
         }
 

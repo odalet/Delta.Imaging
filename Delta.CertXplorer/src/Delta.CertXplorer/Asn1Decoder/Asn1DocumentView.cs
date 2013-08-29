@@ -4,14 +4,14 @@ using Delta.CertXplorer.DocumentModel;
 
 namespace Delta.CertXplorer.Asn1Decoder
 {
-    public partial class DocumentWindow : DockContent, IDocumentView
+    public partial class Asn1DocumentView : DockContent, IDocumentView
     {
-        private BaseAsn1Document document = null;
+        private IDocument document = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentWindow"/> class.
+        /// Initializes a new instance of the <see cref="Asn1DocumentView"/> class.
         /// </summary>
-        public DocumentWindow()
+        public Asn1DocumentView()
         {
             InitializeComponent();
         }
@@ -23,6 +23,17 @@ namespace Delta.CertXplorer.Asn1Decoder
         /// </summary>
         public event EventHandler ViewClosed;
 
+        public void SetDocument(IDocument doc)
+        {
+            if (doc == null) throw new ArgumentNullException("doc");
+            if (!(doc is IDocumentData<byte[]>)) throw new NotSupportedException(string.Format(
+                "Documents of type {0} are not supported in this view.", document.GetType()));
+
+            document = doc;
+            asn1Viewer.SetData(((IDocumentData<byte[]>)document).Data);
+            base.Text = document.Caption;
+        }
+
         /// <summary>
         /// Gets the document diplayed by this view.
         /// </summary>
@@ -30,16 +41,6 @@ namespace Delta.CertXplorer.Asn1Decoder
         public IDocument Document
         {
             get { return document; }
-            internal set
-            {
-                if (value == null)  throw new ArgumentNullException("value");
-                if (!(value is BaseAsn1Document)) throw new NotSupportedException(string.Format(
-                    "Documents of type {0} are not supported in this view.", document.GetType()));
-
-                document = (BaseAsn1Document)value;
-                asn1Viewer.Document = document;
-                base.Text = document.DocumentCaption;
-            }
         }
 
         #endregion

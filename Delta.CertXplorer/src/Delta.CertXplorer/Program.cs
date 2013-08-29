@@ -10,6 +10,7 @@ using Delta.CertXplorer.ApplicationModel;
 using Delta.CertXplorer.About;
 using Delta.CertXplorer.DocumentModel;
 using Delta.CertXplorer.PluginsManagement;
+using Delta.CertXplorer.Pem;
 
 namespace Delta.CertXplorer
 {
@@ -55,6 +56,9 @@ namespace Delta.CertXplorer
             var foo = base.LayoutSettingsFileName;
             base.AddOtherServices();
             This.AddService<IAboutService>(new AboutCertXplorerService());
+            
+            This.AddService<IDocumentHandlerRegistryService>(
+                DocumentFactory.CreateDocumentHandlerRegistryService());
         }
 
         protected override ILogService CreateLogService()
@@ -95,13 +99,23 @@ namespace Delta.CertXplorer
             }
 
             This.AddService<IDocumentManagerService>(
-                DocumentManagerFactory.CreateManager(chrome));
+                DocumentFactory.CreateDocumentManagerService(chrome));
+
+            // Load document builders & view builders
+            LoadBuilders();
 
             // Now tell the form what files it should open when launched.            
             if (base.CommandLineArguments != null && base.CommandLineArguments.Length > 0)
                 chrome.FilesToOpenAtStartup.AddRange(base.CommandLineArguments); 
 
             return chrome;
+        }
+
+        private void LoadBuilders()
+        {
+            var registry = This.GetService<IDocumentHandlerRegistryService>(true);
+            registry.Register(() => new Asn1DocumentHandler());
+            registry.Register(() => new PemDocumentHandler(), 1000);
         }
 
         /// <summary>

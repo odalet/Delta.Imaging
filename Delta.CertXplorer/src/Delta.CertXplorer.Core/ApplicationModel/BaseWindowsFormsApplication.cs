@@ -105,34 +105,7 @@ namespace Delta.CertXplorer.ApplicationModel
 
             // Layout
             AddService<ILayoutService>(CreateLayoutService());
-
-            //// Database
-            //if (EnableDatabase)
-            //{
-            //    AddService<IDatabaseProviderService>(CreateDatabaseProviderService());
-            //    AddService<IDatabaseService>(CreateDatabaseService());
-            //    // This doesn't end with 'Service', but it is considered as a service as well.
-            //    AddService<IConnectionStringProvider>(CreateConnectionStringProvider());
-
-            //    TestDatabaseConnection(); // may throw
-            //}
-
-            //AddService<IAuthenticationService>(CreateAuthenticationService());
-            //if (ProcessAuthenticationResult(Authenticate()))
-            //{
-            //    AddThemingService();
-
-            //    AddOtherServices();
-
-            //    //DiscoverModules();
-            //    //modulesManager = CreateModulesManager();
-
-            //    if (OnBeforeShowMainForm())
-            //        ShowMainForm();
-            //    else This.Logger.Info("The application didn't load due to the result of 'OnBeforeShowMainForm'.");
-            //}            
-            //else This.Logger.Info("The authentication process verification didn't allow the application to load.");
-
+            
             AddThemingService();
             AddOtherServices();
             if (OnBeforeCreateMainForm()) ShowMainForm();
@@ -214,33 +187,6 @@ namespace Delta.CertXplorer.ApplicationModel
 
         #endregion
 
-        //#region Authentication
-
-        ///// <summary>
-        ///// Gets the lambda that checks if the current user is allowed to a role.
-        ///// </summary>
-        ///// <remarks>
-        ///// In this implementation, the lambda always return <c>true</c>.
-        ///// This means the user is authorized to anything.
-        ///// </remarks>
-        ///// <value>The 'is in role' lambda.</value>
-        //protected Func<string, bool> IsInRoleFunc
-        //{
-        //    get { return role => true; }
-        //}
-
-        ///// <summary>
-        ///// Creates a <see cref="IPrincipal"/> object specific to this application.
-        ///// </summary>
-        ///// <param name="originalPrincipal">The original principal returned by the authentication process.</param>
-        ///// <returns>An instance of <see cref="IPrincipal"/>.</returns>
-        //protected override IPrincipal CreatePrincipal(IPrincipal originalPrincipal)
-        //{
-        //    return new BasePrincipal(originalPrincipal, IsInRoleFunc);
-        //}
-
-        //#endregion
-
         #region Theming
 
         /// <summary>
@@ -272,82 +218,6 @@ namespace Delta.CertXplorer.ApplicationModel
 
         #endregion
 
-        //#region Modules
-
-        ///// <summary>
-        ///// Gets or sets the discovered modules descriptors.
-        ///// </summary>
-        ///// <value>The discovered modules descriptors.</value>
-        //protected ModuleDescriptorCollection DiscoveredModuleDescriptors { get; set; }
-
-        ///// <summary>
-        ///// Gets or sets the authorized modules descriptors.
-        ///// </summary>
-        ///// <value>The authorized modules descriptors.</value>
-        //protected ModuleDescriptorCollection AuthorizedModuleDescriptors { get; set; }
-
-        //protected string ModuleDiscoveryPattern { get; set; }
-
-        ///// <summary>
-        ///// Discovers the modules.
-        ///// </summary>
-        ///// <remarks>
-        ///// This method fills two module collections: 
-        ///// <see cref="DiscoveredModuleDescriptors"/> and <see cref="AuthorizedModuleDescriptors"/>.
-        ///// </remarks>
-        //protected virtual void DiscoverModules()
-        //{
-        //    ModuleFactory.DiscoveryOptions |= DiscoveryOptions.IncludeExecutables;
-        //    ModuleFactory.Discover(GetModuleDiscoveryPatterns());
-        //    DiscoveredModuleDescriptors = ModuleFactory.Descriptors;
-
-        //    // Test for security
-        //    var principal = Thread.CurrentPrincipal;
-        //    AuthorizedModuleDescriptors = new ModuleDescriptorCollection();
-
-        //    var pairs = DiscoveredModuleDescriptors.Pairs;
-        //    if ((pairs == null) || (pairs.Count == 0)) return;
-
-        //    foreach (var pair in pairs)
-        //    {
-        //        bool isInRole = false;
-
-        //        var functions = pair.Value.Functions;
-        //        // if no functions are defined, we consider the user is authorized to the module.
-        //        if ((functions == null) || (functions.Length == 0))
-        //            isInRole = true;
-        //        else
-        //        {
-        //            // TODO: should check if arrays of functions mean
-        //            // The user must be in all roles or in one role among these.                
-        //            foreach (var function in functions)
-        //            {
-        //                if (principal.IsInRole(function)) isInRole = true;
-        //            }
-        //        }
-
-        //        if (isInRole) AuthorizedModuleDescriptors.Add(pair.Key, pair.Value);
-        //    }
-        //}
-
-        //protected virtual string[] GetModuleDiscoveryPatterns()
-        //{
-        //    if (string.IsNullOrEmpty(ModuleDiscoveryPattern)) return null;
-        //    else return new string[] { ModuleDiscoveryPattern };
-        //}
-
-        ///// <summary>
-        ///// Creates the modules manager.
-        ///// </summary>
-        //protected virtual BaseModulesManager CreateModulesManager()
-        //{
-        //    return new BaseModulesManager(AuthorizedModuleDescriptors);
-        //}
-
-        //protected BaseModulesManager ModulesManager { get { return modulesManager; } }
-
-        //#endregion
-
         #region Main Form
 
         /// <summary>
@@ -359,18 +229,6 @@ namespace Delta.CertXplorer.ApplicationModel
         {
             get { return true; }
         }
-
-        ///// <summary>
-        ///// Creates the main form.
-        ///// </summary>
-        ///// <returns>A <see cref="System.Windows.Forms.Form"/> instance.</returns>
-        //protected virtual Form CreateMainForm()
-        //{
-        //    var form = new BaseApplicationForm();
-        //    form.ModulesManager = ModulesManager;
-        //    form.AutoOpenModules = AutoOpenModules;
-        //    return form;
-        //}
 
         /// <summary>
         /// Creates the main form.

@@ -60,10 +60,12 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\dockpanel\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
@@ -73,10 +75,24 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DocumentModel\BaseDocumentHandler.cs" />
     <Compile Include="DocumentModel\BaseDocument.cs" />
+    <Compile Include="DocumentModel\BinaryDocument.cs" />
+    <Compile Include="DocumentModel\DefaultDocumentHandler.cs" />
+    <Compile Include="DocumentModel\IDocumentHandler.cs" />
+    <Compile Include="DocumentModel\DocumentHandlerRegistryService.cs" />
+    <Compile Include="DocumentModel\IDocumentHandlerRegistryService.cs" />
+    <Compile Include="DocumentModel\IDocumentData.cs" />
+    <Compile Include="DocumentModel\FileDocumentSource.cs" />
     <Compile Include="DocumentModel\IDocumentSource.cs" />
     <Compile Include="Internals\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\DefaultDocumentView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DefaultDocumentView.Designer.cs">
+      <DependentUpon>DefaultDocumentView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\HexViewer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,9 +113,9 @@
     <Compile Include="Commanding\IVerb.cs" />
     <Compile Include="Commanding\NullCommand.cs" />
     <Compile Include="Commanding\NullVerb.cs" />
-    <Compile Include="DocumentModel\Document.cs" />
+    <Compile Include="DocumentModel\IDocument.cs" />
     <Compile Include="DocumentModel\documentEvent.cs" />
-    <Compile Include="DocumentModel\DocumentManagerFactory.cs" />
+    <Compile Include="DocumentModel\DocumentFactory.cs" />
     <Compile Include="DocumentModel\DocumentManagerService.cs" />
     <Compile Include="DocumentModel\IDocumentBasedUI.cs" />
     <Compile Include="DocumentModel\IDocumentManagerService.cs" />
@@ -127,6 +143,7 @@
     <Compile Include="UI\HexViewer.byteProviders.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\IView.cs" />
     <Compile Include="UI\ServicedToolWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\BaseChrome.resx">
       <DependentUpon>BaseChrome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DefaultDocumentView.resx">
+      <DependentUpon>DefaultDocumentView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

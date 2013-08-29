@@ -9,6 +9,7 @@ namespace Delta.CertXplorer.DocumentModel
     internal class DocumentManagerService : IDocumentManagerService
     {
         private IDocumentBasedUI ownerUI = null;
+
         private Dictionary<string, IDocumentView> views = new Dictionary<string, IDocumentView>();
 
         /// <summary>
@@ -34,6 +35,11 @@ namespace Delta.CertXplorer.DocumentModel
         /// <summary>
         /// Occurs when a new document is added.
         /// </summary>
+        public event DocumentEventHandler DocumentCreated;
+
+        /// <summary>
+        /// Occurs when a new document is added.
+        /// </summary>
         public event DocumentEventHandler DocumentAdded;
 
         /// <summary>
@@ -46,6 +52,23 @@ namespace Delta.CertXplorer.DocumentModel
         /// </summary>
         public event DocumentEventHandler DocumentRemoved;
 
+        public IDocument CreateDocument(IDocumentSource source)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            var handler = FindDocumentHandler(source);
+            handler.CreateDocument(source);
+            var document = handler.Document;
+            if (document == null)
+            {
+                This.Logger.Warning(string.Format(
+                    "Document creation failed for source {0}", source.Uri));
+                return null;
+            }
+            
+            OnDocumentCreated(document);
+            return document;
+        }
+        
         /// <summary>
         /// Selects the specified document as the currently active document.
         /// </summary>
@@ -66,16 +89,33 @@ namespace Delta.CertXplorer.DocumentModel
         {
             if (document == null) throw new ArgumentNullException("document");
             if (views.ContainsKey(document.Key))
-                SelectDocument(document);
-            else
             {
-                var view = document.CreateView();
-                view.ViewClosed += (s, e) => CloseDocument(document, false);
-
-                views.Add(document.Key, view);
-                ownerUI.ShowView(views[document.Key]);
-                OnDocumentAdded(document);
+                SelectDocument(document);
+                return;
             }
+
+            var handler = document.Handler;
+            if (handler == null)
+            {
+                This.Logger.Warning(string.Format(
+                    "No handler could be found for document {0}; reverting to default view.", document.Key));
+                handler = new DefaultDocumentHandler();
+            }
+
+            var view = handler.CreateView();
+            if (view == null)
+            {
+                var error = string.Format("Could not create a view for document {0}", document.Key);
+                This.Logger.Error(error);
+                Delta.CertXplorer.UI.ErrorBox.Show(error);
+                return;
+            }
+
+            view.ViewClosed += (s, e) => CloseDocument(document, false);
+
+            views.Add(document.Key, view);
+            ownerUI.ShowView(views[document.Key]);
+            OnDocumentAdded(document);
         }
 
         /// <summary>
@@ -88,6 +128,13 @@ namespace Delta.CertXplorer.DocumentModel
         }
 
         #endregion
+                
+        private IDocumentHandler FindDocumentHandler(IDocumentSource source)
+        {
+            var registry = This.GetService<IDocumentHandlerRegistryService>();
+            var found = registry.Find(source);
+            return found[0]; // TODO: handle multiple results
+        }
 
         /// <summary>
         /// Closes the specified document (and the associated view 
@@ -119,9 +166,19 @@ namespace Delta.CertXplorer.DocumentModel
             {
                 var document = view.Document;
                 var viewInfo = document == null ? view.GetType() : document.GetType();
-                This.Logger.Verbose(string.Format("Disposing view {0}", viewInfo)); 
+                This.Logger.Verbose(string.Format("Disposing view {0}", viewInfo));
                 ((IDisposable)view).Dispose();
             }
+        }
+
+        /// <summary>
+        /// Called when a document is created.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        private void OnDocumentCreated(IDocument document)
+        {
+            if (DocumentCreated != null)
+                DocumentCreated(this, new DocumentEventArgs(document));
         }
 
         /// <summary>

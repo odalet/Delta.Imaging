@@ -788,19 +788,6 @@ namespace Delta.CertXplorer.UI
             set { base.Font = value; }
         }
 
-        ///// <summary>
-        ///// Gets the required creation parameters when the control handle is created.
-        ///// </summary>
-        //protected override CreateParams CreateParams
-        //{
-        //    [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true), SecurityPermission(SecurityAction.InheritanceDemand, UnmanagedCode = true)]
-        //    get
-        //    {
-        //        CreateParams p = base.CreateParams;
-        //        return p;
-        //    }
-        //}
-
         /// <summary>
         /// Not used.
         /// </summary>

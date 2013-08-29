@@ -9,8 +9,9 @@ namespace Delta.CertXplorer.Asn1Decoder
 {
     internal partial class Asn1DocumentControl : UserControl
     {
-        private BaseAsn1Document document = null;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Asn1DocumentControl"/> class.
+        /// </summary>
         public Asn1DocumentControl()
         {
             InitializeComponent();
@@ -27,23 +28,13 @@ namespace Delta.CertXplorer.Asn1Decoder
             showInvalidTaggedObjectsToolStripButton.Checked = viewer.ShowInvalidTaggedObjects;
         }
 
-        /// <summary>
-        /// Gets or sets the document.
-        /// </summary>
-        /// <value>The document.</value>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public BaseAsn1Document Document
+        public void SetData(byte[] bytes)
         {
-            get { return document; }
-            set
-            {
-                document = value;
-                var data = document.Data;
+            var data = bytes;
 
-                // ASN.1 viewer doesn't support (yet) null data!
-                if (data == null) data = new byte[0]; 
-                viewer.Initialize(data);
-            }
+            // ASN.1 viewer doesn't support (yet) null data!
+            if (data == null) data = new byte[0];
+            viewer.Initialize(data);
         }
 
         /// <summary>

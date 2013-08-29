@@ -27,7 +27,7 @@ namespace Delta.CertXplorer.Asn1Decoder
 
             public ContextMenuStrip GetContextMenuStrip(TreeNodeEx node)
             {
-                if (node.Tag != null && node.Tag is BaseAsn1Document)
+                if (node.Tag != null && node.Tag is IDocument)
                     return menuStrip;
                 else return null;
             }
@@ -142,12 +142,12 @@ namespace Delta.CertXplorer.Asn1Decoder
             tvExplorer.DragOver += (s, ev) => ev.Effect = DragDropEffects.Copy;
         }
 
-        private BaseAsn1Document SelectedDocument
+        private IDocument SelectedDocument
         {
             get
             {
                 var node = tvExplorer.SelectedNode;
-                return node.Tag as BaseAsn1Document;
+                return node.Tag as IDocument;
             }
         }
 
@@ -215,8 +215,8 @@ namespace Delta.CertXplorer.Asn1Decoder
                 var tnRoot = filesRoot;
                 
                 var caption = "Document";
-                if (e.Document is BaseAsn1Document)
-                    caption = ((BaseAsn1Document)e.Document).DocumentCaption;
+                if (e.Document is IDocument)
+                    caption = ((IDocument)e.Document).Caption;
 
                 var tn = new TreeNodeEx(caption);
 

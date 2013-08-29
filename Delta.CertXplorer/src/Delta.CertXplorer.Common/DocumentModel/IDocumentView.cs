@@ -1,26 +1,23 @@
 ﻿using System;
+using Delta.CertXplorer.UI;
 
 namespace Delta.CertXplorer.DocumentModel
 {
     /// <summary>
     /// Represents the UI displaying a document.
     /// </summary>
-    public interface IDocumentView
+    public interface IDocumentView : IView
     {
         /// <summary>
-        /// Occurs when this view is closed.
+        /// Sets the document this view displays.
         /// </summary>
-        event EventHandler ViewClosed;
+        /// <param name="doc">The document.</param>
+        void SetDocument(IDocument doc);
 
         /// <summary>
-        /// Gets the document diplayed by this view.
+        /// Gets the document displayed by this view.
         /// </summary>
         /// <value>The document.</value>
         IDocument Document { get; }
-
-        /// <summary>
-        /// Closes this view.
-        /// </summary>
-        void Close();
     }
 }

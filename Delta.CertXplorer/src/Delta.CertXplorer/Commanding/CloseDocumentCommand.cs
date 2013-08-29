@@ -6,7 +6,7 @@ using Delta.CertXplorer.DocumentModel;
 
 namespace Delta.CertXplorer.Commanding
 {
-    internal class CloseDocumentCommand : BaseCommand<BaseAsn1Document>
+    internal class CloseDocumentCommand : BaseCommand<IDocument>
     {
         // Document must exit.
         public CloseDocumentCommand() : base(true) { }

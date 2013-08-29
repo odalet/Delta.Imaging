@@ -1,6 +1,6 @@
 ﻿namespace Delta.CertXplorer.Asn1Decoder
 {
-    partial class DocumentWindow
+    partial class Asn1DocumentView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Asn1DocumentView));
             this.asn1Viewer = new Delta.CertXplorer.Asn1Decoder.Asn1DocumentControl();
             this.SuspendLayout();
             // 

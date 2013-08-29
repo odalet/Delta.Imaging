@@ -567,14 +567,6 @@ namespace Delta.CertXplorer.UI
                 fileStream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
             }
 
-            ///// <summary>
-            ///// Terminates the instance of the FileByteProvider class.
-            ///// </summary>
-            //~FileProvider()
-            //{
-            //    Dispose();
-            //}
-
             /// <summary>
             /// Raises the Changed event.
             /// </summary>

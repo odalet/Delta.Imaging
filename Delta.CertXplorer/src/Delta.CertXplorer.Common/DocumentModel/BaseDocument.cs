@@ -1,69 +1,73 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Delta.CertXplorer.DocumentModel
 {
-    public abstract class BaseDocument<T> : IDocument
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public abstract class BaseDocument : IDocument
     {
-        private string caption = "doc";
-        private T data = default(T);
+        private IDocumentSource documentSource = null;
 
         #region IDocument Members
 
-        public abstract IDocumentView CreateView();
+        public void SetSource(IDocumentSource source)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (documentSource != null) throw new InvalidOperationException("This document's source can only be set once.");
 
+            documentSource = source;
+        }
+
+        /// <summary>
+        /// Gets or sets the document handler associated with this document.
+        /// </summary>
+        [Browsable(false)]
+        public IDocumentHandler Handler { get; set; }
+
+        [Browsable(false)]
         public IDocumentSource Source
         {
-            get { return DocumentSource; }
+            get { return documentSource; }
+        }
+        
+        public string Caption
+        {
+            get
+            {
+                CheckSource();
+                return Source.Uri;
+            }
         }
 
         public string Key
         {
-            get 
+            get
             {
-                if (Source == null) return string.Empty;
-                if (string.IsNullOrEmpty(Source.DataKey)) return string.Empty;
-                return string.Format("doc:{0}", Source.DataKey);
+                CheckSource();
+                return "doc:" + Source.Uri;
             }
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets the document caption as it should appear on the view's title.
-        /// </summary>
-        /// <value>The document caption.</value>
-        public virtual string DocumentCaption
+        
+        protected virtual void CheckSource()
         {
-            get { return caption; }
+            if (Source == null)
+                throw new InvalidOperationException("You must first affect a source to this document.");
         }
+    }
 
-        /// <summary>
-        /// Gets this document's data.
-        /// </summary>
-        /// <value>The data.</value>
+    public abstract class BaseDocument<T> : BaseDocument, IDocumentData<T>
+    {
+        #region IDocumentData<T> Members
+
         public T Data
         {
-            get { return data; }
+            get { return GetData(); }
         }
 
-        protected IDocumentSource<T> DocumentSource
-        {
-            get;
-            set;
-        }
+        #endregion
 
-
-
-        /// <summary>
-        /// Opens the document.
-        /// </summary>
-        protected virtual void OpenDocument()
-        {
-            if (DocumentSource == null) throw new InvalidOperationException(
-                "You must first set the DocumentSource property.");
-
-            data = DocumentSource.CreateData();
-            caption = DocumentSource.Caption;
-        }
+        protected abstract T GetData();
     }
 }

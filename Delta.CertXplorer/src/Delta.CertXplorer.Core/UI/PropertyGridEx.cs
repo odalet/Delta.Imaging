@@ -65,10 +65,10 @@ namespace Delta.CertXplorer.UI
 
         /// <summary>
         /// Gets or sets a value indicating whether the global toolstrip renderer 
-        /// can be overriden in this instance.
+        /// can be overriden in this control.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance can override renderer; otherwise, <c>false</c>.
+        /// 	<c>true</c> if this control can override renderer; otherwise, <c>false</c>.
         /// </value>
         [DefaultValue(true)]
         public bool CanOverrideRenderer { get; set; }

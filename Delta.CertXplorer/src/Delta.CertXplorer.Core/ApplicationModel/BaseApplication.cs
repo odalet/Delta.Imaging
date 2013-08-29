@@ -38,12 +38,6 @@ namespace Delta.CertXplorer.ApplicationModel
         /// <value>The application culture.</value>
         protected string ApplicationCulture { get; set; }
 
-        ///// <summary>
-        ///// Gets or sets a value indicating whether database access is enabled.
-        ///// </summary>
-        ///// <value><c>true</c> if database access is enabled; otherwise, <c>false</c>.</value>
-        //protected bool EnableDatabase { get; set; }
-
         /// <summary>
         /// Gets or sets the name of the application settings file.
         /// </summary>
@@ -56,20 +50,6 @@ namespace Delta.CertXplorer.ApplicationModel
                     applicationSettingsFileName, defaultApplicationSettingsFileName);
             }
             set { applicationSettingsFileName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the database settings file (default value is 'auth.xml').
-        /// </summary>
-        /// <value>The name of the database settings file.</value>
-        protected string DatabaseSettingsFileName
-        {
-            get
-            {
-                return BuildPathRootedFileName(
-                    databaseSettingsFileName, defaultDatabaseSettingsFileName);
-            }
-            set { databaseSettingsFileName = value; }
         }
 
         /// <summary>
@@ -145,174 +125,6 @@ namespace Delta.CertXplorer.ApplicationModel
         }
 
         #endregion
-
-        //#region Database
-
-        ///// <summary>Creates the database provider service.</summary>
-        ///// <remarks>
-        ///// In this implementation, we also add the 4 standard database providers (if found) which
-        ///// are: 
-        ///// <list type="bullet">
-        ///// <item><b>Oracle</b>: based on <c>System.Data.OracleClient</c> (the Microsoft ADO.NET provider for Oracle databases).</item>
-        ///// <item><b>ODP</b>: based on <c>Oracle.DataAccess</c> (the Oracle ADO.NET provider for Oracle databases).</item>
-        ///// <item><b>SqlServer</b>: based on <c>System.Data.SqlClient</c> (the Microsoft ADO.NET provider for SQL Server databases).</item>
-        ///// <item><b>SqlServerCE</b>: based on <c>System.Data.SqlServerCe</c> (the Microsoft ADO.NET provider for SQL Server CE databases).</item>
-        ///// </list>
-        ///// Oracle, ODP, Sql Server and Sql Server CE.
-        ///// </remarks>
-        ///// <returns>An instance of <see cref="IDatabaseProviderService"/>.</returns>
-        //protected virtual IDatabaseProviderService CreateDatabaseProviderService()
-        //{
-        //    var service = new DatabaseProviderService();
-        //    var result = service.AddStandardProviders();
-
-        //    // We check we have at least one provider
-        //    if (result.Values.All(v => !v)) throw new ApplicationException(SR.NoDatabaseProvider);
-
-        //    return service;
-        //}
-
-        ///// <summary>
-        ///// Creates the database service.
-        ///// </summary>
-        ///// <returns>An instance of <see cref="IDatabaseService"/>.</returns>
-        //protected virtual IDatabaseService CreateDatabaseService() { return new DatabaseService(); }
-
-        ///// <summary>
-        ///// Creates the connection string provider.
-        ///// </summary>
-        ///// <remarks>
-        ///// In this implementation, we create a <see cref="XmlConnectionStringProvider"/>
-        ///// and the connection string file is defined according to the property <see cref="DatabaseSettingsFileName"/>.
-        ///// </remarks>
-        ///// <returns>An instance of <see cref="IConnectionStringProvider"/>.</returns>
-        //protected virtual IConnectionStringProvider CreateConnectionStringProvider()
-        //{
-        //    return new XmlConnectionStringProvider(DatabaseSettingsFileName);
-        //}
-
-        ///// <summary>
-        ///// Tests the connection to the default database.
-        ///// </summary>
-        ///// <remarks>
-        ///// If the connection test fails, an exception is thrown.
-        ///// </remarks>
-        //protected virtual void TestDatabaseConnection()
-        //{
-        //    TestDatabaseConnection(string.Empty);
-        //}
-
-        ///// <summary>
-        ///// Tests the connection to the database identified by <paramref name="databaseId"/>.
-        ///// </summary>
-        ///// <param name="databaseId">The database id.</param>
-        ///// <remarks>
-        ///// If the connection test fails, an exception is thrown.
-        ///// </remarks>
-        //protected virtual void TestDatabaseConnection(string databaseId)
-        //{
-        //    var dbService = This.GetService<IDatabaseService>(true);
-        //    try
-        //    {
-        //        // TODO: provide a TestDatabaseConnection method in the Database object.
-        //        var db = dbService.GetDatabase(databaseId);
-        //        using (var connection = db.CreateConnection())
-        //        {
-        //            connection.Open();
-        //            connection.Close();
-        //        }
-
-        //        This.Logger.Verbose("Connection test was successful");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        This.Logger.Fatal(ex);
-        //        throw new ApplicationException(string.Format(
-        //            SR.DatabaseConnectionFailedWithReason, ex.Message), ex);
-        //    }
-        //}
-
-        //#endregion
-
-        //#region Authentication
-
-        /////// <summary>
-        /////// Gets the lambda that checks if the current user is allowed to a role.
-        /////// </summary>
-        /////// <remarks>
-        /////// In this implementation, the lambda always return <c>true</c>.
-        /////// This means the user is authorized to anything.
-        /////// </remarks>
-        /////// <value>The 'is in role' lambda.</value>
-        ////protected Func<string, bool> IsInRoleFunc
-        ////{
-        ////    get { return role => true; }
-        ////}
-
-        ///// <summary>
-        ///// Creates the authentication service.
-        ///// </summary>
-        ///// <returns>/// <returns>An instance of an object implementing <see cref="Delta.CertXplorer.Security.IAuthenticationService"/>.</returns></returns>
-        //protected virtual IAuthenticationService CreateAuthenticationService()
-        //{
-        //    return new WindowsAuthenticationService();
-        //}
-
-        ///// <summary>
-        ///// Authenticates the current user against the current <see cref="Delta.CertXplorer.Security.IAuthenticationService"/>.
-        ///// </summary>
-        ///// <remarks>
-        ///// If the authentication fails, an exception is thrown.
-        ///// </remarks>
-        //protected virtual AuthenticationResult Authenticate()
-        //{
-        //    var service = This.GetService<IAuthenticationService>(true);
-        //    var returnedPrincipal = service.Authenticate(GetCredentials());
-
-        //    if (returnedPrincipal != null) Thread.CurrentPrincipal = CreatePrincipal(returnedPrincipal);
-
-        //    return service.Result;
-        //}
-
-        ///// <summary>
-        ///// Gets the credentials.
-        ///// </summary>
-        //protected virtual ICredentials GetCredentials()
-        //{
-        //    return new WindowsCredentials(false);
-        //}
-
-        ///// <summary>
-        ///// Creates a <see cref="IPrincipal"/> object specific to this application.
-        ///// </summary>
-        ///// <param name="originalPrincipal">The original principal returned by the authentication process.</param>
-        ///// <returns>An instance of <see cref="IPrincipal"/>.</returns>
-        //protected virtual IPrincipal CreatePrincipal(IPrincipal originalPrincipal)
-        //{
-        //    //return new BaseSidesPrincipal(originalPrincipal, IsInRoleFunc);
-        //    return originalPrincipal;
-        //}
-
-        ///// <summary>
-        ///// Decides wether to continue loading the application based on the authentication process result.
-        ///// </summary>
-        ///// <param name="result">The authentication process result.</param>
-        ///// <returns><c>true</c> if the application should load; otherwise, <c>false</c>.</returns>
-        //protected virtual bool ProcessAuthenticationResult(AuthenticationResult result)
-        //{
-        //    switch (result)
-        //    {
-        //        case AuthenticationResult.Success: return true;
-        //        case AuthenticationResult.Canceled: return false;
-        //        case AuthenticationResult.Failed:
-        //            DisplayError(SR.AuthenticationFailedApplicationClosing);
-        //            return false;
-        //    }
-
-        //    return false;
-        //}
-
-        //#endregion
 
         #region Other services
 

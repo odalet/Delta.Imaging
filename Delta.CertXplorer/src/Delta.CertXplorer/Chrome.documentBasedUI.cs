@@ -2,6 +2,7 @@
 
 using Delta.CertXplorer.Asn1Decoder;
 using Delta.CertXplorer.DocumentModel;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace Delta.CertXplorer
 {
@@ -29,9 +30,9 @@ namespace Delta.CertXplorer
         /// <param name="view">The view.</param>
         public void ShowView(IDocumentView view)
         {
-            if (view is DocumentWindow)
-                ((DocumentWindow)view).Show(base.Workspace);
-            else throw new InvalidCastException();
+            if (view is DockContent)
+                ((DockContent)view).Show(base.Workspace);
+            else throw new InvalidCastException(string.Format("Provided view must inherit {0}", typeof(DockContent)));
         }
 
         #endregion

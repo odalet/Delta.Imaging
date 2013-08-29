@@ -90,17 +90,6 @@ namespace Delta.CertXplorer.Diagnostics
             return Show(owner, exception, text, false);
         }
 
-        ///// <summary>
-        ///// Shows an Exception box.
-        ///// </summary>
-        ///// <param name="owner">The owner.</param>
-        ///// <param name="ex">The exception.</param>
-        ///// <returns>Always <see cref="ExceptionBoxResult.Close"/>.</returns>
-        //public static ExceptionBoxResult Show(IWin32Window owner, Exception exception)
-        //{
-        //    return Show(owner, exception, false);
-        //}
-
         /// <summary>
         /// Shows the specified owner.
         /// </summary>

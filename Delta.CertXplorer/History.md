@@ -1,11 +1,11 @@
 CertXplorer Versions History
 ============================
 
-Version 2.3.3.0 (2013/08/25)
-----------------------------
+Version 2.3.3 (2013/08/29)
+--------------------------
 * Refactoring of commands/verbs system
-* Refactoring of documents system
-
+* Refactoring of documents model
+* Added support of PEM files
 
 Version 2.3.2 (2013/08/24)
 --------------------------
@@ -43,7 +43,7 @@ History of CertXplorer's ancestor: CryptExplorer
 
 2.2.1
 -----
-* Fixed plugins version number (they may not be equal to the main app versiojn number
+* Fixed plugins version number (they may not be equal to the main app version number
 * Replaced Error box with an Exception box when a ASN1 document throws
 * Bound log4net to the CapiNet library logging functionality.
 * Fixed parsing of unsupported or buggy tags: doesn't stop the document processing any more.

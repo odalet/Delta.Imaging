@@ -19,8 +19,8 @@ namespace Delta.CertXplorer.CertManager.Wrappers
                 if (value is IDisplayTypeWrapper)
                     return ((IDisplayTypeWrapper)value).DisplayType;
             }
-                
-return base.ConvertTo(context, culture, value, destinationType);            
+
+            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }

@@ -131,6 +131,4 @@ namespace Delta.CertXplorer.CertManager.Wrappers
 
         #endregion
     }
-
-
 }

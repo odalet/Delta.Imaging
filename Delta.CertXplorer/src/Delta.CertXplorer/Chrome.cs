@@ -109,17 +109,6 @@ namespace Delta.CertXplorer
         {
             var fname = Path.IsPathRooted(filename) ? filename : Path.Combine(Environment.CurrentDirectory, filename);
             Commands.RunVerb(Verbs.OpenFile, fname);
-            ////try
-            ////{
-            ////    var document = new FileDocument(fname);
-            ////    This.GetService<Delta.CertXplorer.DocumentModel.IDocumentManagerService>(true)
-            ////        .OpenDocument(document);
-            ////}
-            ////catch (Exception ex)
-            ////{
-            ////    This.Logger.Error(string.Format(
-            ////        "Could not open file {0}: {1}", fname, ex.Message), ex);
-            ////}
         }
 
         private void InitializeActions()

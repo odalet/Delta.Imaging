@@ -27,7 +27,7 @@ namespace CryptoHelperPlugin.UI
             BindMenus();
         }
 
-        public string Text
+        public new string Text
         {
             get { return box.Text; }
             set { box.Text = value; }

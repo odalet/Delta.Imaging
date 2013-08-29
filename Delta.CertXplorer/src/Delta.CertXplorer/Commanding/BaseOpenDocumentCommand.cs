@@ -26,6 +26,6 @@ namespace Delta.CertXplorer.Commanding
         /// </summary>
         /// <param name="arguments">The arguments.</param>
         /// <returns></returns>
-        protected abstract BaseAsn1Document OpenDocument(object[] arguments);
+        protected abstract IDocument OpenDocument(object[] arguments);
     }
 }
