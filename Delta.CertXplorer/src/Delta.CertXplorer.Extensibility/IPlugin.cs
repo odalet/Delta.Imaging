@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Delta.CertXplorer.Extensibility
 {
@@ -21,5 +22,11 @@ namespace Delta.CertXplorer.Extensibility
         /// </summary>
         /// <value>The plugin info.</value>
         IPluginInfo PluginInfo { get; }
+
+        /// <summary>
+        /// Gets the icon representing this plugin.
+        /// </summary>
+        /// <value>The icon.</value>
+        Image Icon { get; }
     }
 }

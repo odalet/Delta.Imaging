@@ -30,18 +30,35 @@ namespace Delta.CertXplorer.PluginsManagement
         }
 
         /// <summary>
-        /// Gets or sets the plugins.
+        /// Gets or sets the global plugins.
         /// </summary>
-        /// <value>The plugins.</value>
         [ImportMany]
-        public IEnumerable<IGlobalPlugin> Plugins { get; set; }
+        public IEnumerable<IGlobalPlugin> GlobalPlugins { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data handler plugins.
+        /// </summary>
+        [ImportMany]
+        public IEnumerable<IDataHandlerPlugin> DataHandlerPlugins { get; set; }
+
+        /// <summary>
+        /// Gets the list of all plugins regardless of their type.
+        /// </summary>
+        public IEnumerable<IPlugin> Plugins
+        {
+            get 
+            {
+                return GlobalPlugins.Cast<IPlugin>().Union(DataHandlerPlugins.Cast<IPlugin>());
+            }
+        }
 
         /// <summary>
         /// Composes: load the available plugins.
         /// </summary>
         public void Compose()
         {
-            Plugins = new List<IGlobalPlugin>();
+            GlobalPlugins = new List<IGlobalPlugin>();
+            DataHandlerPlugins = new List<IDataHandlerPlugin>();
 
             try
             {

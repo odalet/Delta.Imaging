@@ -8,7 +8,7 @@
     <ProjectGuid>{8283484E-906A-4403-919F-435AAB288117}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CryptExplorer.Extensibility</RootNamespace>
+    <RootNamespace>Delta.CertXplorer.Extensibility</RootNamespace>
     <AssemblyName>Delta.CertXplorer.Extensibility</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -67,8 +67,11 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BaseDataHandlerPlugin.cs" />
     <Compile Include="BaseGlobalPlugin.cs" />
+    <Compile Include="BasePlugin.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IDataHandlerPlugin.cs" />
     <Compile Include="IHostService.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="IGlobalPlugin.cs" />

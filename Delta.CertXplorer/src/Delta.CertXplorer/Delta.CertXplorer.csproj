@@ -151,6 +151,9 @@
       <DependentUpon>Asn1DocumentView.cs</DependentUpon>
     </Compile>
     <Compile Include="DocumentModel\Asn1DocumentHandler.cs" />
+    <Compile Include="DocumentModel\extensions.cs" />
+    <Compile Include="DocumentModel\PluginBasedDocument.cs" />
+    <Compile Include="DocumentModel\PluginBasedDocumentHandler.cs" />
     <Compile Include="DocumentModel\X509DocumentSource.cs" />
     <Compile Include="DocumentModel\X509Object.cs" />
     <Compile Include="CertManager\CertificateListControl.cs">
@@ -222,9 +225,6 @@
     <Compile Include="Commanding\Verbs.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelperExtensions.cs" />
-    <Compile Include="Pem\PemDocument.cs" />
-    <Compile Include="Pem\PemDocumentHandler.cs" />
-    <Compile Include="Pem\PemInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="About\AboutPluginsControl.resx">

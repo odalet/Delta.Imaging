@@ -10,11 +10,11 @@ namespace PluralSightSelfCertPlugin
         private static readonly Guid guid = new Guid("{74BAA351-6DC2-4677-B01F-4B6D62428808}");
 
         /// <summary>
-        /// Called when initializing the plugin.
+        /// Called when the plugin is initialized.
         /// </summary>
-        protected override void OnInitialize()
+        protected override void OnInitialized()
         {
-            base.OnInitialize();
+            base.OnInitialized();
 
             if (MessageBox.Show("Throw ?", "?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 throw new ApplicationException("Test Exception");

@@ -1,6 +1,12 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.0 (2013/08/30)
+-------------------------
+* Added the notion of Data Handler Plugins
+* Made PEM support a data handler plugin.
+* Truncated very long Octet and Bit strings in the ASN1 Treeview
+
 Version 2.3.3 (2013/08/29)
 --------------------------
 * Refactoring of commands/verbs system

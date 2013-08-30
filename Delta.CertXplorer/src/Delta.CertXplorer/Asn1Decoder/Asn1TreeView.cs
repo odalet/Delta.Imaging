@@ -50,7 +50,11 @@ namespace Delta.CertXplorer.Asn1Decoder
 
         private void AddAsnNode(Asn1Object asn, TreeNodeEx parent)
         {
-            var treeNode = new TreeNodeEx(asn.ToString());
+            var nodeAsText = asn.ToString();
+            if ((asn is Asn1OctetString || asn is Asn1BitString) && nodeAsText.Length > 40)
+                nodeAsText = nodeAsText.Substring(0, 40) + "...";
+
+            var treeNode = new TreeNodeEx(nodeAsText);
             var imageIndex = GetImageIndex(asn);
             treeNode.SelectedImageIndex = imageIndex;
             treeNode.ImageIndex = imageIndex;

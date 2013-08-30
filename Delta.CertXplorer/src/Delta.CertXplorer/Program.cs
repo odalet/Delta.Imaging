@@ -10,7 +10,6 @@ using Delta.CertXplorer.ApplicationModel;
 using Delta.CertXplorer.About;
 using Delta.CertXplorer.DocumentModel;
 using Delta.CertXplorer.PluginsManagement;
-using Delta.CertXplorer.Pem;
 
 namespace Delta.CertXplorer
 {
@@ -115,7 +114,13 @@ namespace Delta.CertXplorer
         {
             var registry = This.GetService<IDocumentHandlerRegistryService>(true);
             registry.Register(() => new Asn1DocumentHandler());
-            registry.Register(() => new PemDocumentHandler(), 1000);
+
+            foreach (var p in Globals.PluginsManager.DataHandlerPlugins)
+            {
+                var plugin = p;
+                var documentHandler = new PluginBasedDocumentHandler(plugin);
+                registry.RegisterHandlerPlugin(documentHandler); 
+            }
         }
 
         /// <summary>

@@ -130,13 +130,13 @@ namespace Delta.CertXplorer
 
         private void CreatePluginsMenu()
         {
-            if (!Globals.PluginsManager.Plugins.Any()) return;
+            if (!Globals.PluginsManager.GlobalPlugins.Any()) return;
 
             // Create the menu
             var pluginsMenuItem = new ToolStripMenuItem("&Plugins");
             base.MenuStrip.Items.Insert(3, pluginsMenuItem);
 
-            foreach (var plugin in Globals.PluginsManager.Plugins)
+            foreach (var plugin in Globals.PluginsManager.GlobalPlugins)
             {
                 var menuItem = new ToolStripMenuItem(plugin.PluginInfo.Name);
                 var icon = plugin.GetIcon();

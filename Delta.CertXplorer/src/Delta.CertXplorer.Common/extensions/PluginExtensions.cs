@@ -6,7 +6,7 @@ namespace Delta.CertXplorer
 {
     public static class PluginExtensions
     {
-        public static Image GetIcon(this IGlobalPlugin plugin)
+        public static Image GetIcon(this IPlugin plugin)
         {
             if (plugin == null) return null;
             var image = plugin.Icon;

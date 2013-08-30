@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoHelperPlugin", "src\p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.CapiNet", "third-party\Delta.CapiNet\Delta.CapiNet.csproj", "{9D4B19CB-036A-4CB3-A76A-B28DE5EC431B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PemPlugin", "src\plugins\PemPlugin\PemPlugin.csproj", "{B68766EA-4B80-477B-9107-9171F339CC4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{9D4B19CB-036A-4CB3-A76A-B28DE5EC431B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D4B19CB-036A-4CB3-A76A-B28DE5EC431B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D4B19CB-036A-4CB3-A76A-B28DE5EC431B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68766EA-4B80-477B-9107-9171F339CC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68766EA-4B80-477B-9107-9171F339CC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68766EA-4B80-477B-9107-9171F339CC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68766EA-4B80-477B-9107-9171F339CC4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +83,6 @@ Global
 		{9D4B19CB-036A-4CB3-A76A-B28DE5EC431B} = {CA704B3F-70FD-459C-8F68-EF0AA6E5A056}
 		{3FCCB202-8488-4E70-AB52-A0E6B0CC6E76} = {355AA3E8-C822-4DFE-A831-A7574595CE0F}
 		{97C4EA12-8F12-4A2A-92B5-BC282EC14682} = {355AA3E8-C822-4DFE-A831-A7574595CE0F}
+		{B68766EA-4B80-477B-9107-9171F339CC4C} = {355AA3E8-C822-4DFE-A831-A7574595CE0F}
 	EndGlobalSection
 EndGlobal
