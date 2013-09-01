@@ -25,7 +25,7 @@ namespace Delta.CertXplorer.PluginsManagement
         /// </summary>
         public PluginsManager(IEnumerable<string> pluginsDirectoriesArray)
         {
-            ParsePluginDirectories(pluginsDirectoriesArray);            
+            ParsePluginDirectories(pluginsDirectoriesArray);
             AddGlobalServices();
         }
 
@@ -46,7 +46,7 @@ namespace Delta.CertXplorer.PluginsManagement
         /// </summary>
         public IEnumerable<IPlugin> Plugins
         {
-            get 
+            get
             {
                 return GlobalPlugins.Cast<IPlugin>().Union(DataHandlerPlugins.Cast<IPlugin>());
             }
@@ -84,7 +84,7 @@ namespace Delta.CertXplorer.PluginsManagement
         /// <param name="plugin">The plugin to run.</param>
         /// <param name="parent">The parent window.</param>
         /// <param name="shouldDisable">if set to <c>true</c> the plugin should be disabled (because it failed).</param>
-        public void RunPlugin(IGlobalPlugin plugin, IWin32Window parent, out bool shouldDisable)
+        public void Run(IGlobalPlugin plugin, IWin32Window parent, out bool shouldDisable)
         {
             if (plugin == null)
             {
@@ -93,24 +93,32 @@ namespace Delta.CertXplorer.PluginsManagement
                 return;
             }
 
-            if (!initializedPlugins.Contains(plugin))
-            {
-                try { InitializePlugin(plugin); }
-                catch (Exception ex)
-                {
-                    This.Logger.Error("Plugin initialization failed", ex);
-                    shouldDisable = true;
-                    return;
-                }
-                finally
-                {
-                    initializedPlugins.Add(plugin);
-                }
-            }
+            shouldDisable = !Initialize(plugin);
 
             if (!plugin.Run(parent))
                 This.Logger.Warning("This plugin notified that it ended in an error state.");
             shouldDisable = false;
+        }
+
+        public bool Initialize(IPlugin plugin)
+        {
+            if (initializedPlugins.Contains(plugin))
+                return true;
+
+            try 
+            {
+                InitializePlugin(plugin);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                This.Logger.Error("Plugin initialization failed", ex);
+                return false;
+            }
+            finally
+            {
+                initializedPlugins.Add(plugin);
+            }            
         }
 
         /// <summary>
@@ -118,7 +126,7 @@ namespace Delta.CertXplorer.PluginsManagement
         /// </summary>
         /// <param name="directories">The plugins directories list.</param>
         private void ParsePluginDirectories(IEnumerable<string> directories)
-        {            
+        {
             List<string> list = directories == null ?
                 new List<string>(new[] { "." }) : directories.ToList();
             try
@@ -133,7 +141,7 @@ namespace Delta.CertXplorer.PluginsManagement
                     bool exists = Directory.Exists(d);
                     if (!exists)
                         This.Logger.Warning(string.Format("Plugins directory {0} doesn't exist.", d));
-                    return exists;                            
+                    return exists;
                 })
                 .ToArray();
             }

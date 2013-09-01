@@ -87,6 +87,9 @@
     <Compile Include="Capi32.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="CertificateRevocationList.cs" />
+    <Compile Include="Pem\PemInfo.cs" />
+    <Compile Include="Pem\PemKind.cs" />
+    <Compile Include="Pem\PemDecoder.cs" />
     <Compile Include="X509Extensions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Internals\LocalAllocHandle.cs" />

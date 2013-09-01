@@ -43,6 +43,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\third-party\Delta.CapiNet\Delta.CapiNet.csproj">
+      <Project>{9d4b19cb-036a-4cb3-a76a-b28de5ec431b}</Project>
+      <Name>Delta.CapiNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Delta.CertXplorer.Extensibility\Delta.CertXplorer.Extensibility.csproj">
       <Project>{8283484e-906a-4403-919f-435aab288117}</Project>
       <Name>Delta.CertXplorer.Extensibility</Name>

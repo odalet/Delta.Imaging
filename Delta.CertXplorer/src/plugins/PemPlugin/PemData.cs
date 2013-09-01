@@ -1,29 +1,25 @@
-﻿using Delta.CertXplorer.Extensibility;
+﻿using System.ComponentModel;
+using Delta.CapiNet.Pem;
+using Delta.CertXplorer.Extensibility;
 
 namespace PemPlugin
 {
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     internal class PemData : IData
     {
-        #region IData Members
-
-        public byte[] MainData { get; internal set; }
-
-        public object AdditionalData 
+        public PemData(PemInfo info)
         {
-            get
-            {
-                return new
-                {
-                    Header = Header,
-                    Footer = Footer
-                };
-            }
+            MainData = info.Workload;
+            AdditionalData = info;
         }
 
+        #region IData Members
+
+        public byte[] MainData { get; private set; }
+
+        public object AdditionalData { get; private set; }
+
         #endregion
-
-        public string Header { get; set; }
-
-        public string Footer { get; set; }
+        
     }
 }

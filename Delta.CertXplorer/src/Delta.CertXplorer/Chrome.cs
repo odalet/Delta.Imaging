@@ -145,7 +145,7 @@ namespace Delta.CertXplorer
                 menuItem.Click += (s, e) =>
                 {
                     bool shouldDisablePlugin = false;
-                    Globals.PluginsManager.RunPlugin(pluginToRun, this, out shouldDisablePlugin);
+                    Globals.PluginsManager.Run(pluginToRun, this, out shouldDisablePlugin);
                     if (shouldDisablePlugin)
                     {
                         This.Logger.Error("This plugin is failing. It has been deactivated.");

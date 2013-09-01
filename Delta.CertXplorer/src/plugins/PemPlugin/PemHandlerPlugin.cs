@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-
+using Delta.CapiNet.Pem;
 using Delta.CertXplorer.Extensibility;
 
 namespace PemPlugin
@@ -11,8 +9,15 @@ namespace PemPlugin
     {
         private class PemHandler : IDataHandler
         {
-            private byte[] data = null;
+            private PemHandlerPlugin plugin = null;
+            private byte[] fileContent = null;
             private string FileName { get; set; }
+
+            public PemHandler(PemHandlerPlugin parent)
+            {
+                if (parent == null) throw new ArgumentNullException("parent");
+                plugin = parent;
+            }
 
             #region IDataHandler Members            
 
@@ -20,29 +25,30 @@ namespace PemPlugin
             {
                 if (!File.Exists(filename)) throw new FileNotFoundException(string.Format(
                     "File {0} could not be found;", filename));
-
+                
                 FileName = filename;
-                data = File.ReadAllBytes(filename);
+                fileContent = File.ReadAllBytes(filename);
 
-                var s = Encoding.ASCII.GetString(data);
-                return s.StartsWith("-----BEGIN") || s.StartsWith("---- BEGIN");
+                return PemDecoder.IsPemData(fileContent);
             }
 
             public IData ProcessFile()
             {
-                if (data == null) throw new InvalidOperationException("Invalid input data: null");
+                if (fileContent == null) throw new InvalidOperationException("Invalid input data: null");
 
-                var strings = Encoding.ASCII.GetString(data).Split('\r', '\n').Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
-
-                var b64 = string.Join("", strings.Where(s => !s.StartsWith("----")));
-                var workload = Convert.FromBase64String(b64);
-                
-                return new PemData()
+                var decoder = new PemDecoder();
+                var result = decoder.ReadData(fileContent);
+                if (result == null)
                 {
-                    MainData    = workload,
-                    Header = strings[0],
-                    Footer = strings[strings.Length - 1]
-                };
+                    foreach (var error in decoder.Errors)
+                        plugin.Log.Error(error);
+                    return null;
+                }
+
+                foreach (var warning in result.Warnings)
+                    plugin.Log.Warning(warning);
+
+                return new PemData(result);
             }
 
             #endregion
@@ -52,7 +58,7 @@ namespace PemPlugin
 
         public override IDataHandler CreateHandler()
         {
-            return new PemHandler();
+            return new PemHandler(this);
         }
 
         public override IPluginInfo PluginInfo

@@ -1,6 +1,10 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.1 (2013/08/30)
+-------------------------
+* Moved (and improved) PEM decoder to Delta.CapiNet (now version 1.1.0).
+
 Version 2.4.0 (2013/08/30)
 -------------------------
 * Added the notion of Data Handler Plugins

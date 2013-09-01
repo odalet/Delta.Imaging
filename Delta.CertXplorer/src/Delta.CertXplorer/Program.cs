@@ -118,6 +118,12 @@ namespace Delta.CertXplorer
             foreach (var p in Globals.PluginsManager.DataHandlerPlugins)
             {
                 var plugin = p;
+                if (!Globals.PluginsManager.Initialize(plugin))
+                {
+                    This.Logger.Error("Plugin initialization failed. Disabling it.");
+                    continue;
+                }
+
                 var documentHandler = new PluginBasedDocumentHandler(plugin);
                 registry.RegisterHandlerPlugin(documentHandler); 
             }
