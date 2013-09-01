@@ -9,3 +9,7 @@ obj
 *.user
 /Delta.CapiNet/build/*.dll
 /Delta.CapiNet/build
+/Delta.CertXplorer/src/Delta.CertXplorer/Plugins/*.dll
+/Delta.CertXplorer/src/Delta.CertXplorer/Plugins/*.dll
+/Delta.CertXplorer/src/Delta.CertXplorer/Plugins/*.dll
+/Delta.CertXplorer/src/Delta.CertXplorer/Plugins/*.dll

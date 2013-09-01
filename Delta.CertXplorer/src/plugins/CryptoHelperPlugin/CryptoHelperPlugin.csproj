@@ -179,6 +179,9 @@
 if not exist $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\ md $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
 
 copy /y $(TargetDir)$(TargetName).dll $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
-copy /y $(TargetDir)$(TargetName).pdb $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\</PostBuildEvent>
+copy /y $(TargetDir)$(TargetName).pdb $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
+
+rem Copy for deployment
+copy /y $(TargetDir)$(TargetName).dll $(SolutionDir)src\Delta.CertXplorer\Plugins\</PostBuildEvent>
   </PropertyGroup>
 </Project>

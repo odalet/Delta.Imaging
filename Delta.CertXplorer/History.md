@@ -1,6 +1,10 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.3 (2013/08/30)
+-------------------------
+* Fixed ClickOnce deployment settings
+
 Version 2.4.2 (2013/08/30)
 -------------------------
 * Minor changes in ExceptionBox and some extension methods

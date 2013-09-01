@@ -16,7 +16,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ManifestCertificateThumbprint>7D18F8D4F534CC37B646178FCD8EE0D17E130C07</ManifestCertificateThumbprint>
     <ManifestKeyFile>CryptExplorer_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
     <StartupObject>
     </StartupObject>
@@ -28,7 +28,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>ftp://vulcain/install/CryptExplorer/</PublishUrl>
+    <PublishUrl>c:\temp\certx\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -40,12 +40,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://vulcain/install/CryptExplorer/</InstallUrl>
     <UpdateUrl>http://vulcain/install/CryptExplorer/</UpdateUrl>
-    <ProductName>CryptExplorer</ProductName>
-    <PublisherName>Sopra Group</PublisherName>
+    <ProductName>CertXplorer</ProductName>
+    <PublisherName>Delta Software</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.2.1.0</ApplicationVersion>
+    <ApplicationVersion>2.4.3.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -312,6 +312,11 @@
     <None Include="Resources\CheckedUnchecked.png" />
     <None Include="Resources\DefaultPluginIcon.png" />
     <None Include="Resources\Exclamation.png" />
+    <Content Include="Plugins\CryptoHelperPlugin.dll" />
+    <Content Include="Plugins\PemPlugin.dll" />
+    <None Include="Plugins\placeholder.txt" />
+    <Content Include="Plugins\Pluralsight.Crypto.dll" />
+    <Content Include="Plugins\PluralSightSelfCertPlugin.dll" />
     <Content Include="Safe.ico" />
     <None Include="Resources\Refresh.png" />
     <None Include="Resources\OpenFolder.png" />

@@ -118,6 +118,10 @@ copy /y $(TargetDir)$(TargetName).dll $(SolutionDir)src\Delta.CertXplorer\$(OutD
 copy /y $(TargetDir)$(TargetName).pdb $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
 
 copy /Y $(TargetDir)Pluralsight.Crypto.dll  $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
-copy /Y $(TargetDir)Pluralsight.Crypto.pdb  $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\</PostBuildEvent>
+copy /Y $(TargetDir)Pluralsight.Crypto.pdb  $(SolutionDir)src\Delta.CertXplorer\$(OutDir)Plugins\
+
+rem Copy for deployment
+copy /y $(TargetDir)$(TargetName).dll $(SolutionDir)src\Delta.CertXplorer\Plugins\
+copy /Y $(TargetDir)Pluralsight.Crypto.dll  $(SolutionDir)src\Delta.CertXplorer\Plugins\</PostBuildEvent>
   </PropertyGroup>
 </Project>
