@@ -90,6 +90,17 @@ namespace Delta.CertXplorer.Diagnostics
             return Show(owner, exception, text, false);
         }
 
+        ///// <summary>
+        ///// Shows an Exception box.
+        ///// </summary>
+        ///// <param name="owner">The owner.</param>
+        ///// <param name="ex">The exception.</param>
+        ///// <returns>Always <see cref="ExceptionBoxResult.Close"/>.</returns>
+        //public static ExceptionBoxResult Show(IWin32Window owner, Exception exception)
+        //{
+        //    return Show(owner, exception, false);
+        //}
+
         /// <summary>
         /// Shows the specified owner.
         /// </summary>
@@ -187,7 +198,6 @@ namespace Delta.CertXplorer.Diagnostics
             {
                 var exception = (Exception)exceptionObject;
                 tbError.Text = BuildText(exception.Message, userProvidedText);
-                rtb.Text = GetFullText(exception.ToFormattedString()); 
             }
             else
             {
@@ -195,8 +205,9 @@ namespace Delta.CertXplorer.Diagnostics
                 if (exceptionObject == null) exceptionMessage = "?";
                 else exceptionMessage = exceptionObject.ToString();
                 tbError.Text = BuildText(exceptionMessage, userProvidedText);
-                rtb.Text = exceptionMessage;
             }
+
+            rtb.Text = exceptionObject.GetFullDiagnosticsInformation();
         }
 
         private static string BuildText(string message, string text)
@@ -205,24 +216,6 @@ namespace Delta.CertXplorer.Diagnostics
                 return string.IsNullOrEmpty(text) ? string.Empty : text;
             if (string.IsNullOrEmpty(text)) return message;
             return string.Format("{0}\r\n\r\n{1}", text, message);
-        }
-
-        private string GetFullText(string initialString)
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine(initialString);
-            builder.AppendLine();
-            builder.AppendLine(new string('-', 80));
-            builder.AppendLine("Current AppDomain's loaded assemblies:");
-
-            try { AppDomain.CurrentDomain.AppendModuleDescriptions(builder); }
-            catch (Exception ex)
-            {
-                builder.AppendLine(string.Format("Error: Unable to retrieve the loaded assemblies list:\r\n",
-                    ex.ToFormattedString()));
-            }
-
-            return builder.ToString();
         }
 
         private bool IsFullTextVisible

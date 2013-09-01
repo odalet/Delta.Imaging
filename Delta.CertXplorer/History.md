@@ -1,6 +1,11 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.2 (2013/08/30)
+-------------------------
+* Minor changes in ExceptionBox and some extension methods
+* Fixed Version.
+
 Version 2.4.1 (2013/08/30)
 -------------------------
 * Moved (and improved) PEM decoder to Delta.CapiNet (now version 1.1.0).

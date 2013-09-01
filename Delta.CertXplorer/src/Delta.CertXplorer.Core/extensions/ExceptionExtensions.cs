@@ -47,82 +47,97 @@ namespace Delta.CertXplorer
 
 
         /// <summary>
-        /// Returns Exception information intoa formatted string.
+        /// Returns Exception information into a formatted string.
         /// </summary>
         /// <param name="exception">The exception to describe.</param>
         /// <returns>Formated (and indented) string giving information about <paramref name="exception"/></returns>
         public static string ToFormattedString(this Exception exception)
-		{
+        {
             if (exception == null) return string.Empty;
-            			
+
             const string tab = "   ";
-            const string leafEx = " + "; 
+            const string leafEx = " + ";
             const string leafTr = " | ";
             string indent = string.Empty;
 
-			StringBuilder sb = new StringBuilder();
-			for (Exception currentException = exception ; currentException != null ; currentException = currentException.InnerException)
-			{
-                sb.Append(indent);
-                sb.Append(leafEx);
-                sb.Append("[");
-                sb.Append(currentException.GetType().ToString());
-                sb.Append("] ");
-                sb.Append(currentException.Message);
-                sb.Append(Environment.NewLine);
+            var builder = new StringBuilder();
+            for (var currentException = exception; currentException != null; currentException = currentException.InnerException)
+            {
+                builder.Append(indent);
+                builder.Append(leafEx);
+                builder.Append("[");
+                builder.Append(currentException.GetType().ToString());
+                builder.Append("] ");
+                builder.Append(currentException.Message);
+                builder.Append(Environment.NewLine);
 
                 indent += tab;
 
-				if (currentException.StackTrace != null)
-				{
-					string[] stackTrace = currentException.StackTrace
-						.Replace(Environment.NewLine, "\n")
-						.Split('\n');
+                if (currentException.StackTrace == null)
+                    continue;
 
-                    for (int i = 0; i < stackTrace.Length; i++)
-                    {
-                        sb.Append(indent);
-                        sb.Append(leafTr);
-                        sb.Append(stackTrace[i].Trim());
-                        sb.Append(Environment.NewLine);
-                    }
-				}
-			}
+                var stackTrace = currentException.StackTrace
+                    .Replace(Environment.NewLine, "\n").Split('\n');
 
-			return sb.ToString();
+
+                for (int i = 0; i < stackTrace.Length; i++)
+                {
+                    var current = stackTrace[i];
+                    if (string.IsNullOrEmpty(current)) continue;
+
+                    builder.Append(indent);
+                    builder.Append(leafTr);
+                    builder.Append(current.Trim());
+                    builder.Append(Environment.NewLine);
+                }
+            }
+
+            return builder.ToString();
 		}
 
-		/// <summary>
-		/// Renvoie la pile des messages d'une exception
-		/// </summary>
-		/// <remarks>
-		/// On recherche récursivement sur <see cref="System.Exception.InnerException"/> les
-		/// <see cref="System.Exception.Message"/> et on construit une chaîne contenant tous
-		/// les messages indentés.
-		/// </remarks>
-		/// <param name="exception">Exception à traiter</param>
-		/// <returns>tous les messages récupérés</returns>
-		public static string GetMessageStack(this Exception exception)
-		{
-			string tab = "";
-			StringBuilder sb = new StringBuilder();
-			Exception current = exception;
-			while (current != null)
-			{
-				string msg = current.Message;
-				if ((msg == null) || (msg == string.Empty))
-					msg = current.ToString();
-				
-				msg = msg.Replace("\r\n", "\n");
-				msg = msg.Replace("\n", "\r\n" + tab);
-				msg += "\r\n";
-				sb.Append(msg);
+        public static string GetFullDiagnosticsInformation(this object exceptionObject)
+        {
+            if (exceptionObject == null)
+                exceptionObject = "NO EXCEPTION DATA";
+            try
+            {
+                if (exceptionObject is Exception)
+                {
+                    var exception = (Exception)exceptionObject;
+                    return GetFullDiagnosticsText(exception.ToFormattedString());
+                }
+                else
+                {
+                    var exceptionMessage = exceptionObject == null ? "?" : exceptionObject.ToString();
+                    return GetFullDiagnosticsText(exceptionMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                var debugException = ex;
+                return string.Format("Could not retrieve diagnostics data: {0}\r\n{1}", ex.Message, ex.ToFormattedString());
+            }
+        }
 
-				tab += "\t";
-				current = current.InnerException;
-			}
+        private static string GetFullDiagnosticsText(string initialString)
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine(initialString);
+            builder.AppendLine();
+            builder.AppendLine(new string('-', 80));
+            builder.AppendLine("Current AppDomain's loaded assemblies:");
 
-			return sb.ToString();
-		}
+            try
+            {
+                AppDomain.CurrentDomain.AppendModuleDescriptions(builder);
+            }
+            catch (Exception ex)
+            {
+                builder.AppendLine(string.Format("Error: Unable to retrieve the loaded assemblies list:{0}\r\n{1}",
+                    ex.Message, ex.ToFormattedString()));
+            }
+
+            return builder.ToString();
+        }
     }
 }

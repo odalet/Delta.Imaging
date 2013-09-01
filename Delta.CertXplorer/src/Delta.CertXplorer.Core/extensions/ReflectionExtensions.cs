@@ -256,21 +256,19 @@ namespace Delta.CertXplorer
             var versionHeader = SR.Version;
             var pathHeader = SR.Path;
 
-            var data = (from assembly in domain.GetAssemblies()
-                        select new
-                        {
-                            Name = GetTitle(assembly, true),
-                            Version = assembly.GetName().Version.ToString(),
-                            Path = assembly.Location
-                        }).ToList();
+            var data = domain.GetAssemblies().Select(assembly => new
+            {
+                Name = GetTitle(assembly, true),
+                Version = assembly.GetName().Version.ToString(),
+                Path = assembly.GetLocation()
+            }).ToList();
 
-            var q = (from item in data
-                     select new
-                     {
-                         NameLength = data.Max(i => Math.Max(i.Name.Length, nameHeader.Length)),
-                         VersionLength = data.Max(i => Math.Max(i.Version.Length, versionHeader.Length)),
-                         PathLength = data.Max(i => Math.Max(i.Path.Length, pathHeader.Length))
-                     }).First();
+            var q = data.Select(item => new
+            {
+                NameLength = data.Max(i => Math.Max(i.Name.Length, nameHeader.Length)),
+                VersionLength = data.Max(i => Math.Max(i.Version.Length, versionHeader.Length)),
+                PathLength = data.Max(i => Math.Max(i.Path.Length, pathHeader.Length))
+            }).First();
 
             builder.AppendLine(string.Format("{0} {1} {2}",
                 nameHeader.PadRight(q.NameLength),
