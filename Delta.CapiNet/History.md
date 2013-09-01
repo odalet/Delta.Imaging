@@ -1,3 +1,7 @@
+Version 1.1.0 (2013/09/01)
+--------------------------
+* Added a PEM Decoder.
+
 Version 1.0.3
 -------------------------
 * BUGFIX: Fixed handles release code (CertContextHandle and CrlContextHandle)

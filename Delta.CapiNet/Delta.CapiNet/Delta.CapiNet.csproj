@@ -87,6 +87,9 @@
     <Compile Include="Capi32.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="CertificateRevocationList.cs" />
+    <Compile Include="Pem\PemInfo.cs" />
+    <Compile Include="Pem\PemKind.cs" />
+    <Compile Include="Pem\PemDecoder.cs" />
     <Compile Include="X509Extensions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Internals\LocalAllocHandle.cs" />
@@ -121,7 +124,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(TargetPath) $(ProjectDir)..\build\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
