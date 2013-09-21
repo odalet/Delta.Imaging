@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 using Delta.CapiNet.Internals;
@@ -15,13 +15,18 @@ namespace Delta.CapiNet
     {
         #region X509Store extensions
 
+        /// <summary>
+        /// Gets the certificate revocation lists contained in the specified store.
+        /// </summary>
+        /// <param name="store">The X509 Certificates store.</param>
+        /// <returns>A collection of <see cref="CertificateRevocationList"/> objects.</returns>
         public static IEnumerable<CertificateRevocationList> GetCertificateRevocationLists(this X509Store store)
         {
             var handle = CertStoreHandle.FromX509Store(store);
             if (handle.IsInvalid || handle.IsClosed) 
                 return new CertificateRevocationList[0];  // Empty list
 
-            List<CertificateRevocationList> list = new List<CertificateRevocationList>();
+            var list = new List<CertificateRevocationList>();
             for (IntPtr ptr = NativeMethods.CertEnumCRLsInStore(handle, IntPtr.Zero); 
                 ptr != IntPtr.Zero;
                 ptr = NativeMethods.CertEnumCRLsInStore(handle, ptr))
@@ -30,6 +35,16 @@ namespace Delta.CapiNet
             return list;
             
             // Don't free the handle: it is linked to the store object.
+        }
+
+        /// <summary>
+        /// Gets the certificates contained in the specified store.
+        /// </summary>
+        /// <param name="store">The X509 Certificates store.</param>
+        /// <returns>A collection of <see cref="Certificate"/> objects.</returns>
+        public static IEnumerable<Certificate> GetCertificates(this X509Store store)
+        {
+            return store.Certificates.Cast<X509Certificate2>().Select(x509 => new Certificate(x509));
         }
 
         #endregion

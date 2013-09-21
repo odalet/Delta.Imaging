@@ -1,3 +1,10 @@
+Version 1.1.1 (2013/09/21)
+--------------------------
+* Added a few properties to the Certificate class + renamed X509Certificate3 property to X509.
+* Added X509Extensions.GetCertificates method.
+* Refactoring of UI class (extension methods + parameter reordering + added ShowCertificateDialog 
+  methods taking a Certificate object as first parameter (note that this is a breaking change in the API).
+
 Version 1.1.0 (2013/09/01)
 --------------------------
 * Added a PEM Decoder.

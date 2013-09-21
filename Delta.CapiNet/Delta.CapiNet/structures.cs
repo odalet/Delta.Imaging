@@ -1,6 +1,4 @@
-﻿using System;
-
-using Delta.CapiNet.Internals;
+﻿using Delta.CapiNet.Internals;
 
 namespace Delta.CapiNet
 {

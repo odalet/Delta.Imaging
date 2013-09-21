@@ -16,9 +16,9 @@ namespace Delta.CapiNet
         /// This method simply wraps <see cref="System.Security.Cryptography.X509Certificates.ShowCertificateDialog"/>.
         /// </remarks>
         /// <param name="certificate">The certificate.</param>
-        public static void ShowCertificateDialog(X509Certificate2 certificate)
+        public static void ShowCertificateDialog(this X509Certificate2 certificate)
         {
-            ShowCertificateDialog(IntPtr.Zero, certificate);
+            ShowCertificateDialog(certificate, IntPtr.Zero);
         }
 
         /// <summary>
@@ -29,13 +29,38 @@ namespace Delta.CapiNet
         /// </remarks>
         /// <param name="owner">The owner.</param>
         /// <param name="certificate">The certificate.</param>
-        public static void ShowCertificateDialog(IntPtr owner, X509Certificate2 certificate)
+        public static void ShowCertificateDialog(this X509Certificate2 certificate, IntPtr owner)
         {
             X509Certificate2UI.DisplayCertificate(certificate, owner);
         }
 
+        /// <summary>
+        /// Shows the certificate dialog loaded with the specified certificate.
+        /// </summary>
+        /// <remarks>
+        /// This method simply wraps <see cref="System.Security.Cryptography.X509Certificates.ShowCertificateDialog"/>.
+        /// </remarks>
+        /// <param name="certificate">The certificate.</param>
+        public static void ShowCertificateDialog(this Certificate certificate)
+        {
+            ShowCertificateDialog(certificate, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Shows the certificate dialog loaded with the specified certificate.
+        /// </summary>
+        /// <remarks>
+        /// This method simply wraps <see cref="System.Security.Cryptography.X509Certificates.ShowCertificateDialog"/>.
+        /// </remarks>
+        /// <param name="owner">The owner.</param>
+        /// <param name="certificate">The certificate.</param>
+        public static void ShowCertificateDialog(this Certificate certificate, IntPtr owner)
+        {
+            X509Certificate2UI.DisplayCertificate(certificate.X509, owner);
+        }
+
         // Alternate way to show the same dialog
-        private static void ShowCertDialog(IntPtr owner, string title, X509Certificate cert)
+        private static void ShowCertDialog(X509Certificate cert, IntPtr owner, string title)
         {
             NativeMethods.CryptUIDlgViewContext(
                 CapiConstants.CERT_STORE_CERTIFICATE_CONTEXT,
@@ -50,21 +75,21 @@ namespace Delta.CapiNet
 
         #region ShowCrlDialog
 
-        public static void ShowCrlDialog(CertificateRevocationList crl)
+        public static void ShowCrlDialog(this CertificateRevocationList crl)
         {
-            ShowCrlDialog(IntPtr.Zero, null, crl);
+            ShowCrlDialog(crl, IntPtr.Zero, null);
         }
 
-        public static void ShowCrlDialog(string title, CertificateRevocationList crl)
+        public static void ShowCrlDialog(this CertificateRevocationList crl, string title)
         {
-            ShowCrlDialog(IntPtr.Zero, title, crl);
+            ShowCrlDialog(crl, IntPtr.Zero, title);
         }
-        public static void ShowCrlDialog(IntPtr owner, CertificateRevocationList crl)
+        public static void ShowCrlDialog(this CertificateRevocationList crl, IntPtr owner)
         {
-            ShowCrlDialog(owner, null, crl);
+            ShowCrlDialog(crl, owner, null);
         }
 
-        public static void ShowCrlDialog(IntPtr owner, string title, CertificateRevocationList crl)
+        public static void ShowCrlDialog(this CertificateRevocationList crl, IntPtr owner, string title)
         {
             NativeMethods.CryptUIDlgViewContext(
                 CapiConstants.CERT_STORE_CRL_CONTEXT,

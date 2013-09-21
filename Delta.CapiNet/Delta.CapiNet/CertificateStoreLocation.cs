@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using Delta.CapiNet.Internals;
 
 namespace Delta.CapiNet
 {
@@ -12,9 +9,16 @@ namespace Delta.CapiNet
     public class CertificateStoreLocation
     {
         private SystemStoreLocationInfo locationInfo = new SystemStoreLocationInfo();
-        
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="CertificateStoreLocation"/> class from being created.
+        /// </summary>
         private CertificateStoreLocation() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CertificateStoreLocation"/> class.
+        /// </summary>
+        /// <param name="systemStoreLocationInfo">The system store location info.</param>
         internal CertificateStoreLocation(SystemStoreLocationInfo systemStoreLocationInfo) 
         {
             locationInfo = systemStoreLocationInfo;
