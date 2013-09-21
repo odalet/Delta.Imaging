@@ -4,14 +4,19 @@ using System.Security.Cryptography;
 namespace Delta.CertXplorer.CertManager.Wrappers
 {
     [TypeConverter(typeof(CustomExpandableObjectConverter))]
-    internal class OidWrapper : IDisplayTypeWrapper
+    internal class OidWrapper : BaseWrapper, IDisplayTypeWrapper
     {
         private Oid oid = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OidWrapper"/> class.
+        /// </summary>
+        /// <param name="o">The oid.</param>
         public OidWrapper(Oid o) { oid = o; }
 
-        public string FriendlyName { get { return oid.FriendlyName; } }
-        public string Value { get { return oid.Value; } }
+        public string FriendlyName { get { return TryGet(() => oid.FriendlyName); } }
+
+        public string Value { get { return TryGet(() => oid.Value); } }
 
         #region IDisplayTypeWrapper Members
 

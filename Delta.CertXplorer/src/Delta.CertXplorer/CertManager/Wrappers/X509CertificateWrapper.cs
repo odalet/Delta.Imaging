@@ -3,9 +3,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Delta.CertXplorer.CertManager.Wrappers
 {
-    internal class X509CertificateWrapper
+    internal class X509CertificateWrapper : BaseWrapper
     {
-        private X509Certificate x509 = null;
+        private readonly X509Certificate x509;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="X509CertificateWrapper"/> class.
@@ -21,20 +21,5 @@ namespace Delta.CertXplorer.CertManager.Wrappers
         public string Issuer { get { return TryGet(() => x509.Issuer); } }
         
         public string Subject { get { return TryGet(() => x509.Subject); } }
-
-        protected static T TryGet<T>(Func<T> function)
-        {
-            try
-            {
-                return function();
-            }
-            catch (Exception ex)
-            {
-                This.Logger.Error(string.Format("Could not execute function: {0}", ex.Message), ex);
-            }
-
-            return default(T);
-        }
-
     }
 }

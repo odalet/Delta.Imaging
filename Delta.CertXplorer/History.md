@@ -1,6 +1,12 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.4 (2013/09/21)
+-------------------------
+* Delta.CapiNet: Version 1.1.1
+* Crl Wrapper used in property grids
+* BUGFIX: Certificates viewer was cleared when a new tab opened (after double-clicking a certificate for example).
+
 Version 2.4.3 (2013/08/30)
 -------------------------
 * Fixed ClickOnce deployment settings

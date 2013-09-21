@@ -150,6 +150,10 @@
     <Compile Include="Asn1Decoder\Asn1DocumentView.Designer.cs">
       <DependentUpon>Asn1DocumentView.cs</DependentUpon>
     </Compile>
+    <Compile Include="CertManager\Wrappers\BaseWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\CapiCertificateWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\CapiCrlWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\ObjectWrapper.cs" />
     <Compile Include="DocumentModel\Asn1DocumentHandler.cs" />
     <Compile Include="DocumentModel\extensions.cs" />
     <Compile Include="DocumentModel\PluginBasedDocument.cs" />

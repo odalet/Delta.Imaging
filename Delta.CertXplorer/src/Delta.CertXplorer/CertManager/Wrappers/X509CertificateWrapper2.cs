@@ -7,7 +7,7 @@ namespace Delta.CertXplorer.CertManager.Wrappers
 {
     internal class X509CertificateWrapper2 : X509CertificateWrapper
     {
-        private X509Certificate2 x509 = null;
+        private readonly X509Certificate2 x509;
         private X509ExtensionWrapper[] extensions = null;
 
         /// <summary>

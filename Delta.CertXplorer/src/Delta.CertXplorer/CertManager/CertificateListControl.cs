@@ -13,9 +13,8 @@ using Delta.CertXplorer.UI.Actions;
 using Delta.CertXplorer.UI.Theming;
 using Delta.CertXplorer.Services;
 using Delta.CertXplorer.Commanding;
-using Delta.CertXplorer.Asn1Decoder;
-using Delta.CertXplorer.CertManager.Wrappers;
 using Delta.CertXplorer.DocumentModel;
+using Delta.CertXplorer.CertManager.Wrappers;
 
 namespace Delta.CertXplorer.CertManager
 {
@@ -91,7 +90,7 @@ namespace Delta.CertXplorer.CertManager
                 {
                     var selectedItem = listView.SelectedItems[0];
                     NotifySelectionChanged(
-                        CreateObjectWrapper(selectedItem.Tag));
+                        ObjectWrapper.Wrap(selectedItem.Tag));
                 }                
             };
 
@@ -104,7 +103,7 @@ namespace Delta.CertXplorer.CertManager
                 X509Object x509 = null;
                 var certificate = GetSelectedCertificate();
                 if (certificate != null) x509 = X509Object.Create(
-                    certificate, CurrentStoreName, CurrentStoreLocation);
+                    certificate.X509, CurrentStoreName, CurrentStoreLocation);
                 else
                 {
                     var crl = GetSelectedCrl();
@@ -118,11 +117,11 @@ namespace Delta.CertXplorer.CertManager
             viewInformationAction.Run += (s, ev) =>
             {
                 var certificate = GetSelectedCertificate();
-                if (certificate != null) CapiNet.UI.ShowCertificateDialog(base.Handle, certificate);
+                if (certificate != null) certificate.ShowCertificateDialog(base.Handle);
                 else
                 {
                     var crl = GetSelectedCrl();
-                    if (crl != null) CapiNet.UI.ShowCrlDialog(base.Handle, crl);
+                    if (crl != null) crl.ShowCrlDialog(base.Handle);
                 }
             };
         }
@@ -164,11 +163,12 @@ namespace Delta.CertXplorer.CertManager
             service.SelectionChanged += (s, e) =>
             {
                 if (service.CurrentSource == this) return;
+                if (service.SelectedObject == null) return;
                 if (service.SelectedObject == parentObject) return;
 
-                parentObject = service.SelectedObject;
-                if (parentObject is CertificateStore)
+                if (service.SelectedObject is CertificateStore)
                 {
+                    parentObject = service.SelectedObject;
                     var systemStore = (CertificateStore)parentObject;
                     var store = systemStore.GetX509Store();
                     
@@ -180,10 +180,9 @@ namespace Delta.CertXplorer.CertManager
                     CurrentStoreName = store.Name;
                     CurrentStoreLocation = store.Location;
 
-                    FillList(store.Certificates, store.GetCertificateRevocationLists());
+                    FillList(store.GetCertificates(), store.GetCertificateRevocationLists());
                     store.Close();
                 }
-                else ClearList();
             };
 
             service.AddSource(this);
@@ -206,28 +205,26 @@ namespace Delta.CertXplorer.CertManager
 
         private void ClearList() { listView.Items.Clear(); }
 
-        private void FillList(X509Certificate2Collection certificates, IEnumerable<CertificateRevocationList> crls)
+        private void FillList(IEnumerable<Certificate> certificates, IEnumerable<CertificateRevocationList> crls)
         {
-            var items = certificates.Cast<X509Certificate2>().Select(
-                certificate =>
+            var items = certificates.Select(certificate =>
+            {
+                var item = new ListViewItem(FormatDN(certificate.SubjectName));
+                // TODO: don't use X509Certificate class, but the Certificate wrapper 
+                // (and replace "new Certificate(certificate).IsValid" by "certificate.IsValid"
+                if (!certificate.IsValid) item.ForeColor = Color.Red;
+                item.ImageIndex = certificate.HasPrivateKey ? CERTIFICATE_WITH_PRIVATE_KEY_IMAGE : CERTIFICATE_IMAGE;
+                item.SubItems.AddRange(new ListViewItem.ListViewSubItem[]
                 {
-                    var item = new ListViewItem(FormatDN(certificate.SubjectName));
-                    // TODO: don't use X509Certificate class, but the Certificate wrapper 
-                    // (and replace "new Certificate(certificate).IsValid" by "certificate.IsValid"
-                    if (!new Certificate(certificate).IsValid) item.ForeColor = Color.Red;
-                    item.ImageIndex = certificate.HasPrivateKey ? CERTIFICATE_WITH_PRIVATE_KEY_IMAGE : CERTIFICATE_IMAGE;
-                    item.SubItems.AddRange(
-                        new ListViewItem.ListViewSubItem[]
-                    {
-                        new ListViewItem.ListViewSubItem(item, FormatDN(certificate.IssuerName)),
-                        new ListViewItem.ListViewSubItem(item, FormatDate(certificate.NotBefore)),
-                        new ListViewItem.ListViewSubItem(item, FormatDate(certificate.NotAfter)),                        
-                        new ListViewItem.ListViewSubItem(item, certificate.FriendlyName)
-                    });
-                    item.Tag = certificate;
-
-                    return item;
+                    new ListViewItem.ListViewSubItem(item, FormatDN(certificate.IssuerName)),
+                    new ListViewItem.ListViewSubItem(item, FormatDate(certificate.X509.NotBefore)),
+                    new ListViewItem.ListViewSubItem(item, FormatDate(certificate.X509.NotAfter)),                        
+                    new ListViewItem.ListViewSubItem(item, certificate.FriendlyName)
                 });
+                item.Tag = certificate;
+
+                return item;
+            });
 
             var crlItems = crls.Select(crl =>
             {
@@ -253,13 +250,13 @@ namespace Delta.CertXplorer.CertManager
             foreach (var item in crlItems) listView.Items.Add(item);
         }
 
-        private X509Certificate2 GetSelectedCertificate()
+        private Certificate GetSelectedCertificate()
         {
             if (listView.SelectedItems.Count == 0) return null;
             else
             {
                 var tag = listView.SelectedItems[0].Tag;
-                if (tag is X509Certificate2) return (X509Certificate2)tag;
+                if (tag is Certificate) return (Certificate)tag;                
                 else return null;
             }                
         }
@@ -289,19 +286,6 @@ namespace Delta.CertXplorer.CertManager
         private string FormatDate(DateTime date)
         {
             return date == DateTime.MinValue ? string.Empty : date.ToString("yyyy/MM/dd");
-        }
-
-        /// <summary>
-        /// Wraps the specified item so that it is displayed friendly in a property grid.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>Wrapped item.</returns>
-        private object CreateObjectWrapper(object item)
-        {
-            if (item == null) return null;
-            if (item is X509Certificate2) return new X509CertificateWrapper2((X509Certificate2)item);
-            if (item is X509Certificate) return new X509CertificateWrapper((X509Certificate)item);
-            return item;
         }
     }
 }
