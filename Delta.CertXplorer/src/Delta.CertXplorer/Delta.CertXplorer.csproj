@@ -28,7 +28,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>c:\temp\certx\</PublishUrl>
+    <PublishUrl>D:\HOME\publish\CertXplorer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -38,14 +38,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://vulcain/install/CryptExplorer/</InstallUrl>
-    <UpdateUrl>http://vulcain/install/CryptExplorer/</UpdateUrl>
+    <InstallUrl>https://googledrive.com/host/0B75pVvg0lN7CZUx3a0Yyd29ia28/</InstallUrl>
+    <SupportUrl>http://deltaapps.apphb.com/</SupportUrl>
     <ProductName>CertXplorer</ProductName>
-    <PublisherName>Delta Software</PublisherName>
+    <PublisherName>Delta Apps</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>publish.htm</WebPage>
+    <WebPage>certx.html</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.4.3.0</ApplicationVersion>
+    <ApplicationVersion>2.4.4.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
