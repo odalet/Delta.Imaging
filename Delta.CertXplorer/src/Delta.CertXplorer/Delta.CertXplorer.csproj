@@ -46,7 +46,7 @@
     <WebPage>certx.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.4.4.0</ApplicationVersion>
+    <ApplicationVersion>2.4.5.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -155,6 +155,7 @@
     <Compile Include="CertManager\Wrappers\CapiCertificateWrapper.cs" />
     <Compile Include="CertManager\Wrappers\CapiCrlWrapper.cs" />
     <Compile Include="CertManager\Wrappers\ObjectWrapper.cs" />
+    <Compile Include="Config\ConfigResources.cs" />
     <Compile Include="DocumentModel\Asn1DocumentHandler.cs" />
     <Compile Include="DocumentModel\extensions.cs" />
     <Compile Include="DocumentModel\PluginBasedDocument.cs" />
@@ -291,9 +292,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Config\certx.log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Config\certx.log4net.config" />
     <None Include="CryptExplorer_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Resources\Safe.ico" />
@@ -352,6 +351,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -375,7 +379,7 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
@@ -401,28 +405,7 @@
       <Name>Delta.CertXplorer.Extensibility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="Plugins\Pluralsight.Crypto.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Plugins\PluralSightSelfCertPlugin.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>

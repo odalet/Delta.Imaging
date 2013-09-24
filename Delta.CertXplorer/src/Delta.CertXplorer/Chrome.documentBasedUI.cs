@@ -13,7 +13,9 @@ namespace Delta.CertXplorer
         /// <summary>
         /// Occurs when the currently active document has changed.
         /// </summary>
+#pragma warning disable 67
         public event EventHandler ActiveDocumentChanged;
+#pragma warning restore 67
 
         /// <summary>
         /// Gets the active document view.

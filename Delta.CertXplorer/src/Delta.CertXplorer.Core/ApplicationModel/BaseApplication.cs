@@ -10,14 +10,11 @@ namespace Delta.CertXplorer.ApplicationModel
     public abstract class BaseApplication
     {
         private const string defaultApplicationSettingsFileName = "app.settings.xml";
-        private const string defaultDatabaseSettingsFileName = "auth.xml";
-
         private const string defaultApplicationSettingsDefaultContent =
             @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <settings></settings>";
 
         private string applicationSettingsFileName = defaultApplicationSettingsFileName;
-        private string databaseSettingsFileName = defaultDatabaseSettingsFileName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApplication"/> class.

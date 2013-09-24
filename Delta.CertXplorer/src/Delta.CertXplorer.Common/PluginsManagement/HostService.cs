@@ -1,14 +1,15 @@
-﻿
+﻿using Delta.CertXplorer.Extensibility;
+
 namespace Delta.CertXplorer.PluginsManagement
 {
-    internal class HostService : Delta.CertXplorer.Extensibility.IHostService
+    internal class HostService : IHostService
     {
+
         #region IHostService Members
 
         /// <summary>
         /// Gets the host application name.
         /// </summary>
-        /// <value>The name.</value>
         public string Name
         {
             get { return ThisAssembly.Name; }
@@ -17,10 +18,17 @@ namespace Delta.CertXplorer.PluginsManagement
         /// <summary>
         /// Gets the host application version.
         /// </summary>
-        /// <value>The version.</value>
         public string Version
         {
             get { return ThisAssembly.Version; }
+        }
+
+        /// <summary>
+        /// Gets the user configuration directory.
+        /// </summary>
+        public string UserConfigDirectory
+        {
+            get { return PathHelper.UserConfigDirectory; }
         }
 
         #endregion

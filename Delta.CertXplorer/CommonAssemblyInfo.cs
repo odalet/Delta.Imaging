@@ -2,13 +2,14 @@ using System.Reflection;
 
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(ThisAssembly.Company)]
-[assembly: AssemblyProduct("Delta.CertXplorer")]
+[assembly: AssemblyProduct(ThisAssembly.Product)]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 internal static partial class ThisAssembly
 {
-    public const string Version = "2.4.4.0";
-    public const string Company = "Delta Software";
+    public const string Product = "Delta.CertXplorer";
+    public const string Version = "2.4.5.0";
+    public const string Company = "Delta Apps";
 }

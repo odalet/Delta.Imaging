@@ -56,7 +56,7 @@ namespace Delta.CertXplorer
                 var layoutConfigFile = Globals.LayoutSettingsFileName;
                 This.Logger.Verbose(string.Format(
                     "Layout service configuration file is: {0}", layoutConfigFile));
-                if (!System.IO.File.Exists(layoutConfigFile)) This.Logger.Error(
+                if (!System.IO.File.Exists(layoutConfigFile)) This.Logger.Warning(
                      "Layout service configuration does not exist.");
             }
             

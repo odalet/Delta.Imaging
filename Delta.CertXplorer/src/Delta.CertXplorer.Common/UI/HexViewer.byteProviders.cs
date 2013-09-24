@@ -3,8 +3,8 @@ using System.IO;
 
 namespace Delta.CertXplorer.UI
 {
-	partial class HexViewer
-	{
+    partial class HexViewer
+    {
         /// <summary>
         /// Defines a byte provider for HexBox control
         /// </summary>
@@ -150,14 +150,19 @@ namespace Delta.CertXplorer.UI
             public byte ReadByte(long index) { return Content[index]; }
 
             /// <summary>
-            /// Occurs, when the Length property changed.
+            /// Never used directly.
             /// </summary>
+#pragma warning disable 67
             public event EventHandler LengthChanged;
+#pragma warning restore 67
+
 
             /// <summary>
-            /// Occurs, when bytes are changed.
+            /// Never used directly.
             /// </summary>
+#pragma warning disable 67
             public event EventHandler Changed;
+#pragma warning restore 67
 
             /// <summary>
             /// Writes a byte into the provider
@@ -324,7 +329,7 @@ namespace Delta.CertXplorer.UI
                 return data;
             }
         }
-        
+
         /// <summary>
         /// Byte provider for a small amount of data.
         /// </summary>
@@ -344,7 +349,7 @@ namespace Delta.CertXplorer.UI
             /// Initializes a new instance of the DynamicByteProvider class.
             /// </summary>
             /// <param name="data"></param>
-            public DynamicProvider(byte[] data) 
+            public DynamicProvider(byte[] data)
                 : this(new ByteCollection(data)) { }
 
             /// <summary>
@@ -415,8 +420,8 @@ namespace Delta.CertXplorer.UI
             /// <param name="index">the index of the byte to read</param>
             /// <returns>the byte</returns>
             public byte ReadByte(long index)
-            { 
-                return bytes[(int)index]; 
+            {
+                return bytes[(int)index];
             }
 
             /// <summary>
@@ -520,8 +525,8 @@ namespace Delta.CertXplorer.UI
                 /// <param name="index">the index of the byte</param>
                 /// <param name="value">the value of the byte</param>
                 public void Add(long index, byte value)
-                { 
-                    Dictionary.Add(index, value); 
+                {
+                    Dictionary.Add(index, value);
                 }
 
                 /// <summary>
@@ -530,8 +535,8 @@ namespace Delta.CertXplorer.UI
                 /// <param name="index">the index of the byte</param>
                 /// <returns>true, if the is in the collection</returns>
                 public bool Contains(long index)
-                { 
-                    return Dictionary.Contains(index); 
+                {
+                    return Dictionary.Contains(index);
                 }
             }
 
@@ -620,9 +625,11 @@ namespace Delta.CertXplorer.UI
             #region IByteProvider Members
 
             /// <summary>
-            /// Never used.
+            /// Never used directly.
             /// </summary>
+#pragma warning disable 67
             public event EventHandler LengthChanged;
+#pragma warning restore 67
 
             /// <summary>
             /// Reads a byte from the file.

@@ -15,6 +15,8 @@ namespace Pluralsight.Crypto.UI
             InitializeComponent();
         }
 
+        public Func<string> GetUserConfigDirectory { get; set; }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadSettings();
@@ -120,7 +122,9 @@ namespace Pluralsight.Crypto.UI
         {
             get
             {
-                return Path.Combine(Application.LocalUserAppDataPath, "settings.xml");
+                if (GetUserConfigDirectory != null)
+                    return Path.Combine(GetUserConfigDirectory(), "pluralsight.settings.xml");
+                else return Path.Combine(Application.LocalUserAppDataPath, "pluralsight.settings.xml");
             }
         }
 

@@ -10,13 +10,16 @@ namespace Delta.CertXplorer.Extensibility
         /// <summary>
         /// Gets the host application name.
         /// </summary>
-        /// <value>The name.</value>
         string Name { get; }
 
         /// <summary>
         /// Gets the host application version.
         /// </summary>
-        /// <value>The version.</value>
         string Version { get; }
+
+        /// <summary>
+        /// Gets the user configuration directory.
+        /// </summary>
+        string UserConfigDirectory { get; }
     }
 }

@@ -1,27 +1,35 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.5 (2013/09/25)
+--------------------------
+* Minor warning fixes (+ updated the publisher to Delta Apps)
+* Moved the location of certx.layout.xml and certx.log4net.config settings files to user's directory so that 
+  they are recovered after a clickonce update.
+* Modified PluralSightSelfCertPlugin (1.1.3) and Pluralsight.Crypto.dll (1.1.2) so that it saves its settings in the user's directory alongside the
+  application other configuration files.
+
 Version 2.4.4 (2013/09/21)
--------------------------
+--------------------------
 * Delta.CapiNet: Version 1.1.1
 * Crl Wrapper used in property grids
 * BUGFIX: Certificates viewer was cleared when a new tab opened (after double-clicking a certificate for example).
 
 Version 2.4.3 (2013/08/30)
--------------------------
+--------------------------
 * Fixed ClickOnce deployment settings
 
 Version 2.4.2 (2013/08/30)
--------------------------
+--------------------------
 * Minor changes in ExceptionBox and some extension methods
 * Fixed Version.
 
 Version 2.4.1 (2013/08/30)
--------------------------
+--------------------------
 * Moved (and improved) PEM decoder to Delta.CapiNet (now version 1.1.0).
 
 Version 2.4.0 (2013/08/30)
--------------------------
+--------------------------
 * Added the notion of Data Handler Plugins
 * Made PEM support a data handler plugin.
 * Truncated very long Octet and Bit strings in the ASN1 Treeview

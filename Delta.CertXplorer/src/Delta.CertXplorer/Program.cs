@@ -10,6 +10,9 @@ using Delta.CertXplorer.ApplicationModel;
 using Delta.CertXplorer.About;
 using Delta.CertXplorer.DocumentModel;
 using Delta.CertXplorer.PluginsManagement;
+using System.IO;
+using System.Reflection;
+using Delta.CertXplorer.Config;
 
 namespace Delta.CertXplorer
 {
@@ -34,20 +37,14 @@ namespace Delta.CertXplorer
                 // EnableDatabase = false,
                 IsSingleInstance = false,
                 ApplicationCulture = "en-US",
-                LayoutSettingsFileName = Properties.Settings.Default.LayoutSettingsFileName,
-                LoggingSettingsFileName = Properties.Settings.Default.LoggingSettingsFileName
+                LayoutSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LayoutSettingsFileName),
+                LoggingSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LoggingSettingsFileName)
             };
 
             Globals.LayoutSettingsFileName = instance.LayoutSettingsFileName;
             Globals.LoggingSettingsFileName = instance.LoggingSettingsFileName;
 
             instance.Run(arguments);
-        }
-
-        // for debug purpose
-        public string GetLayoutSettingsFileName()
-        {
-            return base.LayoutSettingsFileName;
         }
 
         protected override void AddOtherServices()
@@ -142,6 +139,25 @@ namespace Delta.CertXplorer
             pluginsManager.Compose();
 
             return base.OnBeforeCreateMainForm();
+        }
+
+        private static string ResolveConfigFile(string file)
+        {
+            if (string.IsNullOrEmpty(file)) return string.Empty;
+
+            var filename = Path.GetFileName(file);
+            var userRoot = PathHelper.UserConfigDirectory;
+            var userFile = Path.Combine(userRoot, filename);
+
+            if (!File.Exists(userFile))
+            {
+                // Let's see if we don't have a template file in our resources
+                var bytes = ConfigResources.GetResource(filename);
+                if (bytes != null && bytes.Length > 0) 
+                    File.WriteAllBytes(userFile, bytes);
+            }
+
+            return userFile;
         }
     }
 }
