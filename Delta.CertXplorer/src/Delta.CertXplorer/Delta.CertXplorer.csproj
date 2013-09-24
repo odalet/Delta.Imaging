@@ -28,7 +28,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>ftp://vulcain/install/CryptExplorer/</PublishUrl>
+    <PublishUrl>D:\HOME\publish\CertXplorer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -38,14 +38,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://vulcain/install/CryptExplorer/</InstallUrl>
-    <UpdateUrl>http://vulcain/install/CryptExplorer/</UpdateUrl>
-    <ProductName>CryptExplorer</ProductName>
-    <PublisherName>Sopra Group</PublisherName>
+    <InstallUrl>https://googledrive.com/host/0B75pVvg0lN7CZUx3a0Yyd29ia28/</InstallUrl>
+    <SupportUrl>http://deltaapps.apphb.com/</SupportUrl>
+    <ProductName>CertXplorer</ProductName>
+    <PublisherName>Delta Apps</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>publish.htm</WebPage>
+    <WebPage>certx.html</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.2.1.0</ApplicationVersion>
+    <ApplicationVersion>2.3.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -404,6 +405,16 @@
       <TargetPath>
       </TargetPath>
       <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Safe.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
