@@ -101,13 +101,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Delta.CertXplorer.Core\Delta.CertXplorer.Core.csproj">
+      <Project>{020815b8-50b8-4544-8e18-b8ea10ff20f4}</Project>
+      <Name>Delta.CertXplorer.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Delta.CertXplorer.Extensibility\Delta.CertXplorer.Extensibility.csproj">
       <Project>{8283484E-906A-4403-919F-435AAB288117}</Project>
       <Name>CryptExplorer.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Delta.CertXplorer.Core\Delta.CertXplorer.Core.csproj">
-      <Project>{020815B8-50B8-4544-8E18-B8EA10FF20F4}</Project>
-      <Name>SopraLite</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -25,7 +25,18 @@ namespace Delta.CertXplorer.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Config\\Delta.CertXplorer.layout.xml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>.</string>\r\n  <string>.\\Plugins</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection PluginsDirectories {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["PluginsDirectories"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("certx.layout.xml")]
         public string LayoutSettingsFileName {
             get {
                 return ((string)(this["LayoutSettingsFileName"]));
@@ -34,21 +45,22 @@ namespace Delta.CertXplorer.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Config\\Delta.CertXplorer.log4net.config")]
+        [global::System.Configuration.DefaultSettingValueAttribute("certx.log4net.config")]
         public string LoggingSettingsFileName {
             get {
                 return ((string)(this["LoggingSettingsFileName"]));
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>.</string>\r\n  <string>.\\Plugins</string>\r\n</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection PluginsDirectories {
+        [global::System.Configuration.DefaultSettingValueAttribute("certx.config")]
+        public string AppSettingsFileName {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["PluginsDirectories"]));
+                return ((string)(this["AppSettingsFileName"]));
+            }
+            set {
+                this["AppSettingsFileName"] = value;
             }
         }
     }

@@ -1,6 +1,12 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.7 (2013/09/29)
+--------------------------
+* Updated configuration system to store the application culture
+* Added MessageBox apis to CertXplorer.Extensibility
+* New plugin: CertToolsPlugin
+
 Version 2.4.6 (2013/09/29)
 --------------------------
 * Updated Clickonce certificate

@@ -39,7 +39,7 @@ namespace Delta.CertXplorer
         private static ObservableServiceContainer parentContainer = null;
         private static ObservableServiceContainer childContainer = null;
 
-        private static readonly ThreadSafeObjectProvider<ThisUser> userObjectProvider = 
+        private static readonly ThreadSafeObjectProvider<ThisUser> userObjectProvider =
             new ThreadSafeObjectProvider<ThisUser>();
         private static readonly ThreadSafeObjectProvider<ThisComputer> computerObjectProvider =
             new ThreadSafeObjectProvider<ThisComputer>();
@@ -237,23 +237,26 @@ namespace Delta.CertXplorer
             // Single instance?
             Application.IsSingleInstance = singleInstance;
 
-            if (!string.IsNullOrEmpty(culture))
-            {
-                try
-                {
-                    var ci = new CultureInfo(culture);
-                    Application.Culture = ci;
-                    Application.UICulture = ci;
-                }
-                catch (Exception ex)
-                {
-                    This.Logger.Error(string.Format("Unable to set application's culture to {0}:\r\n {1}",
-                        culture, ex.ToFormattedString()));
-                }
-            }
+            SetApplicationCulture(culture);
 
             // We also add a UI service (to the parent container, so that it can be replaced).
             parentContainer.AddService<ISimpleUIService>(new SimpleUIService());
+        }
+
+        public static void SetApplicationCulture(string culture)
+        {
+            if (string.IsNullOrEmpty(culture)) return;
+            try
+            {
+                var ci = new CultureInfo(culture);
+                Application.Culture = ci;
+                Application.UICulture = ci;
+            }
+            catch (Exception ex)
+            {
+                This.Logger.Error(string.Format("Unable to set application's culture to {0}:\r\n {1}",
+                    culture, ex.ToFormattedString()));
+            }
         }
 
         /// <summary>
@@ -327,9 +330,9 @@ namespace Delta.CertXplorer
         /// <returns>
         /// An instance of the service or <c>null</c>.
         /// </returns>
-        public static T GetService<T>(bool mandatory) where T : class 
+        public static T GetService<T>(bool mandatory) where T : class
         {
-            return Services.GetService<T>(mandatory); 
+            return Services.GetService<T>(mandatory);
         }
 
         /// <summary>
@@ -432,7 +435,7 @@ namespace Delta.CertXplorer
         /// <summary>
         /// Gets the current log service.
         /// </summary>
-        public static ILogService Logger 
+        public static ILogService Logger
         {
             get
             {

@@ -6,6 +6,7 @@ namespace Delta.CertXplorer
     public static class PathHelper
     {
         private static string userConfigDirectory = null;
+        private static string userDataDirectory = null;
         
         /// <summary>
         /// Gets the user configuration directory.
@@ -23,6 +24,25 @@ namespace Delta.CertXplorer
                 }
 
                 return userConfigDirectory;
+            }
+        }
+
+        /// <summary>
+        /// Gets the user data directory.
+        /// </summary>
+        public static string UserDataDirectory
+        {
+            get
+            {
+                if (userDataDirectory == null)
+                {
+                    var configDirectory = UserConfigDirectory;
+                    userDataDirectory = Path.Combine(configDirectory, "data");
+                    if (File.Exists(userDataDirectory)) File.Delete(userDataDirectory);
+                    if (!Directory.Exists(userDataDirectory)) Directory.CreateDirectory(userDataDirectory);
+                }
+
+                return userDataDirectory;
             }
         }
     }

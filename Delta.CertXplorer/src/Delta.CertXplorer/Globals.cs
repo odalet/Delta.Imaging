@@ -16,6 +16,8 @@ namespace Delta.CertXplorer
             get { return MainForm == null ? IntPtr.Zero : MainForm.Handle;  }
         }
 
+        public static string ApplicationSettingsFileName { get; set; }
+
         public static string LayoutSettingsFileName { get; set; }
 
         public static string LoggingSettingsFileName { get; set; }

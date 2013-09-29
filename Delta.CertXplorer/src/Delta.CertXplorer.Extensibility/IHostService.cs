@@ -21,5 +21,10 @@ namespace Delta.CertXplorer.Extensibility
         /// Gets the user configuration directory.
         /// </summary>
         string UserConfigDirectory { get; }
+
+        /// <summary>
+        /// Gets the user data directory.
+        /// </summary>
+        string UserDataDirectory { get; }
     }
 }

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Delta.CertXplorer.Extensibility;
+using Delta.CertXplorer.Extensibility.UI;
 
 namespace CryptoHelperPlugin
 {
@@ -35,7 +36,7 @@ namespace CryptoHelperPlugin
                 base.Log.Error(ex);
                 var message = string.Format(
                     "There was an error while executing plugin {0}:\r\n\r\n{1}", PluginName, ex.Message);
-                MessageBox.Show(owner, message, "Error", MessageBoxButtons.OK);
+                ErrorBox.Show(owner, message);
 
                 return false;
             }

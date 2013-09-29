@@ -31,6 +31,14 @@ namespace Delta.CertXplorer.PluginsManagement
             get { return PathHelper.UserConfigDirectory; }
         }
 
+        /// <summary>
+        /// Gets the user data directory.
+        /// </summary>
+        public string UserDataDirectory
+        {
+            get { return PathHelper.UserDataDirectory; }
+        }
+
         #endregion
     }
 }

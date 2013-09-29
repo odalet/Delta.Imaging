@@ -13,6 +13,7 @@ using Delta.CertXplorer.PluginsManagement;
 using System.IO;
 using System.Reflection;
 using Delta.CertXplorer.Config;
+using Delta.CertXplorer.Configuration;
 
 namespace Delta.CertXplorer
 {
@@ -32,17 +33,18 @@ namespace Delta.CertXplorer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Resolve Configuration files
+            Globals.ApplicationSettingsFileName = ResolveConfigFile(Properties.Settings.Default.AppSettingsFileName);
+            Globals.LayoutSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LayoutSettingsFileName);
+            Globals.LoggingSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LoggingSettingsFileName);
+            
             var instance = new Program()
             {
-                // EnableDatabase = false,
                 IsSingleInstance = false,
-                ApplicationCulture = "en-US",
-                LayoutSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LayoutSettingsFileName),
-                LoggingSettingsFileName = ResolveConfigFile(Properties.Settings.Default.LoggingSettingsFileName)
+                ApplicationSettingsFileName = Globals.ApplicationSettingsFileName,
+                LayoutSettingsFileName = Globals.LayoutSettingsFileName,
+                LoggingSettingsFileName = Globals.LoggingSettingsFileName
             };
-
-            Globals.LayoutSettingsFileName = instance.LayoutSettingsFileName;
-            Globals.LoggingSettingsFileName = instance.LoggingSettingsFileName;
 
             instance.Run(arguments);
         }
@@ -141,7 +143,19 @@ namespace Delta.CertXplorer
             return base.OnBeforeCreateMainForm();
         }
 
-        private static string ResolveConfigFile(string file)
+        protected override void LoadApplicationSettings(ISettingsService settingsService)
+        {
+            base.LoadApplicationSettings(settingsService);
+
+            // The app config file may define the application culture
+            var store = settingsService.GetApplicationSettingsStore();
+            if (store == null || !store.ContainsKey("culture")) return;
+            var cultureName = store["culture"];
+            if (!string.IsNullOrEmpty(cultureName))
+                base.ApplicationCulture = cultureName;
+        }
+
+        private static string ResolveConfigFile(string file, bool forceFileInitialization = false)
         {
             if (string.IsNullOrEmpty(file)) return string.Empty;
 
@@ -149,7 +163,7 @@ namespace Delta.CertXplorer
             var userRoot = PathHelper.UserConfigDirectory;
             var userFile = Path.Combine(userRoot, filename);
 
-            if (!File.Exists(userFile))
+            if (!File.Exists(userFile) || forceFileInitialization)
             {
                 // Let's see if we don't have a template file in our resources
                 var bytes = ConfigResources.GetResource(filename);

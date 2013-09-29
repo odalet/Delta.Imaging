@@ -15,6 +15,7 @@ namespace Delta.CertXplorer.ApplicationModel
 <settings></settings>";
 
         private string applicationSettingsFileName = defaultApplicationSettingsFileName;
+        private string applicationCulture = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApplication"/> class.
@@ -33,7 +34,17 @@ namespace Delta.CertXplorer.ApplicationModel
         /// Gets or sets this application's culture.
         /// </summary>
         /// <value>The application culture.</value>
-        protected string ApplicationCulture { get; set; }
+        protected string ApplicationCulture 
+        {
+            get { return applicationCulture; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (applicationCulture == value) return;
+                applicationCulture = value;
+                This.SetApplicationCulture(applicationCulture);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the application settings file.

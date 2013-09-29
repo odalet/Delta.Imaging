@@ -2,18 +2,21 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Delta.CertXplorer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LayoutSettingsFileName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Config\Delta.CertXplorer.layout.xml</Value>
-    </Setting>
-    <Setting Name="LoggingSettingsFileName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Config\Delta.CertXplorer.log4net.config</Value>
-    </Setting>
     <Setting Name="PluginsDirectories" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;.&lt;/string&gt;
   &lt;string&gt;.\Plugins&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="LayoutSettingsFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">certx.layout.xml</Value>
+    </Setting>
+    <Setting Name="LoggingSettingsFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">certx.log4net.config</Value>
+    </Setting>
+    <Setting Name="AppSettingsFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">certx.config</Value>
     </Setting>
   </Settings>
 </SettingsFile>

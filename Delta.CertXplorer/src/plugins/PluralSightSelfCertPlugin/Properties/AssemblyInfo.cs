@@ -9,6 +9,6 @@ using System.Runtime.InteropServices;
 
 partial class ThisAssembly
 {
-    public const string PluginVersion = "1.1.3.0";
+    public const string PluginVersion = "1.1.4.0";
     public const string Description = "Self-signed certificate generation plugin for CertXplorer.";
 }

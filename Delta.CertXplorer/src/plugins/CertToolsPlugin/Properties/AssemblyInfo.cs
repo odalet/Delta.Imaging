@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("CryptoHelperPlugin")]
+[assembly: AssemblyTitle("CertToolsPlugin")]
 [assembly: AssemblyDescription(ThisAssembly.Description)]
 [assembly: AssemblyVersion(ThisAssembly.PluginVersion)]
 [assembly: AssemblyFileVersion(ThisAssembly.PluginVersion)]
@@ -9,6 +9,6 @@ using System.Runtime.InteropServices;
 
 partial class ThisAssembly
 {
-    public const string PluginVersion = "1.0.2.0";
-    public const string Description = "A set of cryptography related tools.";
+    public const string PluginVersion = "1.0.0.0";
+    public const string Description = "Misc Certificates related tools.";
 }
