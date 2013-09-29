@@ -1,6 +1,10 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.6 (2013/09/29)
+--------------------------
+* Updated Clickonce certificate
+
 Version 2.4.5 (2013/09/25)
 --------------------------
 * Minor warning fixes (+ updated the publisher to Delta Apps)

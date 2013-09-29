@@ -14,8 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>safe.ico</ApplicationIcon>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <ManifestCertificateThumbprint>7D18F8D4F534CC37B646178FCD8EE0D17E130C07</ManifestCertificateThumbprint>
-    <ManifestKeyFile>CryptExplorer_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>E06023254E19BF88D0497C79362B85F73BF214E7</ManifestCertificateThumbprint>
+    <ManifestKeyFile>deltaapps-certXplorer.p12</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
     <StartupObject>
@@ -46,7 +46,7 @@
     <WebPage>certx.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.4.5.0</ApplicationVersion>
+    <ApplicationVersion>2.4.6.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -293,7 +293,7 @@
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="Config\certx.log4net.config" />
-    <None Include="CryptExplorer_TemporaryKey.pfx" />
+    <None Include="deltaapps-certXplorer.p12" />
     <None Include="Properties\app.manifest" />
     <None Include="Resources\Safe.ico" />
     <None Include="Resources\Certificates.ico" />
