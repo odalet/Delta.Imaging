@@ -1,6 +1,12 @@
 CertXplorer Versions History
 ============================
 
+Version 2.4.8 (2013/xx/xx)
+--------------------------
+* UI Fix in CryptoHelperPlugin (added a splitter)
+* Changed default base64 text to "Lorem Ipsum" in CryptoHelperPlugin
+* Removed the error box when the user cancels mmc.exe UAC box.
+
 Version 2.4.7 (2013/09/29)
 --------------------------
 * Updated configuration system to store the application culture

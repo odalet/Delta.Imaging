@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using Delta.CertXplorer.Extensibility;
 using Delta.CertXplorer.Extensibility.UI;
+using System.ComponentModel;
 
 namespace CertToolsPlugin
 {
@@ -65,6 +66,15 @@ namespace CertToolsPlugin
                     }
 
                     Process.Start(targetFile);
+                }
+                catch (Win32Exception wex)
+                {
+                    if ((uint)wex.ErrorCode == (uint)0x80004005) // operation was canceled by the user.
+                    {
+                        base.Log.Info(wex.Message);
+                        return true;
+                    }
+                    else throw;
                 }
                 catch (Exception ex)
                 {
