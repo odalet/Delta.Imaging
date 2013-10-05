@@ -9,7 +9,7 @@ namespace Delta.CertXplorer.Commanding
     internal class CloseDocumentCommand : BaseCommand<IDocument>
     {
         // Document must exit.
-        public CloseDocumentCommand() : base(true) { }
+        public CloseDocumentCommand() : base() { }
 
         /// <summary>
         /// Gets this command's name.

@@ -5,7 +5,7 @@ namespace Delta.CertXplorer.Commanding
     internal class OpenExistingDocumentCommand : BaseOpenDocumentCommand<IDocument>
     {
         // Document must exit.
-        public OpenExistingDocumentCommand() : base(true) { }
+        public OpenExistingDocumentCommand() : base() { }
 
         /// <summary>
         /// Gets this command's name.

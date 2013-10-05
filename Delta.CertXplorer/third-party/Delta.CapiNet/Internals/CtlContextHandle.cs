@@ -7,28 +7,28 @@ using Microsoft.Win32.SafeHandles;
 namespace Delta.CapiNet.Internals
 {
     /// <summary>
-    /// <b>Safely</b> holds a CRL (Certificate Revocation List) context handle.
+    /// <b>Safely</b> holds a CTL (Certificate Trust List) context handle.
     /// </summary>
-    internal sealed class CrlContextHandle : SafeHandleZeroOrMinusOneIsInvalid
+    internal sealed class CtlContextHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CrlContextHandle"/> class.
+        /// Initializes a new instance of the <see cref="CtlContextHandle"/> class.
         /// </summary>
-        private CrlContextHandle() : base(true) { }
+        private CtlContextHandle() : base(true) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CrlContextHandle"/> class.
+        /// Initializes a new instance of the <see cref="CtlContextHandle"/> class.
         /// </summary>
         /// <param name="handle">The handle.</param>
-        public CrlContextHandle(IntPtr handle) : base(true) { base.SetHandle(handle); }
+        public CtlContextHandle(IntPtr handle) : base(true) { base.SetHandle(handle); }
 
         /// <summary>
         /// Gets an invalid CRL context handle.
         /// </summary>
         /// <value>An invalid CRL context handle.</value>
-        public static CrlContextHandle InvalidHandle
+        public static CtlContextHandle InvalidHandle
         {
-            get { return new CrlContextHandle(IntPtr.Zero); }
+            get { return new CtlContextHandle(IntPtr.Zero); }
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Delta.CapiNet.Internals
         /// </returns>
         protected override bool ReleaseHandle()
         {
-            return NativeMethods.CertFreeCRLContext(base.handle);
+            return NativeMethods.CertFreeCTLContext(base.handle);
         }
     }
 }

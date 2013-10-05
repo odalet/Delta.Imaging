@@ -233,6 +233,17 @@ namespace Delta.CapiNet.Internals
 
         #region CRL
 
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/aa376052.aspx:
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// PCCRL_CONTEXT WINAPI CertEnumCRLsInStore(
+        ///   _In_  HCERTSTORE hCertStore,
+        ///   _In_  PCCRL_CONTEXT pPrevCrlContext
+        /// );
+        /// </code></remarks>
+        /// </summary>
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr CertEnumCRLsInStore([In]CertStoreHandle hCertStore, [In]IntPtr pPrevCrlContext);
 
@@ -278,6 +289,70 @@ namespace Delta.CapiNet.Internals
         [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool CertGetCRLContextProperty(
             [In]CrlContextHandle pCrlContext,
+            [In] uint dwPropId,
+            [In, Out]LocalAllocHandle pvData,
+            [In, Out]ref uint pcbData);
+
+        #endregion
+
+        #region CTL
+
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/aa376054.aspx:
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// PCCTL_CONTEXT WINAPI CertEnumCTLsInStore(
+        ///   _In_  HCERTSTORE hCertStore,
+        ///   _In_  PCCTL_CONTEXT pPrevCtlContext
+        /// );
+        /// </code></remarks>
+        /// </summary>
+        [DllImport("crypt32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr CertEnumCTLsInStore([In]CertStoreHandle hCertStore, [In]IntPtr pPrevCtlContext);
+
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/aa376077.aspx:
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// BOOL WINAPI CertFreeCTLContext(
+        ///   __in  PCCTL_CONTEXT pCtlContext
+        /// );
+        /// </code></remarks>
+        /// </summary>
+        [DllImport("crypt32.dll", SetLastError = true)]
+        public static extern bool CertFreeCTLContext([In]IntPtr pCtlContext);
+
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/aa376047.aspx:
+        /// </summary>
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// PCCTL_CONTEXT WINAPI CertDuplicateCTLContext(
+        ///   __in  PCCTL_CONTEXT pCtlContext
+        /// );
+        /// </code></remarks>
+        [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern CtlContextHandle CertDuplicateCTLContext([In]IntPtr pCtlContext);
+
+        /// <summary>
+        /// See http://msdn.microsoft.com/en-us/library/aa376082.aspx:
+        /// </summary>
+        /// <remarks>
+        /// Original definition:
+        /// <code>
+        /// BOOL WINAPI CertGetCTLContextProperty(
+        ///   __in     PCCTL_CONTEXT pCtlContext,
+        ///   __in     DWORD dwPropId,
+        ///   __out    void *pvData,
+        ///   __inout  DWORD *pcbData
+        /// );
+        /// </code></remarks>
+        [DllImport("crypt32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool CertGetCTLContextProperty(
+            [In]CtlContextHandle pCtlContext,
             [In] uint dwPropId,
             [In, Out]LocalAllocHandle pvData,
             [In, Out]ref uint pcbData);
@@ -365,6 +440,16 @@ namespace Delta.CapiNet.Internals
         public static extern bool CryptUIDlgViewContext(
             [In]uint dwContextType,
             [In]CrlContextHandle pvContext,
+            [In]IntPtr hwnd,
+            [In, MarshalAs(UnmanagedType.LPWStr)]string pwszTitle,
+            [In]uint dwFlags,
+            [In]IntPtr pvReserved);
+
+        // Same as above but for a Certificate Trust List
+        [DllImport("cryptui.dll", CharSet = CharSet.Unicode)]
+        public static extern bool CryptUIDlgViewContext(
+            [In]uint dwContextType,
+            [In]CtlContextHandle pvContext,
             [In]IntPtr hwnd,
             [In, MarshalAs(UnmanagedType.LPWStr)]string pwszTitle,
             [In]uint dwFlags,

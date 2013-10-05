@@ -11,7 +11,7 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenCertificateCommand"/> class.
         /// </summary>
-        public OpenCertificateCommand() : base(false) { }
+        public OpenCertificateCommand() : base() { }
 
         /// <summary>
         /// Gets this command's name.

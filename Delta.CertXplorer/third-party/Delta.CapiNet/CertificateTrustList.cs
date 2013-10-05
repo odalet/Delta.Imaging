@@ -1,40 +1,39 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Runtime.InteropServices;
-
 using Delta.CapiNet.Internals;
 
 namespace Delta.CapiNet
 {
     /// <summary>
-    /// Represents A Certificate Revocation List.
+    /// Represents A Certificate Trust List.
     /// </summary>
-    public class CertificateRevocationList
+    public class CertificateTrustList
     {
         private byte[] cachedData = null;
         private DateTime thisUpdate = DateTime.MinValue;
         private DateTime nextUpdate = DateTime.MinValue;
         private X500DistinguishedName issuerName = null; // cached Issuer Name
-        private CrlContextHandle safeHandle = null;
+        private CtlContextHandle safeHandle = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CertificateRevocationList"/> class.
+        /// Initializes a new instance of the <see cref="CertificateTrustList"/> class.
         /// </summary>
-        public CertificateRevocationList() 
+        public CertificateTrustList() 
         {
-            safeHandle = CrlContextHandle.InvalidHandle;
+            safeHandle = CtlContextHandle.InvalidHandle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CertificateRevocationList"/> class.
+        /// Initializes a new instance of the <see cref="CertificateTrustList"/> class.
         /// </summary>
         /// <param name="handle">The handle.</param>
         /// <exception cref="System.ArgumentException">Invalid Handle</exception>
-        public CertificateRevocationList(IntPtr handle) : this()
+        public CertificateTrustList(IntPtr handle) : this()
         {
             if (handle == IntPtr.Zero) throw new ArgumentException("Invalid Handle");
-            safeHandle = NativeMethods.CertDuplicateCRLContext(handle);
+            safeHandle = NativeMethods.CertDuplicateCTLContext(handle);
         }
 
         #region Properties
@@ -49,15 +48,15 @@ namespace Delta.CapiNet
                 uint pcbData = 0;
 
                 // 1st call gives the memory amount to allocate
-                if (!NativeMethods.CertGetCRLContextProperty(
-                    safeHandle, CapiConstants.CERT_FRIENDLY_NAME_PROP_ID, allocHandle, ref pcbData)) 
+                if (!NativeMethods.CertGetCTLContextProperty(
+                    safeHandle, CapiConstants.CERT_FRIENDLY_NAME_PROP_ID, allocHandle, ref pcbData))
                     return string.Empty;
 
                 // 2nd call fills the memory
                 allocHandle = LocalAllocHandle.Allocate(0, new IntPtr((long)pcbData));
                 try
                 {
-                    if (!NativeMethods.CertGetCRLContextProperty(
+                    if (!NativeMethods.CertGetCTLContextProperty(
                         safeHandle, CapiConstants.CERT_FRIENDLY_NAME_PROP_ID, allocHandle, ref pcbData))
                         return string.Empty;
 
@@ -69,28 +68,13 @@ namespace Delta.CapiNet
             }
         }
 
-        internal CrlContextHandle SafeHandle
+        internal CtlContextHandle SafeHandle
         {
             get { return safeHandle; }
         }
 
-        public X500DistinguishedName IssuerName
-        {
-            get
-            {
-                if (safeHandle.IsInvalid) throw new CryptographicException("Invalid Handle");
-                if (issuerName == null)
-                {
-                    var crlInfo = GetCrlInfo();
-                    if (crlInfo.HasValue)
-                        issuerName = new X500DistinguishedName(crlInfo.Value.Issuer.ToByteArray());
-                }
-                return issuerName;
-            }
-        }
-
         /// <summary>
-        /// Gets this CRL's publication date.
+        /// Gets this CTL's publication date.
         /// </summary>
         public DateTime PublicationDate
         {
@@ -99,9 +83,9 @@ namespace Delta.CapiNet
                 if (safeHandle.IsInvalid) throw new CryptographicException("Invalid Handle");
                 if (thisUpdate == DateTime.MinValue)
                 {
-                    var crlInfo = GetCrlInfo();
-                    if (crlInfo.HasValue)
-                        thisUpdate = crlInfo.Value.ThisUpdate.ToDateTime();
+                    var ctlInfo = GetCtlInfo();
+                    if (ctlInfo.HasValue)
+                        thisUpdate = ctlInfo.Value.ThisUpdate.ToDateTime();
                 }
 
                 return thisUpdate;
@@ -109,7 +93,7 @@ namespace Delta.CapiNet
         }
 
         /// <summary>
-        /// Gets this CRL's next scheduled update.
+        /// Gets this CTL's next scheduled update.
         /// </summary>
         public DateTime NextUpdate
         {
@@ -118,9 +102,9 @@ namespace Delta.CapiNet
                 if (safeHandle.IsInvalid) throw new CryptographicException("Invalid Handle");
                 if (nextUpdate == DateTime.MinValue)
                 {
-                    var crlInfo = GetCrlInfo();
-                    if (crlInfo.HasValue)
-                        nextUpdate = crlInfo.Value.NextUpdate.ToDateTime();
+                    var ctlInfo = GetCtlInfo();
+                    if (ctlInfo.HasValue)
+                        nextUpdate = ctlInfo.Value.NextUpdate.ToDateTime();
                 }
 
                 return nextUpdate;
@@ -140,8 +124,8 @@ namespace Delta.CapiNet
         {
             get
             {
-                if (safeHandle.IsInvalid) throw new CryptographicException("Invalid Handle");  
-              
+                if (safeHandle.IsInvalid) throw new CryptographicException("Invalid Handle");
+
                 if (cachedData == null)
                     cachedData = GetRawData() ?? new byte[0];
                 return cachedData;
@@ -150,12 +134,12 @@ namespace Delta.CapiNet
 
         #endregion
 
-        private unsafe CRL_INFO? GetCrlInfo()
+        private unsafe CTL_INFO? GetCtlInfo()
         {
             try
             {
-                var crlContext = *((CRL_CONTEXT*)safeHandle.DangerousGetHandle());
-                return (CRL_INFO)Marshal.PtrToStructure(crlContext.pCrlInfo, typeof(CRL_INFO));
+                var ctlContext = *((CTL_CONTEXT*)safeHandle.DangerousGetHandle());
+                return (CTL_INFO)Marshal.PtrToStructure(ctlContext.pCtlInfo, typeof(CTL_INFO));
             }
             catch (Exception ex)
             {
@@ -169,10 +153,10 @@ namespace Delta.CapiNet
         {
             try
             {
-                var crlContext = *((CRL_CONTEXT*)safeHandle.DangerousGetHandle());
-                int size = (int)crlContext.cbCrlEncoded;
+                var ctlContext = *((CTL_CONTEXT*)safeHandle.DangerousGetHandle());
+                int size = (int)ctlContext.cbCtlEncoded;
                 var data = new byte[size];
-                Marshal.Copy(crlContext.pbCrlEncoded, data, 0, size);
+                Marshal.Copy(ctlContext.pbCtlEncoded, data, 0, size);
                 return data;
             }
             catch (Exception ex)

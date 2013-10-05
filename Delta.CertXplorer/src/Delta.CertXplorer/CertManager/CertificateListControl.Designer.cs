@@ -31,13 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CertificateListControl));
             this.listView = new System.Windows.Forms.ListView();
-            this.chSubject = new System.Windows.Forms.ColumnHeader();
-            this.chIssuer = new System.Windows.Forms.ColumnHeader();
-            this.chCreationDate = new System.Windows.Forms.ColumnHeader();
-            this.chExpirationDate = new System.Windows.Forms.ColumnHeader();
-            this.chFriendlyName = new System.Windows.Forms.ColumnHeader();
+            this.chSubject = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chIssuer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chCreationDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chExpirationDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chFriendlyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeImages = new System.Windows.Forms.ImageList(this.components);
             this.smallImages = new System.Windows.Forms.ImageList(this.components);
             this.tstrip = new System.Windows.Forms.ToolStrip();
@@ -50,7 +51,6 @@
             this.actions = new Delta.CertXplorer.UI.Actions.UIActionsManager();
             this.openCertificateAction = new Delta.CertXplorer.UI.Actions.UIAction();
             this.viewInformationAction = new Delta.CertXplorer.UI.Actions.UIAction();
-            this.viewInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listContextMenu.SuspendLayout();
             this.tstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.actions)).BeginInit();
@@ -108,14 +108,21 @@
             this.openCertificateToolStripMenuItem,
             this.viewInformationToolStripMenuItem});
             this.listContextMenu.Name = "listContextMenu";
-            this.listContextMenu.Size = new System.Drawing.Size(168, 70);
+            this.listContextMenu.Size = new System.Drawing.Size(175, 48);
             // 
             // openCertificateToolStripMenuItem
             // 
             this.actions.SetAction(this.openCertificateToolStripMenuItem, this.openCertificateAction);
             this.openCertificateToolStripMenuItem.Name = "openCertificateToolStripMenuItem";
-            this.openCertificateToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.openCertificateToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.openCertificateToolStripMenuItem.Text = "&Decode...";
+            // 
+            // viewInformationToolStripMenuItem
+            // 
+            this.actions.SetAction(this.viewInformationToolStripMenuItem, this.viewInformationAction);
+            this.viewInformationToolStripMenuItem.Name = "viewInformationToolStripMenuItem";
+            this.viewInformationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.viewInformationToolStripMenuItem.Text = "&View Information...";
             // 
             // largeImages
             // 
@@ -124,6 +131,7 @@
             this.largeImages.Images.SetKeyName(0, "Certificate32.png");
             this.largeImages.Images.SetKeyName(1, "CertificateWithPrivatKey32.png");
             this.largeImages.Images.SetKeyName(2, "Crl32.png");
+            this.largeImages.Images.SetKeyName(3, "Ctl32.png");
             // 
             // smallImages
             // 
@@ -132,6 +140,7 @@
             this.smallImages.Images.SetKeyName(0, "Certificate.png");
             this.smallImages.Images.SetKeyName(1, "CertificateWithPrivatKey.png");
             this.smallImages.Images.SetKeyName(2, "Crl.png");
+            this.smallImages.Images.SetKeyName(3, "Ctl.png");
             // 
             // tstrip
             // 
@@ -157,37 +166,37 @@
             this.viewDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("viewDropDownButton.Image")));
             this.viewDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.viewDropDownButton.Name = "viewDropDownButton";
-            this.viewDropDownButton.Size = new System.Drawing.Size(42, 22);
+            this.viewDropDownButton.Size = new System.Drawing.Size(45, 22);
             this.viewDropDownButton.Text = "View";
             // 
             // tileToolStripMenuItem
             // 
             this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
-            this.tileToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.tileToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.tileToolStripMenuItem.Text = "Tile";
             // 
             // largeIconsToolStripMenuItem
             // 
             this.largeIconsToolStripMenuItem.Name = "largeIconsToolStripMenuItem";
-            this.largeIconsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.largeIconsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.largeIconsToolStripMenuItem.Text = "Large Icons";
             // 
             // smallIconsToolStripMenuItem
             // 
             this.smallIconsToolStripMenuItem.Name = "smallIconsToolStripMenuItem";
-            this.smallIconsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.smallIconsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.smallIconsToolStripMenuItem.Text = "Small Icons";
             // 
             // listToolStripMenuItem
             // 
             this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.listToolStripMenuItem.Text = "List";
             // 
             // detailsToolStripMenuItem
             // 
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.detailsToolStripMenuItem.Text = "Details";
             // 
             // actions
@@ -195,13 +204,6 @@
             this.actions.Actions.Add(this.openCertificateAction);
             this.actions.Actions.Add(this.viewInformationAction);
             this.actions.ContainerControl = this;
-            // 
-            // viewInformationToolStripMenuItem
-            // 
-            this.actions.SetAction(this.viewInformationToolStripMenuItem, this.viewInformationAction);
-            this.viewInformationToolStripMenuItem.Name = "viewInformationToolStripMenuItem";
-            this.viewInformationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.viewInformationToolStripMenuItem.Text = "&View Information...";
             // 
             // CertificateListControl
             // 

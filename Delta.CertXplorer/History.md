@@ -6,6 +6,10 @@ Version 2.4.8 (2013/xx/xx)
 * UI Fix in CryptoHelperPlugin (added a splitter)
 * Changed default base64 text to "Lorem Ipsum" in CryptoHelperPlugin
 * Removed the error box when the user cancels mmc.exe UAC box.
+* Issue #12: Added Copy/Print/Save links (and contextual menu) to the details tab of the exception box.
+* Issue #11: Fixed "Open Certificate" command  
+* Issue #10: Fixed "Open File" command  
+* Issue #8: First support of Certificate Trust Lists
 
 Version 2.4.7 (2013/09/29)
 --------------------------

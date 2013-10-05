@@ -111,7 +111,7 @@ namespace Delta.CapiNet.Internals
         internal uint dwCertEncodingType;
         internal IntPtr pbCrlEncoded;
         internal uint cbCrlEncoded;
-        internal IntPtr pCrlInfo;
+        internal IntPtr pCrlInfo; // --> points to a CRL_INFO structure
         internal IntPtr hCertStore;
     }
 
@@ -124,10 +124,41 @@ namespace Delta.CapiNet.Internals
         internal System.Runtime.InteropServices.ComTypes.FILETIME ThisUpdate;
         internal System.Runtime.InteropServices.ComTypes.FILETIME NextUpdate;
         internal uint cCRLEntry;
-        internal IntPtr rgCRLEntry;
+        internal IntPtr rgCRLEntry; // --> Array of CRL_ENTRY structures.
         internal uint cExtension;
         internal IntPtr rgExtension;
     }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal struct CTL_CONTEXT
+    {
+        internal uint dwMsgAndCertEncodingType;
+        internal IntPtr pbCtlEncoded;
+        internal uint cbCtlEncoded;
+        internal IntPtr pCtlInfo; // --> points to a CTL_INFO structure
+        internal IntPtr hCertStore;
+        internal IntPtr hCryptMsg; // --> ???????????
+        internal IntPtr pbCtlContent;
+        internal uint cbCtlContent;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal struct CTL_INFO
+    {
+        internal uint dwVersion;
+        internal CTL_USAGE SubjectUsage;
+        internal CRYPT_DATA_BLOB ListIdentifier;
+        internal CRYPT_INTEGER_BLOB SequenceNumber;
+        internal System.Runtime.InteropServices.ComTypes.FILETIME ThisUpdate;
+        internal System.Runtime.InteropServices.ComTypes.FILETIME NextUpdate;
+        internal CRYPT_ALGORITHM_IDENTIFIER SubjectAlgorithm;
+        internal uint cCTLEntry;
+        internal IntPtr rgCTLEntry; // --> Array of CTL_ENTRY structures.
+        internal uint cExtension;
+        internal IntPtr rgExtension;
+    }
+
+    // TODO: CRL_ENTRY, CTL_ENTRY
 
     #endregion
 
@@ -147,6 +178,13 @@ namespace Delta.CapiNet.Internals
         internal IntPtr pbData;
         internal uint cUnusedBits;
     }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal struct CRYPT_INTEGER_BLOB
+    {
+        internal uint cbData;
+        internal IntPtr pbData;
+    }
     
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     internal struct CRYPT_ALGORITHM_IDENTIFIER
@@ -161,6 +199,13 @@ namespace Delta.CapiNet.Internals
     {
         internal CRYPT_ALGORITHM_IDENTIFIER Algorithm;
         internal CRYPT_BIT_BLOB PublicKey;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal struct CTL_USAGE
+    {
+        internal uint cUsageIdentifier;
+        internal IntPtr rgpszUsageIdentifier;
     }
     
     #endregion

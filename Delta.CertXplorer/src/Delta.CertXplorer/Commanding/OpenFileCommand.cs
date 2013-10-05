@@ -9,7 +9,7 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenFileCommand"/> class.
         /// </summary>
-        public OpenFileCommand() : base(true) { }
+        public OpenFileCommand() : base() { }
 
         /// <summary>
         /// Gets this command's name.
@@ -19,7 +19,7 @@ namespace Delta.CertXplorer.Commanding
         {
             get { return "Open File Document"; }
         }
-
+        
         protected override IDocument OpenDocument(object[] arguments)
         {
             var fileName = string.Empty;

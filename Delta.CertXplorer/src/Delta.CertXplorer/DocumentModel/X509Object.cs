@@ -50,6 +50,16 @@ namespace Delta.CertXplorer.DocumentModel
             };
         }
 
+        public static X509Object Create(CertificateTrustList ctl, string storeName, StoreLocation storeLocation)
+        {
+            if (ctl == null) throw new ArgumentNullException("ctl");
+            return new X509Object(storeName, storeLocation)
+            {
+                Value = ctl,
+                Data = ctl.RawData
+            };
+        }
+
         /// <summary>
         /// Formats the display name.
         /// </summary>
@@ -62,6 +72,7 @@ namespace Delta.CertXplorer.DocumentModel
             if (Value == null) certName = "Null";
             if (Value is X509Certificate2) certName = GetX509CertificateDisplayName((X509Certificate2)Value);
             if (Value is CertificateRevocationList) certName = GetCrlDisplayName((CertificateRevocationList)Value);
+            if (Value is CertificateTrustList) certName = GetCtlDisplayName((CertificateTrustList)Value);
             return string.Format("{0}/{1}", fullStoreName, certName);
         }
 
@@ -70,6 +81,13 @@ namespace Delta.CertXplorer.DocumentModel
             if (!string.IsNullOrEmpty(crl.FriendlyName))
                 return crl.FriendlyName;
             return FormatDistinguishedName(crl.IssuerName);
+        }
+
+        private string GetCtlDisplayName(CertificateTrustList ctl)
+        {
+            if (!string.IsNullOrEmpty(ctl.FriendlyName))
+                return ctl.FriendlyName;
+            return "Trust List";
         }
 
         private string GetX509CertificateDisplayName(X509Certificate2 x509)

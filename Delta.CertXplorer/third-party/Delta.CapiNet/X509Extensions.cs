@@ -27,13 +27,35 @@ namespace Delta.CapiNet
                 return new CertificateRevocationList[0];  // Empty list
 
             var list = new List<CertificateRevocationList>();
-            for (IntPtr ptr = NativeMethods.CertEnumCRLsInStore(handle, IntPtr.Zero); 
+            for (var ptr = NativeMethods.CertEnumCRLsInStore(handle, IntPtr.Zero); 
                 ptr != IntPtr.Zero;
                 ptr = NativeMethods.CertEnumCRLsInStore(handle, ptr))
                 list.Add(new CertificateRevocationList(ptr));
 
             return list;
             
+            // Don't free the handle: it is linked to the store object.
+        }
+
+        /// <summary>
+        /// Gets the certificate trust lists contained in the specified store.
+        /// </summary>
+        /// <param name="store">The X509 Certificates store.</param>
+        /// <returns>A collection of <see cref="CertificateTrustList"/> objects.</returns>
+        public static IEnumerable<CertificateTrustList> GetCertificateTrustLists(this X509Store store)
+        {
+            var handle = CertStoreHandle.FromX509Store(store);
+            if (handle.IsInvalid || handle.IsClosed)
+                return new CertificateTrustList[0];  // Empty list
+
+            var list = new List<CertificateTrustList>();
+            for (var ptr = NativeMethods.CertEnumCTLsInStore(handle, IntPtr.Zero);
+                ptr != IntPtr.Zero;
+                ptr = NativeMethods.CertEnumCTLsInStore(handle, ptr))
+                list.Add(new CertificateTrustList(ptr));
+
+            return list;
+
             // Don't free the handle: it is linked to the store object.
         }
 

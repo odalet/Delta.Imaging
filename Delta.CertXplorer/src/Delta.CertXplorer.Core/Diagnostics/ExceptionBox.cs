@@ -255,8 +255,8 @@ namespace Delta.CertXplorer.Diagnostics
                 return (tbError.Width >= size.Width) && (tbError.Height >= size.Height);
             }
         }
-        
-        private void pcsLinks_CopyClick(object sender, EventArgs e)
+
+        private void Copy()
         {
             try { SmartClipboard.SetText(rtb.Text); }
             catch (Exception ex)
@@ -266,17 +266,17 @@ namespace Delta.CertXplorer.Diagnostics
             }
         }
 
-        private void pcsLinks_PrintClick(object sender, EventArgs e)
+        private void Print()
         {
             try { rtb.Print(true); }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // eat the exception
                 var debugEx = ex;
             }
         }
 
-        private void pcsLinks_SaveClick(object sender, EventArgs e)
+        private void Save()
         {
             try { pcsLinks.SaveText(rtb.Text); }
             catch (Exception ex)
@@ -285,5 +285,25 @@ namespace Delta.CertXplorer.Diagnostics
                 var debugEx = ex;
             }
         }
+
+        private void SelectAll()
+        {
+            try { rtb.SelectAll(); }
+            catch (Exception ex)
+            {
+                // eat the exception
+                var debugEx = ex;
+            }
+        }
+
+        private void pcsLinks_CopyClick(object sender, EventArgs e) { Copy(); }
+        private void pcsLinks_PrintClick(object sender, EventArgs e) { Print(); }
+        private void pcsLinks_SaveClick(object sender, EventArgs e) { Save(); }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) { Save(); }
+        private void printToolStripMenuItem_Click(object sender, EventArgs e) { Print(); }
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e) { Copy(); }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e) { SelectAll();  }
     }
 }

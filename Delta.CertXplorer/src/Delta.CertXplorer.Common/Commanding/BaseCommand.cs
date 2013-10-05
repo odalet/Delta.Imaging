@@ -56,21 +56,7 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommand&lt;T&gt;"/> class.
         /// </summary>
-        public BaseCommand() : this(true) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCommand&lt;T&gt;"/> class.
-        /// </summary>
-        /// <param name="allowNull">if set to <c>true</c> [allow null].</param>
-        public BaseCommand(bool allowDefault) : base()
-        {
-            AllowDefault = allowDefault;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the target of the command can be <c>default(T)</c>.
-        /// </summary>
-        protected bool AllowDefault { get; private set; }
+        public BaseCommand() { }
 
         /// <summary>
         /// Gets the target of the command (this is the 1st argument in the list passed to the Run method).
@@ -96,19 +82,17 @@ namespace Delta.CertXplorer.Commanding
         protected abstract void RunCommand();
 
         /// <summary>
-        /// Parses the specified arguments.
+        /// Parses the arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
         protected virtual void ParseArguments(object[] arguments)
         {
             var target = default(T);
 
-            if (arguments == null || arguments.Length == 0 && !AllowDefault) throw new ApplicationException(string.Format(
-                "No arguments were provided to command [{0}].", Name));
+            if (arguments == null || arguments.Length == 0) return;
 
             var targetObject = arguments[0];
-            if (targetObject == null && !AllowDefault) throw new ApplicationException(string.Format(
-                "Null argument was provided to command [{0}].", Name));
+            if (targetObject == null) return;
 
             if (!(targetObject is T)) throw new ApplicationException(string.Format(
                 "Invalid argument type ({0}) was provided to command [{1}].", targetObject.GetType(), Name));

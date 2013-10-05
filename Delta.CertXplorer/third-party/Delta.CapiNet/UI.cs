@@ -94,7 +94,35 @@ namespace Delta.CapiNet
             NativeMethods.CryptUIDlgViewContext(
                 CapiConstants.CERT_STORE_CRL_CONTEXT,
                 crl.SafeHandle,
-                //crl.Handle,
+                owner,
+                title,
+                0,
+                IntPtr.Zero);
+        }
+
+        #endregion
+
+        #region ShowCtlDialog
+
+        public static void ShowCtlDialog(this CertificateTrustList ctl)
+        {
+            ShowCtlDialog(ctl, IntPtr.Zero, null);
+        }
+
+        public static void ShowCtlDialog(this CertificateTrustList ctl, string title)
+        {
+            ShowCtlDialog(ctl, IntPtr.Zero, title);
+        }
+        public static void ShowCtlDialog(this CertificateTrustList ctl, IntPtr owner)
+        {
+            ShowCtlDialog(ctl, owner, null);
+        }
+
+        public static void ShowCtlDialog(this CertificateTrustList ctl, IntPtr owner, string title)
+        {
+            NativeMethods.CryptUIDlgViewContext(
+                CapiConstants.CERT_STORE_CTL_CONTEXT,
+                ctl.SafeHandle,
                 owner,
                 title,
                 0,

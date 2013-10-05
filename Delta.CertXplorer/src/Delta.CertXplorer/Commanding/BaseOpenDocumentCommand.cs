@@ -8,8 +8,7 @@ namespace Delta.CertXplorer.Commanding
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseOpenDocumentCommand{T}"/> class.
         /// </summary>
-        /// <param name="allowNull">The allow null.</param>
-        public BaseOpenDocumentCommand(bool allowNull) : base(allowNull) { }
+        public BaseOpenDocumentCommand() : base() { }
         
         /// <summary>
         /// Runs the command with the specified arguments.

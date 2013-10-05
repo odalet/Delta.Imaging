@@ -87,6 +87,8 @@
     <Compile Include="Capi32.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="CertificateRevocationList.cs" />
+    <Compile Include="CertificateTrustList.cs" />
+    <Compile Include="Internals\CtlContextHandle.cs" />
     <Compile Include="Pem\PemInfo.cs" />
     <Compile Include="Pem\PemKind.cs" />
     <Compile Include="Pem\PemDecoder.cs" />

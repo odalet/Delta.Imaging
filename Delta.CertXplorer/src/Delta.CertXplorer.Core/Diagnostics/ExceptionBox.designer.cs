@@ -31,6 +31,12 @@ namespace Delta.CertXplorer.Diagnostics
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionBox));
             this.rtb = new Delta.CertXplorer.UI.PrintableRichTextBox();
+            this.cm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.line = new Delta.CertXplorer.UI.LineControl();
             this.tc = new Delta.CertXplorer.UI.CommunityTabControl();
             this.tpError = new System.Windows.Forms.TabPage();
@@ -38,6 +44,7 @@ namespace Delta.CertXplorer.Diagnostics
             this.tpDetails = new System.Windows.Forms.TabPage();
             this.pcsLinks = new Delta.CertXplorer.UI.PrintCopySaveLinks();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cm.SuspendLayout();
             this.tc.SuspendLayout();
             this.tpError.SuspendLayout();
             this.tpDetails.SuspendLayout();
@@ -54,9 +61,53 @@ namespace Delta.CertXplorer.Diagnostics
             // rtb
             // 
             resources.ApplyResources(this.rtb, "rtb");
+            this.rtb.ContextMenuStrip = this.cm;
             this.rtb.Name = "rtb";
             this.rtb.ReadOnly = true;
             this.rtb.ShowSelectionMargin = true;
+            // 
+            // cm
+            // 
+            this.cm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.printToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.copyToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+            this.cm.Name = "cm";
+            resources.ApplyResources(this.cm, "cm");
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = global::Delta.CertXplorer.Properties.Resources.SaveFile;
+            resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // printToolStripMenuItem
+            // 
+            this.printToolStripMenuItem.Image = global::Delta.CertXplorer.Properties.Resources.Print;
+            resources.ApplyResources(this.printToolStripMenuItem, "printToolStripMenuItem");
+            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Image = global::Delta.CertXplorer.Properties.Resources.Copy;
+            resources.ApplyResources(this.copyToolStripMenuItem, "copyToolStripMenuItem");
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            resources.ApplyResources(this.selectAllToolStripMenuItem, "selectAllToolStripMenuItem");
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // line
             // 
@@ -107,8 +158,8 @@ namespace Delta.CertXplorer.Diagnostics
             this.pcsLinks.ShowPrintLink = false;
             this.pcsLinks.ShowSaveLink = false;
             this.pcsLinks.CopyClick += new System.EventHandler(this.pcsLinks_CopyClick);
-            this.pcsLinks.SaveClick += new System.EventHandler(this.pcsLinks_SaveClick);
             this.pcsLinks.PrintClick += new System.EventHandler(this.pcsLinks_PrintClick);
+            this.pcsLinks.SaveClick += new System.EventHandler(this.pcsLinks_SaveClick);
             // 
             // ExceptionBox
             // 
@@ -125,6 +176,7 @@ namespace Delta.CertXplorer.Diagnostics
             this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.line, 0);
             this.Controls.SetChildIndex(this.tc, 0);
+            this.cm.ResumeLayout(false);
             this.tc.ResumeLayout(false);
             this.tpError.ResumeLayout(false);
             this.tpError.PerformLayout();
@@ -143,5 +195,11 @@ namespace Delta.CertXplorer.Diagnostics
         private System.Windows.Forms.TextBox tbError;
         private Delta.CertXplorer.UI.PrintCopySaveLinks pcsLinks;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;		
+        private System.Windows.Forms.ContextMenuStrip cm;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }

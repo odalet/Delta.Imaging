@@ -154,6 +154,7 @@
     <Compile Include="CertManager\Wrappers\BaseWrapper.cs" />
     <Compile Include="CertManager\Wrappers\CapiCertificateWrapper.cs" />
     <Compile Include="CertManager\Wrappers\CapiCrlWrapper.cs" />
+    <Compile Include="CertManager\Wrappers\CapiCtlWrapper.cs" />
     <Compile Include="CertManager\Wrappers\ObjectWrapper.cs" />
     <Compile Include="Config\ConfigResources.cs" />
     <Compile Include="DocumentModel\Asn1DocumentHandler.cs" />
