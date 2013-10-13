@@ -39,7 +39,7 @@ namespace Delta.CertXplorer.CertManager
         /// Gets the current selection source.
         /// </summary>
         /// <value>The current source.</value>
-        public object CurrentSource { get; private set;  }
+        public object CurrentSource { get; private set; }
 
         /// <summary>
         /// Adds a selection source to the observed sources list.
@@ -47,17 +47,16 @@ namespace Delta.CertXplorer.CertManager
         /// <param name="selectionSource">The selection source.</param>
         public void AddSource(ISelectionSource selectionSource)
         {
-            if (!sources.ContainsKey(selectionSource))
-            {
-                EventHandler handler = (s, e) =>
-                {
-                    var source = s as ISelectionSource;
-                    if (source != null) OnSelectionChanged(source, source.SelectedObject);
-                };
+            if (sources.ContainsKey(selectionSource)) return;
 
-                selectionSource.SelectionChanged += handler;
-                sources.Add(selectionSource, handler);
-            }
+            EventHandler handler = (s, e) =>
+            {
+                var source = s as ISelectionSource;
+                if (source != null) OnSelectionChanged(source, source.SelectedObject);
+            };
+
+            selectionSource.SelectionChanged += handler;
+            sources.Add(selectionSource, handler);
         }
 
         /// <summary>
