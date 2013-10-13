@@ -1,7 +1,7 @@
 CertXplorer Versions History
 ============================
 
-Version 2.4.8 (2013/xx/xx)
+Version 2.4.8 (2013/10/13)
 --------------------------
 * UI Fix in CryptoHelperPlugin (added a splitter)
 * Changed default base64 text to "Lorem Ipsum" in CryptoHelperPlugin
