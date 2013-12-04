@@ -264,7 +264,7 @@ namespace Delta.CertXplorer.UI.Theming
             get
             {
                 if (certXplorerRenderer == null) certXplorerRenderer = new Office2007Renderer(true,
-                    new ProfessionalColorTable() { UseSystemColors = true });
+                    new ProfessionalColorTable() { UseSystemColors = false });
                 return certXplorerRenderer;
             }
         }
@@ -432,15 +432,20 @@ namespace Delta.CertXplorer.UI.Theming
                 using (GraphicsPath borderPath = CreateBorderPath(checkBox, cutMenuItemBack))
                 {
                     // Fill the background in a solid color
-                    using (SolidBrush fillBrush = new SolidBrush(ColorTable.CheckBackground))
-                        e.Graphics.FillPath(fillBrush, borderPath);
+                    ////using (SolidBrush fillBrush = new SolidBrush(ColorTable.CheckBackground))
+                    ////using (SolidBrush fillBrush = new SolidBrush(Color.Transparent))
+                    ////    e.Graphics.FillPath(fillBrush, borderPath);
 
-                    // Draw the border around the check box
-                    using (Pen borderPen = new Pen(_contextCheckBorder))
-                        e.Graphics.DrawPath(borderPen, borderPath);
+                    ////// Draw the border around the check box
+                    ////using (Pen borderPen = new Pen(_contextCheckBorder))
+                    ////    e.Graphics.DrawPath(borderPen, borderPath);
 
                     // If there is not an image, then we can draw the tick, square etc...
-                    if (e.Image != null)
+                    if (e.Image == null)
+                    {
+                        // TODO:                         
+                    }
+                    else
                     {
                         CheckState checkState = CheckState.Unchecked;
 
