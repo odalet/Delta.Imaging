@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.Wsq", "Delta.Wsq\Delta.Wsq.csproj", "{17766AF2-8279-46A6-A1A6-93248641ED90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{C4628534-ADC4-4C5C-B6E0-8A64B60B5ED2}"
