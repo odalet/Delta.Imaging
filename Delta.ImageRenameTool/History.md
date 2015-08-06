@@ -1,3 +1,7 @@
+Version 1.2.2.1 (2015/08/06)
+--------------------------
+* Fixed warnings emitted by Visual Studio 2015
+
 Version 1.2.2 (2013/08/16)
 --------------------------
 * BUGFIX: When no EXIF data, the file creation date is used instead of the exif date (which is MinDate)

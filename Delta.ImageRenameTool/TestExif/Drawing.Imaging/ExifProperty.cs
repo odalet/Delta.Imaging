@@ -7,7 +7,6 @@ namespace TestExif.Drawing.Imaging
     {
         private PropertyItem item = null;
         private ExifTag tag = null;
-        private ExifPropertyType type = ExifPropertyType.Unknown;
         private string stringValue = string.Empty;
         private object value = null;
         private Type valueType = null;

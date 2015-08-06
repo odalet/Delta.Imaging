@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 
 internal class ThisAssembly
 {
-    public const string Version = "1.2.2.0";
+    public const string Version = "1.2.2.1";
 }

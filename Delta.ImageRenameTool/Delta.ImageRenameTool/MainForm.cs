@@ -215,7 +215,7 @@ namespace Delta.ImageRenameTool
             }
         }
 
-        private void Load()
+        private void LoadImages()
         {
             Cursor = Cursors.WaitCursor;
             try
@@ -251,7 +251,7 @@ namespace Delta.ImageRenameTool
 
         private void btnBrowse_Click(object sender, EventArgs e) { Browse(); }
 
-        private void btnLoad_Click(object sender, EventArgs e) { Load(); }
+        private void btnLoad_Click(object sender, EventArgs e) { LoadImages(); }
         
         private void binder_CurrentItemChanged(object sender, EventArgs e)
         {
@@ -280,7 +280,7 @@ namespace Delta.ImageRenameTool
         {
             if (e.KeyChar == '\r')
             {
-                Load();
+                LoadImages();
                 e.Handled = true;
             }
         }
