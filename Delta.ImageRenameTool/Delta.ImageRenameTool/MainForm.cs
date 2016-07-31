@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Drawing;
-using System.Threading;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
-using System.ComponentModel;
-using System.Collections.Generic;
-
-using Goheer.EXIF;
-
 using Delta.ImageRenameTool.UI;
+using Goheer.Exif;
 
 namespace Delta.ImageRenameTool
 {
@@ -35,8 +33,7 @@ namespace Delta.ImageRenameTool
         {
             base.OnLoad(e);
 
-            Text = string.Format("Rename Tool {0}",
-                Assembly.GetExecutingAssembly().GetName().Version);
+            Text = $"Rename Tool {Assembly.GetExecutingAssembly().GetName().Version}";
 
             var dir = Properties.Settings.Default.SourceDirectory;
             if (string.IsNullOrEmpty(dir)) dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -59,8 +56,8 @@ namespace Delta.ImageRenameTool
         {
             if (EnableImagePreview) Properties.Settings.Default.SplitterRatio =
                 split.Orientation == Orientation.Horizontal ?
-                (double)split.Panel1.Height / (double)split.Height :
-                (double)split.Panel1.Width / (double)split.Width;
+                (double)split.Panel1.Height / split.Height :
+                (double)split.Panel1.Width / split.Width;
 
             Properties.Settings.Default.SplitHorizontal = SplitHorizontal;
             Properties.Settings.Default.EnableImagePreview = EnableImagePreview;
@@ -73,15 +70,9 @@ namespace Delta.ImageRenameTool
             base.OnClosed(e);
         }
 
-        private IEnumerable<FileRenameInfo> Infos
-        {
-            get { return binder.Cast<FileRenameInfo>(); }
-        }
+        private IEnumerable<FileRenameInfo> Infos => binder.Cast<FileRenameInfo>();
 
-        private IEnumerable<FileRenameInfo> SelectedInfos
-        {
-            get { return Infos.Where(info => info.Selected); }
-        }
+        private IEnumerable<FileRenameInfo> SelectedInfos => Infos.Where(info => info.Selected);
 
         private bool EnableImagePreview
         {
@@ -107,8 +98,7 @@ namespace Delta.ImageRenameTool
             try { index = Convert.ToInt32(nudFirstIndex.Value); }
             catch (Exception ex)
             {
-                ErrorBox.Show(this, string.Format("Could not convert {0} into an integer. The value 1 will be used:\r\n\r\n{1}",
-                    nudFirstIndex.Value, ex));
+                ErrorBox.Show(this, $"Could not convert {nudFirstIndex.Value} into an integer. The value 1 will be used:\r\n\r\n{ex}");
                 nudFirstIndex.Value = 1M;
             }
 
@@ -117,12 +107,10 @@ namespace Delta.ImageRenameTool
 
         private int GetDefaultSplitterDistance()
         {
-            var distance = 0;
             var ratio = Properties.Settings.Default.SplitterRatio;
 
-            if (split.Orientation == Orientation.Horizontal)
-                distance = (int)((double)split.Height * ratio);
-            else distance = (int)((double)split.Width * ratio);
+            var distance = split.Orientation == Orientation.Horizontal ?
+                (int)(split.Height * ratio) : (int)(split.Width * ratio);
 
             if (distance != 0) return distance;
             return split.Orientation == Orientation.Horizontal ?
@@ -145,17 +133,15 @@ namespace Delta.ImageRenameTool
                 {
                     rtb.Clear();
                     if (data.Exif == null) return;
-                    foreach (Pair pair in data.Exif)
-                        rtb.AppendText(pair.First + ": " + pair.Second + "\r\n");
+                    foreach (var pair in data.Exif)
+                        rtb.AppendText($"{pair.Key}: {pair.Value}\r\n");
                 }));
             });
-
-            //thread.SetApartmentState(ApartmentState.STA);
 
             if (currentPreviewThread != null)
                 currentPreviewThread.Abort();
             currentPreviewThread = thread;
-            currentPreviewThread.Start();            
+            currentPreviewThread.Start();
         }
 
         private Bitmap ReadBitmap(string filename)
@@ -176,7 +162,7 @@ namespace Delta.ImageRenameTool
             {
                 // An error occurred while loading the image file (maybe it does not exist any more...)
                 // Let's make an image indicating the problem.
-                statusLabel.Text = "Error: " + ex.Message;
+                statusLabel.Text = $"Error: {ex.Message}";
             }
 
             return bitmap;
@@ -200,7 +186,7 @@ namespace Delta.ImageRenameTool
             }
             catch (Exception ex)
             {
-                ErrorBox.Show(this, string.Format("Could not retrieve files list:\r\n\r\n{0}", ex.ToString()));
+                ErrorBox.Show(this, $"Could not retrieve files list:\r\n\r\n{ex}");
             }
 
             result = result.OrderBy(fri => fri.PhotoTime).ToList();
@@ -255,28 +241,28 @@ namespace Delta.ImageRenameTool
 
         private void Rename()
         {
-            foreach (var info in SelectedInfos) 
+            foreach (var info in SelectedInfos)
                 info.Rename();
             RefreshGrid();
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e) { Browse(); }
+        private void btnBrowse_Click(object sender, EventArgs e) => Browse();
 
-        private void btnLoad_Click(object sender, EventArgs e) { LoadImages(); }
-        
+        private void btnLoad_Click(object sender, EventArgs e) => LoadImages();
+
         private void binder_CurrentItemChanged(object sender, EventArgs e)
         {
             if (!EnableImagePreview) return;
             UpdateImagePreview();
         }
 
-        private void btnPreview_Click(object sender, EventArgs e) { RunPreview(); }
+        private void btnPreview_Click(object sender, EventArgs e) => RunPreview();
 
-        private void btnRename_Click(object sender, EventArgs e) { Rename(); }
+        private void btnRename_Click(object sender, EventArgs e) => Rename();
 
-        private void btnSelectAll_Click(object sender, EventArgs e) { SetSelectionForAllRows(true); }
+        private void btnSelectAll_Click(object sender, EventArgs e) => SetSelectionForAllRows(true);
 
-        private void btnUnselectAll_Click(object sender, EventArgs e) { SetSelectionForAllRows(false); }
+        private void btnUnselectAll_Click(object sender, EventArgs e) => SetSelectionForAllRows(false);
 
         private void tbFilter_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -316,29 +302,25 @@ namespace Delta.ImageRenameTool
             var newOrientation = splitHorizontalToolStripMenuItem.Checked ?
                 Orientation.Horizontal : Orientation.Vertical;
 
-            if (newOrientation != split.Orientation)
+            if (newOrientation == split.Orientation) return;
+
+            if (split.Orientation == Orientation.Vertical)
             {
-                if (split.Orientation == Orientation.Vertical)
-                {
-                    var ratio = (double)split.Panel1.Width / (double)split.Width;
-                    split.Orientation = Orientation.Horizontal;
-                    split.SplitterDistance = (int)((double)split.Height * ratio);
-                }
-                else
-                {
-                    var ratio = (double)split.Panel1.Height / (double)split.Height;
-                    split.Orientation = Orientation.Vertical;
-                    split.SplitterDistance = (int)((double)split.Width * ratio);
-                }
+                var ratio = (double)split.Panel1.Width / split.Width;
+                split.Orientation = Orientation.Horizontal;
+                split.SplitterDistance = (int)(split.Height * ratio);
+            }
+            else
+            {
+                var ratio = (double)split.Panel1.Height / split.Height;
+                split.Orientation = Orientation.Vertical;
+                split.SplitterDistance = (int)(split.Width * ratio);
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new AboutBox().ShowDialog(this);
-        }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog(this);
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) { Close(); }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) => Close();
 
         private void selectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -377,19 +359,14 @@ namespace Delta.ImageRenameTool
                 item.Enabled = count > 0;
             }
 
-            selectAllToolStripMenuItem.Enabled = unselectAllToolStripMenuItem.Enabled =
-                dgv.RowCount > 0;
+            var enabled = dgv.RowCount > 0;
+            selectAllToolStripMenuItem.Enabled = enabled;
+            unselectAllToolStripMenuItem.Enabled = enabled;
         }
 
-        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetSelectionForAllRows(true);
-        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e) => SetSelectionForAllRows(true);
 
-        private void unselectAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetSelectionForAllRows(false);
-        }
+        private void unselectAllToolStripMenuItem_Click(object sender, EventArgs e) => SetSelectionForAllRows(false);
 
         private void clearDescriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {

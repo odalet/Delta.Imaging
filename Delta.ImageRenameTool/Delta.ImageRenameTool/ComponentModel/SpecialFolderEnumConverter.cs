@@ -19,7 +19,7 @@ namespace Delta.ImageRenameTool.ComponentModel
         /// <returns>
         /// A <see cref="T:System.ComponentModel.TypeConverter.StandardValuesCollection" /> that holds a standard set of valid values, or null if the data type does not support a standard set of values.
         /// </returns>
-        public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             var standardValues = base.GetStandardValues(context);
             var values = new List<object>();
@@ -38,7 +38,7 @@ namespace Delta.ImageRenameTool.ComponentModel
                 }
                 else values.Add(standardValues[i]);
             }
-            return new TypeConverter.StandardValuesCollection(values);
+            return new StandardValuesCollection(values);
         }
     }
 }

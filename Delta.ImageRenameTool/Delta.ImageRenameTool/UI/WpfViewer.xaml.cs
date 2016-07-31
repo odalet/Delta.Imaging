@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-
-using Goheer.EXIF;
 using System.Windows.Media;
-using System.Globalization;
+using System.Windows.Media.Imaging;
+using Goheer.Exif;
 
 namespace Delta.ImageRenameTool.UI
 {
@@ -21,10 +20,8 @@ namespace Delta.ImageRenameTool.UI
             InitializeComponent();
         }
 
-        internal void ResetImage()
-        {
+        internal void ResetImage() =>
             Dispatcher.Invoke((Action)(() => SetValue(ImageProperty, null)));
-        }
 
         internal void LoadImageAsync(FileRenameInfo data, bool applyExifRotation = true)
         {
@@ -63,7 +60,7 @@ namespace Delta.ImageRenameTool.UI
         public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(
             "Image", typeof(ImageSource), typeof(WpfViewer), new PropertyMetadata(null));
 
-        private double GetRotation(EXIFextractor exif)
+        private double GetRotation(ExifExtractor exif)
         {
             int orientation = 1;
             try
@@ -100,10 +97,9 @@ namespace Delta.ImageRenameTool.UI
         {
             var message = ex == null ? "Unknown Error" : ex.Message;            
             var visual = new DrawingVisual();
-            using (var dc = visual.RenderOpen())
-                dc.DrawText(new FormattedText(
-                    message, CultureInfo.InvariantCulture, FlowDirection.LeftToRight,
-                    new Typeface("Segoe UI"), 32.0, Brushes.Red), new Point(0.0, 0.0));
+            using (var dc = visual.RenderOpen()) dc.DrawText(new FormattedText(
+                message, CultureInfo.InvariantCulture, FlowDirection.LeftToRight,
+                new Typeface("Segoe UI"), 32.0, Brushes.Red), new Point(0.0, 0.0));
 
             return new DrawingImage(visual.Drawing);
         }

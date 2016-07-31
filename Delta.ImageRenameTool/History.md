@@ -1,3 +1,7 @@
+Version 1.2.3.1 (2016/07/31)
+--------------------------
+* Refactoring, C#6 and VS2015
+
 Version 1.2.3 (2015/08/09)
 --------------------------
 * New Name and Result columns are now read-only (no more customization of the generated name is possible).

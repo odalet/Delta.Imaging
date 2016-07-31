@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(ThisAssembly.Version)]
 [assembly: AssemblyFileVersion(ThisAssembly.Version)]
 
-internal class ThisAssembly
+internal static class ThisAssembly
 {
-    public const string Version = "1.2.3";
+    public const string Version = "1.2.3.1";
 }

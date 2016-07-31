@@ -35,20 +35,20 @@ namespace Delta.ImageRenameTool.UI
             /// to SHGetPathFromIDList fails.
             /// </remarks>
             BIF_RETURNONLYFSDIRS = 0x0001,
-            
+
             /// <summary>
             /// Do not include network folders below the domain level in 
             /// the dialog box's tree view control.
             /// </summary>
             BIF_DONTGOBELOWDOMAIN = 0x0002,
-            
+
             /// <summary>
             /// Include a status area in the dialog box. The callback function can set 
             /// the status text by sending messages to the dialog box. This flag is not 
             /// supported when BIF_NEWDIALOGSTYLE is specified.
             /// </summary>
             BIF_STATUSTEXT = 0x0004,
-            
+
             /// <summary>
             /// Only return file system ancestors. An ancestor is a subfolder that 
             /// is beneath the root folder in the namespace hierarchy. If the user 
@@ -62,59 +62,59 @@ namespace Delta.ImageRenameTool.UI
             /// that allows the user to type the name of an item.
             /// </summary>
             BIF_EDITBOX = 0x0010,
-            
+
             // TODO: continue filling documentation from MSDN...
 
             /// <summary>
             /// 
             /// </summary>
             BIF_VALIDATE = 0x0020,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_NEWDIALOGSTYLE = 0x0040,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_USENEWUI = 0x0050,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_BROWSEINCLUDEURLS = 0x0080,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_UAHINT = 0x0100,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_NONEWFOLDERBUTTON = 0x0200,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_NOTRANSLATETARGETS = 0x0400,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_BROWSEFORCOMPUTER = 0x1000,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_BROWSEFORPRINTER = 0x2000,
-            
+
             /// <summary>
             /// 
             /// </summary>
             BIF_BROWSEINCLUDEFILES = 0x4000,
-            
+
             /// <summary>
             /// 
             /// </summary>
@@ -136,17 +136,23 @@ namespace Delta.ImageRenameTool.UI
             public int iImage;
         }
 
-        [ComImport, Guid("00000002-0000-0000-c000-000000000046"), 
-        SuppressUnmanagedCodeSecurity, 
+        [ComImport, Guid("00000002-0000-0000-c000-000000000046"),
+        SuppressUnmanagedCodeSecurity,
         InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IMalloc
         {
-            [PreserveSig]IntPtr Alloc(int cb);
-            [PreserveSig]IntPtr Realloc(IntPtr pv, int cb);
-            [PreserveSig]void Free(IntPtr pv);
-            [PreserveSig]int GetSize(IntPtr pv);
-            [PreserveSig]int DidAlloc(IntPtr pv);
-            [PreserveSig]void HeapMinimize();
+            [PreserveSig]
+            IntPtr Alloc(int cb);
+            [PreserveSig]
+            IntPtr Realloc(IntPtr pv, int cb);
+            [PreserveSig]
+            void Free(IntPtr pv);
+            [PreserveSig]
+            int GetSize(IntPtr pv);
+            [PreserveSig]
+            int DidAlloc(IntPtr pv);
+            [PreserveSig]
+            void HeapMinimize();
         }
 
         private const int BFFM_INITIALIZED = 1;
@@ -155,8 +161,7 @@ namespace Delta.ImageRenameTool.UI
         private const int BFFM_SETSELECTIONW = 0x467;
         private const int BFFM_ENABLEOK = 0x465;
 
-        private delegate int BrowseCallbackProc(
-            IntPtr hwnd, int msg, IntPtr lParam, IntPtr lpData);
+        private delegate int BrowseCallbackProc(IntPtr hwnd, int msg, IntPtr lParam, IntPtr lpData);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(HandleRef hWnd, int msg, int wParam, string lParam);
@@ -175,7 +180,7 @@ namespace Delta.ImageRenameTool.UI
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SHBrowseForFolder([In] BROWSEINFO lpbi);
- 
+
         #endregion
 
         private BrowseCallbackProc callback;
@@ -183,8 +188,6 @@ namespace Delta.ImageRenameTool.UI
         private Environment.SpecialFolder rootFolder;
         private string selectedPath;
         private bool selectedPathNeedsCheck;
-
-        private Flags flags;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FolderBrowserDialogEx"/> class.
@@ -198,12 +201,14 @@ namespace Delta.ImageRenameTool.UI
         /// </summary>
         /// <value>The description.</value>
         [Description("Folder Browser Dialog Description"),
-         Category("Folder browsing"), DefaultValue(""),
-         Browsable(true), Localizable(true)]
+            Category("Folder browsing"),
+            DefaultValue(""),
+            Browsable(true),
+            Localizable(true)]
         public string Description
         {
             get { return descriptionText; }
-            set { descriptionText = (value == null) ? string.Empty : value; }
+            set { descriptionText = value == null ? string.Empty : value; }
         }
 
         /// <summary>
@@ -211,9 +216,9 @@ namespace Delta.ImageRenameTool.UI
         /// </summary>
         /// <value>The root folder.</value>
         [Description("Folder Browser Dialog Root Folder"),
-         Localizable(false), DefaultValue(0),
-         TypeConverter(typeof(SpecialFolderEnumConverter)),
-         Category("Folder Browsing"), Browsable(true)]
+            Localizable(false), DefaultValue(0),
+            TypeConverter(typeof(SpecialFolderEnumConverter)),
+            Category("Folder Browsing"), Browsable(true)]
         public Environment.SpecialFolder RootFolder
         {
             get { return rootFolder; }
@@ -231,8 +236,10 @@ namespace Delta.ImageRenameTool.UI
         /// </summary>
         /// <value>The selected path.</value>
         [Description("Folder Browser Dialog Selected Path"),
-          Category("Folder Browsing"),
-          Browsable(true), DefaultValue(""), Localizable(true)]
+            Category("Folder Browsing"),
+            Browsable(true), 
+            DefaultValue(""), 
+            Localizable(true)]
         public string SelectedPath
         {
             get
@@ -243,7 +250,7 @@ namespace Delta.ImageRenameTool.UI
             }
             set
             {
-                selectedPath = (value == null) ? string.Empty : value;
+                selectedPath = value == null ? string.Empty : value;
                 selectedPathNeedsCheck = false;
             }
         }
@@ -255,20 +262,20 @@ namespace Delta.ImageRenameTool.UI
         /// 	<c>true</c> if the new folder button should be shown; otherwise, <c>false</c>.
         /// </value>
         [Category("Folder Browsing"), Localizable(false),
-         Description("Folder Browser Dialog Show New Folder Button"),
-         DefaultValue(true), Browsable(true)]
+            Description("Folder Browser Dialog Show New Folder Button"),
+            DefaultValue(true), 
+            Browsable(true)]
         public bool ShowNewFolderButton
         {
-            get 
+            get
             {
-                return ((flags & Flags.BIF_NONEWFOLDERBUTTON) != 
-                    Flags.BIF_NONEWFOLDERBUTTON);
+                return (CreationFlags & Flags.BIF_NONEWFOLDERBUTTON) !=  Flags.BIF_NONEWFOLDERBUTTON;
             }
-            set 
+            set
             {
                 if (value)
-                    flags &= ~Flags.BIF_NONEWFOLDERBUTTON;
-                else flags |= Flags.BIF_NONEWFOLDERBUTTON;
+                    CreationFlags &= ~Flags.BIF_NONEWFOLDERBUTTON;
+                else CreationFlags |= Flags.BIF_NONEWFOLDERBUTTON;
             }
         }
 
@@ -277,11 +284,7 @@ namespace Delta.ImageRenameTool.UI
         /// </summary>
         /// <value>The creation flags.</value>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Flags CreationFlags
-        {
-            get { return flags; }
-            set { flags = value; }
-        }
+        public Flags CreationFlags { get; set; }
 
         #endregion
 
@@ -294,7 +297,7 @@ namespace Delta.ImageRenameTool.UI
             descriptionText = string.Empty;
             selectedPath = string.Empty;
             selectedPathNeedsCheck = false;
-            flags = Flags.BIF_USENEWUI;
+            CreationFlags = Flags.BIF_USENEWUI;
         }
 
         /// <summary>
@@ -306,8 +309,8 @@ namespace Delta.ImageRenameTool.UI
         /// </returns>
         protected override bool RunDialog(IntPtr hwndOwner)
         {
-            IntPtr zero = IntPtr.Zero;
-            bool flag = false;
+            var zero = IntPtr.Zero;
+            var flag = false;
             SHGetSpecialFolderLocation(hwndOwner, (int)rootFolder, ref zero);
             if (zero == IntPtr.Zero)
             {
@@ -315,31 +318,29 @@ namespace Delta.ImageRenameTool.UI
                 if (zero == IntPtr.Zero) throw new InvalidOperationException(
                     "Folder Browser Dialog: no root folder");
             }
-
-            //int flags = 0x40;
-            //if (!showNewFolderButton) flags += 0x200;
-
-            if (Control.CheckForIllegalCrossThreadCalls && (Application.OleRequired() != ApartmentState.STA))
+            
+            if (Control.CheckForIllegalCrossThreadCalls && Application.OleRequired() != ApartmentState.STA)
                 throw new ThreadStateException("Debugging exception only: Thread must be STA");
 
-            IntPtr pidl = IntPtr.Zero;
-            IntPtr hglobal = IntPtr.Zero;
-            IntPtr pszPath = IntPtr.Zero;
+            var pidl = IntPtr.Zero;
+            var hglobal = IntPtr.Zero;
+            var pszPath = IntPtr.Zero;
             try
             {
-                BROWSEINFO lpbi = new BROWSEINFO();
-                hglobal = Marshal.AllocHGlobal((int)(260 * Marshal.SystemDefaultCharSize));
-                pszPath = Marshal.AllocHGlobal((int)(260 * Marshal.SystemDefaultCharSize));
+                var lpbi = new BROWSEINFO();
+                hglobal = Marshal.AllocHGlobal(260 * Marshal.SystemDefaultCharSize);
+                pszPath = Marshal.AllocHGlobal(260 * Marshal.SystemDefaultCharSize);
                 callback = new BrowseCallbackProc(FolderBrowserDialog_BrowseCallbackProc);
                 lpbi.pidlRoot = zero;
                 lpbi.hwndOwner = hwndOwner;
                 lpbi.pszDisplayName = hglobal;
                 lpbi.lpszTitle = descriptionText;
-                lpbi.ulFlags = (int)flags;
+                lpbi.ulFlags = (int)CreationFlags;
                 lpbi.lpfn = callback;
                 lpbi.lParam = IntPtr.Zero;
                 lpbi.iImage = 0;
                 pidl = SHBrowseForFolder(lpbi);
+
                 if (pidl != IntPtr.Zero)
                 {
                     SHGetPathFromIDList(pidl, pszPath);
@@ -350,23 +351,25 @@ namespace Delta.ImageRenameTool.UI
             }
             finally
             {
-                IMalloc sHMalloc = GetSHMalloc();
+                var sHMalloc = GetSHMalloc();
                 sHMalloc.Free(zero);
                 if (pidl != IntPtr.Zero) sHMalloc.Free(pidl);
                 if (pszPath != IntPtr.Zero) Marshal.FreeHGlobal(pszPath);
                 if (hglobal != IntPtr.Zero) Marshal.FreeHGlobal(hglobal);
-                
+
                 callback = null;
             }
+
             return flag;
         }
 
         private static IMalloc GetSHMalloc()
         {
-            IMalloc[] ppMalloc = new IMalloc[1];
+            var ppMalloc = new IMalloc[1];
             SHGetMalloc(ppMalloc);
             return ppMalloc[0];
         }
+
         private int FolderBrowserDialog_BrowseCallbackProc(IntPtr hwnd, int msg, IntPtr lParam, IntPtr lpData)
         {
             switch (msg)
@@ -375,7 +378,6 @@ namespace Delta.ImageRenameTool.UI
                     if (selectedPath.Length != 0)
                         SendMessage(new HandleRef(null, hwnd), BFFM_SETSELECTIONW, 1, selectedPath);
                     break;
-
                 case BFFM_SELCHANGED:
                     IntPtr pidl = lParam;
                     if (pidl != IntPtr.Zero)
@@ -385,8 +387,10 @@ namespace Delta.ImageRenameTool.UI
                         Marshal.FreeHGlobal(pszPath);
                         SendMessage(new HandleRef(null, hwnd), BFFM_ENABLEOK, 0, flag ? 1 : 0);
                     }
+
                     break;
             }
+
             return 0;
         }
     }

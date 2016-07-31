@@ -2,20 +2,21 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Goheer.EXIF;
+using Goheer.Exif;
 
 namespace Delta.ImageRenameTool
 {
     internal class FileRenameInfo
     {
-        private string guessedDescription = null;
-        private string inputDescription = null;
+        private readonly int indexPaddingCount = Properties.Settings.Default.IndexPaddingCount;
+        private readonly FileInfo info;
+        private readonly ExifExtractor exif;
+
+        private string guessedDescription;
+        private string inputDescription;
         private DateTime cacheExifDateTime = DateTime.MinValue;
-        private bool exifDateTimeRetrieved = false;
-        private int indexPaddingCount = Properties.Settings.Default.IndexPaddingCount;
+        private bool exifDateTimeRetrieved;
         private string file = string.Empty;
-        private FileInfo info = null;
-        private EXIFextractor exif = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileRenameInfo"/> class.
@@ -35,7 +36,7 @@ namespace Delta.ImageRenameTool
             file = fileName;
             try
             {
-                exif = new EXIFextractor(fileName, "\r\n", string.Empty);
+                exif = new ExifExtractor(fileName, "\r\n");
             }
             catch (Exception ex)
             {
@@ -52,28 +53,19 @@ namespace Delta.ImageRenameTool
         /// Gets the name of the original file.
         /// </summary>
         /// <value>The name of the original file.</value>
-        public string OriginalFileName
-        {
-            get { return Path.GetFileName(file); }
-        }
+        public string OriginalFileName => Path.GetFileName(file);
 
         /// <summary>
         /// Gets the file update time (not the photo datetime).
         /// </summary>
         /// <value>The update time.</value>
-        public DateTime UpdateTime
-        {
-            get { return info.LastWriteTime; }
-        }
+        public DateTime UpdateTime => info.LastWriteTime;
 
         /// <summary>
         /// Gets the file creation time.
         /// </summary>
         /// <value>The creation time.</value>
-        public DateTime FileCreationTime
-        {
-            get { return info.CreationTime; }
-        }
+        public DateTime FileCreationTime => info.CreationTime;
 
         /// <summary>
         /// Gets the photo creation time.
@@ -90,10 +82,7 @@ namespace Delta.ImageRenameTool
             }
         }
 
-        public EXIFextractor Exif
-        {
-            get { return exif; }
-        }
+        public ExifExtractor Exif => exif;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="FileRenameInfo"/> is selected.
@@ -110,7 +99,7 @@ namespace Delta.ImageRenameTool
             get
             {
                 return inputDescription == null ?
-                    GuessDescription(file) : inputDescription;
+                    GuessDescription() : inputDescription;
             }
             set { inputDescription = value; }
         }
@@ -140,9 +129,9 @@ namespace Delta.ImageRenameTool
 
         public void CreateNewName(int index)
         {
-            var guessedDescription = GuessDescription(file);
+            var result = GuessDescription();
             var description = string.IsNullOrEmpty(Description) ?
-                guessedDescription : Description;
+                result : Description;
 
             NewFileName = string.Format(Pattern,
                 index,
@@ -179,15 +168,13 @@ namespace Delta.ImageRenameTool
 
             try
             {
-                var prop = exif.Cast<Pair>().FirstOrDefault(t => (string)t.First == "DTDigitized");
-                if (prop == null)
-                    prop = exif.Cast<Pair>().FirstOrDefault(t => (string)t.First == "DTOrig");
-                if (prop == null) // Use Date Time as a last resort because it gest modified when image is copied (at least in Win8)
-                    prop = exif.Cast<Pair>().FirstOrDefault(t => (string)t.First == "Date Time");
-                if (prop != null)
+                foreach (var key in new[] { "DTDigitized", "DTOrig", "Date Time" })
                 {
-                    var value = (string)prop.Second;
-                    cacheExifDateTime = DateTime.ParseExact(value, "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture);
+                    // Use Date Time as a last resort because it gest modified when image is copied (at least in Win8)
+                    if (!exif.ContainsKey(key)) continue;
+
+                    cacheExifDateTime = DateTime.ParseExact(exif[key], "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture);
+                    break;
                 }
             }
             catch (Exception ex)
@@ -198,7 +185,7 @@ namespace Delta.ImageRenameTool
             return cacheExifDateTime;
         }
 
-        private string GuessDescription(string filename)
+        private string GuessDescription()
         {
             if (guessedDescription != null) return guessedDescription;
 
@@ -215,9 +202,9 @@ namespace Delta.ImageRenameTool
 
             // Because {2} may contain dashes, we don't retrieve the last part, 
             // but from the third one up to the end (if there are at least 3 parts)
-            if (parts.Length >= 3)
-                guessedDescription = string.Join("-", parts.Skip(2).ToArray()).Trim();
-            else guessedDescription = parts[parts.Length - 1].Trim(); // Revert to grabbing the last part
+            guessedDescription = parts.Length >= 3 ?
+                string.Join("-", parts.Skip(2).ToArray()).Trim() :
+                parts[parts.Length - 1].Trim(); // Revert to grabbing the last part
 
             return guessedDescription;
         }

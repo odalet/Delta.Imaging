@@ -10,21 +10,15 @@ namespace Delta.ImageRenameTool.ComponentModel
         private class EnumValAlphaComparer : IComparer
         {
             public static readonly EnumValAlphaComparer Default = new EnumValAlphaComparer();
-            private CompareInfo compareInfo = CultureInfo.InvariantCulture.CompareInfo;
+            private readonly CompareInfo compareInfo = CultureInfo.InvariantCulture.CompareInfo;
 
             private EnumValAlphaComparer() { }
 
-            public int Compare(object a, object b)
-            {
-                return compareInfo.Compare(a.ToString(), b.ToString());
-            }
+            public int Compare(object a, object b) => compareInfo.Compare(a.ToString(), b.ToString());
         }
 
         public AlphaSortedEnumConverter(Type type) : base(type) { }
 
-        protected override IComparer Comparer
-        {
-            get { return EnumValAlphaComparer.Default; }
-        }
+        protected override IComparer Comparer => EnumValAlphaComparer.Default;
     }
 }
