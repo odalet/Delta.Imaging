@@ -16,7 +16,7 @@
     <ManifestKeyFile>RenameTool_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <ApplicationIcon>RenameToolIcon.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -24,9 +24,9 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <PublishUrl>c:\temp\ImageRenameTool1220\</PublishUrl>
+    <PublishUrl>D:\HOME\publish\ImageRenameTool\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -34,15 +34,19 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <TargetCulture>en-US</TargetCulture>
+    <InstallUrl>https://googledrive.com/host/0B75pVvg0lN7CfkpEUkxFa2Q5R0tNTVhoWXQxN2dPWlJCWm42QWdFSk03Z1VfVmQ1b2dublU/</InstallUrl>
+    <SupportUrl>http://deltaapps.apphb.com/</SupportUrl>
     <ProductName>Image Rename Tool</ProductName>
-    <PublisherName>Delta Software</PublisherName>
+    <PublisherName>Delta Apps</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>rentool.html</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.2.0</ApplicationVersion>
+    <ApplicationVersion>1.2.3.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -16,7 +16,7 @@ namespace Delta.ImageRenameTool
 {
     public partial class MainForm : Form
     {
-        ////private BackgroundWorker currentWorker = null;
+        private static readonly string okStatus = "OK";
         private Thread currentPreviewThread = null;
         private bool loaded = false;
 
@@ -161,11 +161,22 @@ namespace Delta.ImageRenameTool
         private Bitmap ReadBitmap(string filename)
         {
             Bitmap bitmap = null;
-            using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            try
             {
-                bitmap = new Bitmap(stream);
-                stream.Flush();
-                stream.Close();
+                using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    bitmap = new Bitmap(stream);
+                    stream.Flush();
+                    stream.Close();
+                }
+
+                statusLabel.Text = okStatus;
+            }
+            catch (Exception ex)
+            {
+                // An error occurred while loading the image file (maybe it does not exist any more...)
+                // Let's make an image indicating the problem.
+                statusLabel.Text = "Error: " + ex.Message;
             }
 
             return bitmap;
@@ -182,7 +193,7 @@ namespace Delta.ImageRenameTool
 
                 foreach (var filter in filters)
                 {
-                    string[] files = Directory.GetFiles(tbDirectory.Text, filter, SearchOption.TopDirectoryOnly);
+                    var files = Directory.GetFiles(tbDirectory.Text, filter, SearchOption.TopDirectoryOnly);
                     foreach (var file in files)
                         result.Add(new FileRenameInfo(file));
                 }

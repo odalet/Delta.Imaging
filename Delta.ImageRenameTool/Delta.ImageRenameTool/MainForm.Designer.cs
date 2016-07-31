@@ -42,9 +42,6 @@
             this.sstrip = new System.Windows.Forms.StatusStrip();
             this.split = new System.Windows.Forms.SplitContainer();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unselectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,12 +73,17 @@
             this.nudFirstIndex = new System.Windows.Forms.NumericUpDown();
             this.cbSkipUnselected = new System.Windows.Forms.CheckBox();
             this.btnClearDescriptions = new System.Windows.Forms.Button();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originalFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.binder = new System.Windows.Forms.BindingSource(this.components);
             this.wpfHost = new System.Windows.Forms.Integration.ElementHost();
             this.wpfViewer = new Delta.ImageRenameTool.UI.WpfViewer();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sstrip.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
             this.split.SuspendLayout();
@@ -184,6 +186,8 @@
             // 
             // sstrip
             // 
+            this.sstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
             this.sstrip.Location = new System.Drawing.Point(0, 478);
             this.sstrip.Name = "sstrip";
             this.sstrip.Size = new System.Drawing.Size(1074, 22);
@@ -229,31 +233,6 @@
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(688, 361);
             this.dgv.TabIndex = 0;
-            // 
-            // Selected
-            // 
-            this.Selected.DataPropertyName = "Selected";
-            this.Selected.HeaderText = "";
-            this.Selected.Name = "Selected";
-            this.Selected.Width = 20;
-            // 
-            // UpdateTime
-            // 
-            this.UpdateTime.DataPropertyName = "PhotoTime";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.UpdateTime.DefaultCellStyle = dataGridViewCellStyle1;
-            this.UpdateTime.HeaderText = "Date";
-            this.UpdateTime.Name = "UpdateTime";
-            this.UpdateTime.ReadOnly = true;
-            this.UpdateTime.ToolTipText = "File Creation time";
-            this.UpdateTime.Width = 70;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
             // 
             // cm
             // 
@@ -391,6 +370,7 @@
             // 
             // pg
             // 
+            this.pg.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.pg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pg.Location = new System.Drawing.Point(0, 0);
             this.pg.Name = "pg";
@@ -555,6 +535,31 @@
             this.btnClearDescriptions.UseVisualStyleBackColor = true;
             this.btnClearDescriptions.Click += new System.EventHandler(this.btnClearDescriptions_Click);
             // 
+            // Selected
+            // 
+            this.Selected.DataPropertyName = "Selected";
+            this.Selected.HeaderText = "";
+            this.Selected.Name = "Selected";
+            this.Selected.Width = 20;
+            // 
+            // UpdateTime
+            // 
+            this.UpdateTime.DataPropertyName = "PhotoTime";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.UpdateTime.DefaultCellStyle = dataGridViewCellStyle1;
+            this.UpdateTime.HeaderText = "Date";
+            this.UpdateTime.Name = "UpdateTime";
+            this.UpdateTime.ReadOnly = true;
+            this.UpdateTime.ToolTipText = "File Creation time";
+            this.UpdateTime.Width = 70;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
             // originalFileNameDataGridViewTextBoxColumn
             // 
             this.originalFileNameDataGridViewTextBoxColumn.DataPropertyName = "OriginalFileName";
@@ -568,6 +573,7 @@
             this.newFileNameDataGridViewTextBoxColumn.DataPropertyName = "NewFileName";
             this.newFileNameDataGridViewTextBoxColumn.HeaderText = "New Name";
             this.newFileNameDataGridViewTextBoxColumn.Name = "newFileNameDataGridViewTextBoxColumn";
+            this.newFileNameDataGridViewTextBoxColumn.ReadOnly = true;
             this.newFileNameDataGridViewTextBoxColumn.Width = 200;
             // 
             // resultDataGridViewTextBoxColumn
@@ -575,6 +581,7 @@
             this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
             this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
             this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
+            this.resultDataGridViewTextBoxColumn.ReadOnly = true;
             this.resultDataGridViewTextBoxColumn.Width = 150;
             // 
             // binder
@@ -591,6 +598,12 @@
             this.wpfHost.TabIndex = 0;
             this.wpfHost.Text = "elementHost1";
             this.wpfHost.Child = this.wpfViewer;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(23, 17);
+            this.statusLabel.Text = "OK";
             // 
             // MainForm
             // 
@@ -618,6 +631,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rename Tool";
+            this.sstrip.ResumeLayout(false);
+            this.sstrip.PerformLayout();
             this.split.Panel1.ResumeLayout(false);
             this.split.Panel2.ResumeLayout(false);
             this.split.ResumeLayout(false);
@@ -682,17 +697,18 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.PropertyGrid pg;
         private System.Windows.Forms.RichTextBox rtb;
+        private System.Windows.Forms.CheckBox cbAutoRotate;
+        private System.Windows.Forms.Integration.ElementHost wpfHost;
+        private UI.WpfViewer wpfViewer;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnClearDescriptions;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
         private System.Windows.Forms.DataGridViewTextBoxColumn originalFileNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn UpdateTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn newFileNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultDataGridViewTextBoxColumn;
-        private System.Windows.Forms.CheckBox cbAutoRotate;
-        private System.Windows.Forms.Integration.ElementHost wpfHost;
-        private UI.WpfViewer wpfViewer;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnClearDescriptions;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
     }
 }
 

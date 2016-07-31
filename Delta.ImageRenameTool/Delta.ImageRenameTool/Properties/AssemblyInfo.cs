@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Delta.ImageRenameTool")]
 [assembly: AssemblyDescription("Un petit outil pour aider ma chérie à renommer ses images :-)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Delta Software")]
+[assembly: AssemblyCompany("Delta Apps")]
 [assembly: AssemblyProduct("Delta.ImageRenameTool")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 
 internal class ThisAssembly
 {
-    public const string Version = "1.2.2.1";
+    public const string Version = "1.2.3";
 }

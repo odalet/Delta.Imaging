@@ -1,3 +1,9 @@
+Version 1.2.3 (2015/08/09)
+--------------------------
+* New Name and Result columns are now read-only (no more customization of the generated name is possible).
+* BUGFIX: do not crash any more when a loaded file does not exist anymore.
+* Modified the 'Description Guess' Algorithm so that it is more accurate.
+
 Version 1.2.2.1 (2015/08/06)
 --------------------------
 * Fixed warnings emitted by Visual Studio 2015

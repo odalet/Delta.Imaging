@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 using Goheer.EXIF;
+using System.Windows.Media;
+using System.Globalization;
 
 namespace Delta.ImageRenameTool.UI
 {
@@ -33,24 +35,33 @@ namespace Delta.ImageRenameTool.UI
 
                 // load image
                 var image = new BitmapImage();
-                using (var stream = File.OpenRead(filename))
+                try
                 {
-                    image.BeginInit();
-                    image.StreamSource = stream;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.EndInit(); // load the image from the stream
-                }
+                    using (var stream = File.OpenRead(filename))
+                    {
+                        image.BeginInit();
+                        image.StreamSource = stream;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.EndInit(); // load the image from the stream
+                    }
 
-                SetValue(ImageProperty, image); //WpfHelper.ReadBitmapSource(filename));
-                SetValue(RotationProperty, rotation);
+                    SetValue(ImageProperty, image);
+                    SetValue(RotationProperty, rotation);
+                }
+                catch (Exception ex)
+                {
+                    // An error occurred while loading the image file (maybe it does not exist any more...)
+                    // Let's make an image indicating the problem.
+                    SetValue(ImageProperty, CreateErrorImage(ex));
+                }
             }));
         }
 
         public static readonly DependencyProperty RotationProperty = DependencyProperty.Register(
             "Rotation", typeof(double), typeof(WpfViewer), new PropertyMetadata(0.0));
-        
+
         public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(
-            "Image", typeof(BitmapSource), typeof(WpfViewer), new PropertyMetadata(null));
+            "Image", typeof(ImageSource), typeof(WpfViewer), new PropertyMetadata(null));
 
         private double GetRotation(EXIFextractor exif)
         {
@@ -83,6 +94,18 @@ namespace Delta.ImageRenameTool.UI
              */
 
             return 0.0;
+        }
+
+        private ImageSource CreateErrorImage(Exception ex)
+        {
+            var message = ex == null ? "Unknown Error" : ex.Message;            
+            var visual = new DrawingVisual();
+            using (var dc = visual.RenderOpen())
+                dc.DrawText(new FormattedText(
+                    message, CultureInfo.InvariantCulture, FlowDirection.LeftToRight,
+                    new Typeface("Segoe UI"), 32.0, Brushes.Red), new Point(0.0, 0.0));
+
+            return new DrawingImage(visual.Drawing);
         }
     }
 }
