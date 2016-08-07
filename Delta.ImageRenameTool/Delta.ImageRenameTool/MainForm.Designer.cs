@@ -40,8 +40,15 @@
             this.btnRename = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.sstrip = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.split = new System.Windows.Forms.SplitContainer();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.originalFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unselectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +58,11 @@
             this.clearGeneratedNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearDescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.binder = new System.Windows.Forms.BindingSource(this.components);
             this.tc = new System.Windows.Forms.TabControl();
             this.previewPage = new System.Windows.Forms.TabPage();
+            this.wpfHost = new System.Windows.Forms.Integration.ElementHost();
+            this.wpfViewer = new Delta.ImageRenameTool.UI.WpfViewer();
             this.cbAutoRotate = new System.Windows.Forms.CheckBox();
             this.exifPage = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -73,22 +83,13 @@
             this.nudFirstIndex = new System.Windows.Forms.NumericUpDown();
             this.cbSkipUnselected = new System.Windows.Forms.CheckBox();
             this.btnClearDescriptions = new System.Windows.Forms.Button();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.originalFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.binder = new System.Windows.Forms.BindingSource(this.components);
-            this.wpfHost = new System.Windows.Forms.Integration.ElementHost();
-            this.wpfViewer = new Delta.ImageRenameTool.UI.WpfViewer();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.sstrip.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
             this.split.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.cm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.binder)).BeginInit();
             this.tc.SuspendLayout();
             this.previewPage.SuspendLayout();
             this.exifPage.SuspendLayout();
@@ -97,7 +98,6 @@
             this.splitContainer2.SuspendLayout();
             this.mstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFirstIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.binder)).BeginInit();
             this.SuspendLayout();
             // 
             // tbDirectory
@@ -194,6 +194,12 @@
             this.sstrip.TabIndex = 10;
             this.sstrip.Text = "statusStrip1";
             // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(23, 17);
+            this.statusLabel.Text = "OK";
+            // 
             // split
             // 
             this.split.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -217,6 +223,7 @@
             // dgv
             // 
             this.dgv.AutoGenerateColumns = false;
+            this.dgv.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Selected,
@@ -233,6 +240,55 @@
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(688, 361);
             this.dgv.TabIndex = 0;
+            // 
+            // Selected
+            // 
+            this.Selected.DataPropertyName = "Selected";
+            this.Selected.HeaderText = "";
+            this.Selected.Name = "Selected";
+            this.Selected.Width = 20;
+            // 
+            // originalFileNameDataGridViewTextBoxColumn
+            // 
+            this.originalFileNameDataGridViewTextBoxColumn.DataPropertyName = "OriginalFileName";
+            this.originalFileNameDataGridViewTextBoxColumn.HeaderText = "Original Name";
+            this.originalFileNameDataGridViewTextBoxColumn.Name = "originalFileNameDataGridViewTextBoxColumn";
+            this.originalFileNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.originalFileNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // UpdateTime
+            // 
+            this.UpdateTime.DataPropertyName = "PhotoTime";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.UpdateTime.DefaultCellStyle = dataGridViewCellStyle1;
+            this.UpdateTime.HeaderText = "Date";
+            this.UpdateTime.Name = "UpdateTime";
+            this.UpdateTime.ReadOnly = true;
+            this.UpdateTime.ToolTipText = "File Creation time";
+            this.UpdateTime.Width = 70;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // newFileNameDataGridViewTextBoxColumn
+            // 
+            this.newFileNameDataGridViewTextBoxColumn.DataPropertyName = "NewFileName";
+            this.newFileNameDataGridViewTextBoxColumn.HeaderText = "New Name";
+            this.newFileNameDataGridViewTextBoxColumn.Name = "newFileNameDataGridViewTextBoxColumn";
+            this.newFileNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.newFileNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // resultDataGridViewTextBoxColumn
+            // 
+            this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
+            this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
+            this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
+            this.resultDataGridViewTextBoxColumn.ReadOnly = true;
+            this.resultDataGridViewTextBoxColumn.Width = 150;
             // 
             // cm
             // 
@@ -303,6 +359,11 @@
             this.clearAllToolStripMenuItem.Text = "Clear A&ll";
             this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
+            // binder
+            // 
+            this.binder.DataSource = typeof(Delta.ImageRenameTool.FileRenameInfo);
+            this.binder.CurrentItemChanged += new System.EventHandler(this.binder_CurrentItemChanged);
+            // 
             // tc
             // 
             this.tc.Controls.Add(this.previewPage);
@@ -325,6 +386,16 @@
             this.previewPage.TabIndex = 0;
             this.previewPage.Text = "Preview";
             this.previewPage.UseVisualStyleBackColor = true;
+            // 
+            // wpfHost
+            // 
+            this.wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfHost.Location = new System.Drawing.Point(3, 3);
+            this.wpfHost.Name = "wpfHost";
+            this.wpfHost.Size = new System.Drawing.Size(344, 312);
+            this.wpfHost.TabIndex = 0;
+            this.wpfHost.Text = "elementHost1";
+            this.wpfHost.Child = this.wpfViewer;
             // 
             // cbAutoRotate
             // 
@@ -535,76 +606,6 @@
             this.btnClearDescriptions.UseVisualStyleBackColor = true;
             this.btnClearDescriptions.Click += new System.EventHandler(this.btnClearDescriptions_Click);
             // 
-            // Selected
-            // 
-            this.Selected.DataPropertyName = "Selected";
-            this.Selected.HeaderText = "";
-            this.Selected.Name = "Selected";
-            this.Selected.Width = 20;
-            // 
-            // UpdateTime
-            // 
-            this.UpdateTime.DataPropertyName = "PhotoTime";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.UpdateTime.DefaultCellStyle = dataGridViewCellStyle1;
-            this.UpdateTime.HeaderText = "Date";
-            this.UpdateTime.Name = "UpdateTime";
-            this.UpdateTime.ReadOnly = true;
-            this.UpdateTime.ToolTipText = "File Creation time";
-            this.UpdateTime.Width = 70;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            // 
-            // originalFileNameDataGridViewTextBoxColumn
-            // 
-            this.originalFileNameDataGridViewTextBoxColumn.DataPropertyName = "OriginalFileName";
-            this.originalFileNameDataGridViewTextBoxColumn.HeaderText = "Original Name";
-            this.originalFileNameDataGridViewTextBoxColumn.Name = "originalFileNameDataGridViewTextBoxColumn";
-            this.originalFileNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.originalFileNameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // newFileNameDataGridViewTextBoxColumn
-            // 
-            this.newFileNameDataGridViewTextBoxColumn.DataPropertyName = "NewFileName";
-            this.newFileNameDataGridViewTextBoxColumn.HeaderText = "New Name";
-            this.newFileNameDataGridViewTextBoxColumn.Name = "newFileNameDataGridViewTextBoxColumn";
-            this.newFileNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.newFileNameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // resultDataGridViewTextBoxColumn
-            // 
-            this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
-            this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
-            this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
-            this.resultDataGridViewTextBoxColumn.ReadOnly = true;
-            this.resultDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // binder
-            // 
-            this.binder.DataSource = typeof(Delta.ImageRenameTool.FileRenameInfo);
-            this.binder.CurrentItemChanged += new System.EventHandler(this.binder_CurrentItemChanged);
-            // 
-            // wpfHost
-            // 
-            this.wpfHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wpfHost.Location = new System.Drawing.Point(3, 3);
-            this.wpfHost.Name = "wpfHost";
-            this.wpfHost.Size = new System.Drawing.Size(344, 312);
-            this.wpfHost.TabIndex = 0;
-            this.wpfHost.Text = "elementHost1";
-            this.wpfHost.Child = this.wpfViewer;
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(23, 17);
-            this.statusLabel.Text = "OK";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -638,6 +639,7 @@
             this.split.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.cm.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.binder)).EndInit();
             this.tc.ResumeLayout(false);
             this.previewPage.ResumeLayout(false);
             this.previewPage.PerformLayout();
@@ -649,7 +651,6 @@
             this.mstrip.ResumeLayout(false);
             this.mstrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFirstIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.binder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

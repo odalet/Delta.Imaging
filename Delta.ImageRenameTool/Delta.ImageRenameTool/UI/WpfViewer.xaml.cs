@@ -65,8 +65,8 @@ namespace Delta.ImageRenameTool.UI
             int orientation = 1;
             try
             {
-                var porientation = exif.Cast<Pair>().FirstOrDefault(p => (string)p.First == "Orientation");
-                orientation = int.Parse((string)porientation.Second);
+                var porientation = exif.FirstOrDefault(kvp => kvp.Key == "Orientation");
+                int.TryParse(porientation.Value, out orientation);
             }
             catch (Exception ex)
             {
