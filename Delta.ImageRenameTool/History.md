@@ -1,3 +1,7 @@
+Version 1.3.0.0 (2018/09/09)
+--------------------------
+* Added Sorting by Column Header clicks (on Name, Date and Description fields). This is not a display-only order: numbering is affected by the order.
+
 Version 1.2.3.2 (2016/08/07)
 --------------------------
 * Fixed exif rotation regression

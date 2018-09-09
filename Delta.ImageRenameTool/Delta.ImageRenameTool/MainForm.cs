@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Delta.ImageRenameTool.ComponentModel;
 using Delta.ImageRenameTool.UI;
 using Goheer.Exif;
 
@@ -172,7 +173,13 @@ namespace Delta.ImageRenameTool
 
         private void FillGrid()
         {
-            var result = new List<FileRenameInfo>();
+            var result = new SortableBindingList<FileRenameInfo>
+            {
+                AllowEdit = true,
+                AllowNew = false,
+                AllowRemove = false
+            };
+
             try
             {
                 var filters = tbFilter.Text.Split(';');
@@ -188,9 +195,9 @@ namespace Delta.ImageRenameTool
             {
                 ErrorBox.Show(this, $"Could not retrieve files list:\r\n\r\n{ex}");
             }
-
-            result = result.OrderBy(fri => fri.PhotoTime).ToList();
+            
             binder.DataSource = result;
+            dgv.Sort(photoTimeColumn, ListSortDirection.Ascending); // By default, sort by dates
         }
 
         private void SetSelectionForAllRows(bool selected)
